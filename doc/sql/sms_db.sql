@@ -1,5 +1,5 @@
 -- 数据库：sms_db
-
+--
 -- 管理员(员工)表
 drop table if exists sms_admin;
 create table sms_admin
