@@ -1,5 +1,5 @@
 -- 数据库：sms_db
---
+-- 测试上传
 -- 管理员(员工)表
 drop table if exists sms_admin;
 create table sms_admin
@@ -245,7 +245,7 @@ create table sms_goods
     sale_price          decimal(10, 3)  default null  comment '销售价格',
     goods_specification varchar(50)  default null  comment '规格',
     current_stock       bigint  default null  comment '当前库存',
-    low_limit_stock       bigint  default null  comment '库存下限',
+    low_limit_stock     bigint  default null  comment '库存下限',
     primary key (id)
 )
     comment '商品表' charset utf8mb4;

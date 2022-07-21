@@ -52,20 +52,95 @@
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"/>
-        <table tableName="sms_admin_role" domainObjectName="AdminRole"></table>
-        <table tableName="sms_role" domainObjectName="Role"></table>
-        <table tableName="sms_role_permission" domainObjectName="RolePermission"></table>
-        <table tableName="sms_permission" domainObjectName="Permission"></table>
-        <table tableName="sms_login_log" domainObjectName="LoginLog"></table>
-        <table tableName="sms_supplier" domainObjectName="Supplier"></table>
-        <table tableName="sms_album" domainObjectName="Album"></table>
-        <table tableName="sms_picture" domainObjectName="Picture"></table>
-        <table tableName="sms_purchase" domainObjectName="Purchase"></table>
-        <table tableName="sms_sale" domainObjectName="Sale"></table>
-        <table tableName="sms_brand" domainObjectName="Brand"></table>
-        <table tableName="sms_brand_category" domainObjectName="BrandCategory"></table>
-        <table tableName="sms_goods" domainObjectName="Goods"></table>
-        <table tableName="sms_goods_brand" domainObjectName="GoodsBrand"></table>
+        <table tableName="sms_category"
+               domainObjectName="Category"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_admin_role" domainObjectName="AdminRole"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_role" domainObjectName="Role"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_role_permission" domainObjectName="RolePermission"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_permission" domainObjectName="Permission"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_login_log" domainObjectName="LoginLog" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_supplier" domainObjectName="Supplier" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_album" domainObjectName="Album"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_picture" domainObjectName="Picture"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_purchase" domainObjectName="Purchase"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_sale" domainObjectName="Sale"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_brand" domainObjectName="Brand"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_brand_category" domainObjectName="BrandCategory"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_goods" domainObjectName="Goods"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sms_goods_brand" domainObjectName="GoodsBrand"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
     </context>
 
 </generatorConfiguration>
