@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.PictureMapper">
+  <resultMap id="BaseResultMap" type="com.cs.sms.pojo.entity.Picture">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="album_id" jdbcType="BIGINT" property="albumId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="width" jdbcType="SMALLINT" property="width" />
+    <result column="height" jdbcType="SMALLINT" property="height" />
+    <result column="is_cover" jdbcType="TINYINT" property="isCover" />
+    <result column="sort" jdbcType="TINYINT" property="sort" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, album_id, url, description, width, height, is_cover, sort, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sms_picture
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sms_picture
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cs.sms.pojo.entity.Picture">
+    insert into sms_picture (id, album_id, url, 
+      description, width, height, 
+      is_cover, sort, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=BIGINT}, #{albumId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{width,jdbcType=SMALLINT}, #{height,jdbcType=SMALLINT}, 
+      #{isCover,jdbcType=TINYINT}, #{sort,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cs.sms.pojo.entity.Picture">
+    insert into sms_picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="albumId != null">
+        album_id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="isCover != null">
+        is_cover,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="albumId != null">
+        #{albumId,jdbcType=BIGINT},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=SMALLINT},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=SMALLINT},
+      </if>
+      <if test="isCover != null">
+        #{isCover,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cs.sms.pojo.entity.Picture">
+    update sms_picture
+    <set>
+      <if test="albumId != null">
+        album_id = #{albumId,jdbcType=BIGINT},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=SMALLINT},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=SMALLINT},
+      </if>
+      <if test="isCover != null">
+        is_cover = #{isCover,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cs.sms.pojo.entity.Picture">
+    update sms_picture
+    set album_id = #{albumId,jdbcType=BIGINT},
+      url = #{url,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      width = #{width,jdbcType=SMALLINT},
+      height = #{height,jdbcType=SMALLINT},
+      is_cover = #{isCover,jdbcType=TINYINT},
+      sort = #{sort,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.SupplierMapper">
+  <resultMap id="BaseResultMap" type="com.cs.sms.pojo.entity.Supplier">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    <result column="supplier_phone" jdbcType="VARCHAR" property="supplierPhone" />
+    <result column="supplier_site" jdbcType="VARCHAR" property="supplierSite" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, supplier, supplier_name, supplier_phone, supplier_site, remark, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sms_supplier
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sms_supplier
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cs.sms.pojo.entity.Supplier">
+    insert into sms_supplier (id, supplier, supplier_name, 
+      supplier_phone, supplier_site, remark, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=BIGINT}, #{supplier,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, 
+      #{supplierPhone,jdbcType=VARCHAR}, #{supplierSite,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cs.sms.pojo.entity.Supplier">
+    insert into sms_supplier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="supplierName != null">
+        supplier_name,
+      </if>
+      <if test="supplierPhone != null">
+        supplier_phone,
+      </if>
+      <if test="supplierSite != null">
+        supplier_site,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null">
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPhone != null">
+        #{supplierPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierSite != null">
+        #{supplierSite,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cs.sms.pojo.entity.Supplier">
+    update sms_supplier
+    <set>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null">
+        supplier_name = #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPhone != null">
+        supplier_phone = #{supplierPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierSite != null">
+        supplier_site = #{supplierSite,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cs.sms.pojo.entity.Supplier">
+    update sms_supplier
+    set supplier = #{supplier,jdbcType=VARCHAR},
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      supplier_phone = #{supplierPhone,jdbcType=VARCHAR},
+      supplier_site = #{supplierSite,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
