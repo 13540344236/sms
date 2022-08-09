@@ -2,6 +2,7 @@ package com.cs.sms.service.impl;
 
 
 
+import com.alibaba.excel.EasyExcel;
 import com.cs.sms.ex.ServiceException;
 import com.cs.sms.mapper.GoodsMapper;
 import com.cs.sms.pojo.dto.GoodsAddNewDTO;
@@ -17,6 +18,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -126,6 +129,17 @@ public class GoodsServiceImpl implements IGoodsService {
     @Override
     public List<GoodsListVO> list() {
         return goodsMapper.list();
+    }
+
+    //导出商品报表
+    @Override
+    public void createExcel(HttpServletResponse response) throws IOException {
+        //1.查询到商品的所有信息
+        List<GoodsListVO> list = goodsMapper.list();
+        //2.设置文件下载
+        //设置
+        response.setHeader("content-disposition","attachment;filename=goods"+System.currentTimeMillis()+".xlsx");
+        EasyExcel.write(response.getOutputStream(), GoodsListVO.class).sheet("商品详情").doWrite(list);
     }
 
 //

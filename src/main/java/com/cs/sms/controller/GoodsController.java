@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 @CrossOrigin
 @Slf4j
@@ -65,6 +67,15 @@ public class GoodsController {
         log.debug("接收到查询品牌列表的请求");
         List<GoodsListVO> goods = goodsService.list();
         return JsonResult.ok(goods);
+    }
+
+    @ApiOperation("导出商品报表")
+    @ApiOperationSupport(order = 500)
+    @GetMapping("/exportExcel")
+    public void download(HttpServletResponse response) throws IOException {
+        log.debug("接收到导出商品报表的请求");
+        goodsService.createExcel(response);
+
     }
 
 //    @ApiOperation("分页查询商品")

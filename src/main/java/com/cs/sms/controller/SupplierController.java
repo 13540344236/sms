@@ -43,7 +43,7 @@ public class SupplierController {
     @ApiOperation("修改供应商")
     @ApiOperationSupport(order = 300)
     @PostMapping("/{id:[0-9]+}/edit")
-    public JsonResult update(Supplier supplier){
+    public JsonResult update(@RequestBody Supplier supplier){
         service.update(supplier);
         return JsonResult.ok("修改成功");
     }

@@ -20,7 +20,7 @@ public class AdminMapperTests {
 
     @Test
     public void insertTests(){
-        for(int i = 0; i<10; i++){
+        for(int i = 10; i<20; i++){
             String name="管理员测试"+i;
             String gander="男";
             Admin admin=new Admin();

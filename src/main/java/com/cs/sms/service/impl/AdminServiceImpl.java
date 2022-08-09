@@ -12,21 +12,17 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 @Slf4j
-@Data
+@Service
 public class AdminServiceImpl implements IAdminService {
-    @Autowired
-    private IAlbumRepository albumRepository;
 
     @Autowired
     AdminMapper adminMapper;
-
-    public AdminServiceImpl() {
-        log.debug("创建业务逻辑对象：AlbumServiceImpl");
-    }
 
     @Transactional
     @Override
@@ -46,6 +42,8 @@ public class AdminServiceImpl implements IAdminService {
         admin.setLastLoginIp("0");
         admin.setLoginCount(0);
         log.debug("尝试插入数据:{}",admin);
+        //设置管理员的创建时间为当前系统时间
+        admin.setGmtCreate(new Date());
         int rows = adminMapper.insert(admin);
         if(rows!=1){
             String message="增加员工失败,服务器忙,请稍后在试";

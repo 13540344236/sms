@@ -33,7 +33,7 @@ public class CacheSchedule {
      *
      * 例如：cron = "56 23 18 ? * MON"表示“每个月的周一（无视是几号）的18:23:56将执行此任务”
      */
-    @Scheduled(fixedRate = 1 * 60 * 60 * 1000)
+    @Scheduled(fixedRate = 1 *60 * 60 * 1000)
     public void updateCache() {
         log.debug("执行计划任务，更新缓存中的品牌列表……");
 
