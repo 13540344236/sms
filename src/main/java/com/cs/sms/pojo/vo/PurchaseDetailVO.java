@@ -1,12 +1,15 @@
-package com.cs.sms.pojo.entity;
+package com.cs.sms.pojo.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
+/**
+ * 进货详情VO
+ */
 @Data
-public class Purchase {
+public class PurchaseDetailVO implements Serializable {
     private Long id;
 
     private String name;
@@ -24,11 +27,4 @@ public class Purchase {
     private String purchaseDocumentPicture;
 
     private String logo;
-
-    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
-    private LocalDateTime gmtCreate;
-    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
-    private LocalDateTime gmtModified;
-
-
 }

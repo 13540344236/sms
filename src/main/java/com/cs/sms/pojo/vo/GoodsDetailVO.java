@@ -1,25 +1,26 @@
-package com.cs.sms.pojo.entity;
+package com.cs.sms.pojo.vo;
 
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+
 @Data
-public class Goods implements Serializable {
+public class GoodsDetailVO implements Serializable {
     /**
      *  编号
      */
     private Long id;
 
     /**
-     *  图片地址
-     */
-    private String url;
-
-    /**
      * 商品名称
      */
     private String name;
+
+    /**
+     *  图片地址
+     */
+    private String url;
 
     /**
      * 商品类别
@@ -50,5 +51,4 @@ public class Goods implements Serializable {
      * 库存下限
      */
     private Long lowLimitStock;
-
 }

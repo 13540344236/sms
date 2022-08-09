@@ -159,6 +159,30 @@ create table sms_purchase
 -- 进货表：为进货表名称字段添加索引
 create index idx_purchase_name on sms_purchase (name);
 
+-- 退货表：创建数据表
+drop table if exists sms_return;
+create table sms_return
+(
+    id                     bigint unsigned auto_increment comment '记录id',
+    name                   varchar(50)      default null comment '商品名称',
+    goods_category         varchar(255)     default null comment '商品类别',
+    goods_specification    varchar(255)     default null comment '商品规格',
+    warehousing_quantity   int unsigned     default 0 comment '退货出库库数量',
+    amount_payable         decimal(10,3)    default null comment '金额',
+    is_pay                 tinyint unsigned  default 0 comment '是否付款，1=是，0=否',
+    supplier               varchar(255)     default null comment '供应商',
+    operator               varchar(255)     default null comment '经办人',
+    return_document_picture  varchar(255)     default null comment '退货单据图片',
+    logo                   varchar(255)     default null comment '商品logo的URL',
+    gmt_create_purchase    datetime         default null comment '进货时间',
+    gmt_create_return      datetime         default null comment '退货时间',
+    gmt_modified           datetime         default null comment '数据最后修改时间',
+    primary key (id)
+) comment '退货' charset utf8mb4;
+
+-- 退货表：为退货表名称字段添加索引
+create index idx_return_name on sms_return (name);
+
 -- 销售表：创建数据表
 drop table if exists sms_sale;
 create table sms_sale

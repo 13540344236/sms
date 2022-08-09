@@ -1,10 +1,12 @@
-package com.cs.sms.pojo.entity;
+package com.cs.sms.pojo.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
+
 @Data
-public class Admin {
+public class AdminVO implements Serializable {
     /**
      * 员工工号
      */
@@ -13,10 +15,6 @@ public class Admin {
      * 员工姓名
      */
     private String staffName;
-    /**
-     * 员工密码
-     */
-    private String password;
     /**
      * 员工性别
      */
@@ -65,5 +63,6 @@ public class Admin {
      * 数据最后修改时间
      */
     private Date gmtModified;
+
 
 }

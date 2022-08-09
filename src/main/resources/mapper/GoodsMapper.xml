@@ -1,142 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs.sms.mapper.GoodsMapper">
-  <resultMap id="BaseResultMap" type="com.cs.sms.pojo.entity.Goods">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="category" jdbcType="VARCHAR" property="category" />
-    <result column="purchase_price" jdbcType="DECIMAL" property="purchasePrice" />
-    <result column="sale_price" jdbcType="DECIMAL" property="salePrice" />
-    <result column="goods_specification" jdbcType="VARCHAR" property="goodsSpecification" />
-    <result column="current_stock" jdbcType="BIGINT" property="currentStock" />
-    <result column="low_limit_stock" jdbcType="BIGINT" property="lowLimitStock" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, url, name, category, purchase_price, sale_price, goods_specification, current_stock, 
-    low_limit_stock
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sms_goods
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sms_goods
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.cs.sms.pojo.entity.Goods">
-    insert into sms_goods (id, url, name, 
-      category, purchase_price, sale_price, 
+  <!--int insert(Goods goods);-->
+  <insert id="insert" >
+    insert into sms_db.sms_goods (
+      id,url, name,category, purchase_price, sale_price,
       goods_specification, current_stock, low_limit_stock
-      )
-    values (#{id,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{category,jdbcType=VARCHAR}, #{purchasePrice,jdbcType=DECIMAL}, #{salePrice,jdbcType=DECIMAL}, 
-      #{goodsSpecification,jdbcType=VARCHAR}, #{currentStock,jdbcType=BIGINT}, #{lowLimitStock,jdbcType=BIGINT}
-      )
+    )
+    values (
+             #{id},#{url}, #{name},
+             #{category}, #{purchasePrice}, #{salePrice},
+             #{goodsSpecification}, #{currentStock}, #{lowLimitStock}
+           )
   </insert>
-  <insert id="insertSelective" parameterType="com.cs.sms.pojo.entity.Goods">
-    insert into sms_goods
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="category != null">
-        category,
-      </if>
-      <if test="purchasePrice != null">
-        purchase_price,
-      </if>
-      <if test="salePrice != null">
-        sale_price,
-      </if>
-      <if test="goodsSpecification != null">
-        goods_specification,
-      </if>
-      <if test="currentStock != null">
-        current_stock,
-      </if>
-      <if test="lowLimitStock != null">
-        low_limit_stock,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="category != null">
-        #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="purchasePrice != null">
-        #{purchasePrice,jdbcType=DECIMAL},
-      </if>
-      <if test="salePrice != null">
-        #{salePrice,jdbcType=DECIMAL},
-      </if>
-      <if test="goodsSpecification != null">
-        #{goodsSpecification,jdbcType=VARCHAR},
-      </if>
-      <if test="currentStock != null">
-        #{currentStock,jdbcType=BIGINT},
-      </if>
-      <if test="lowLimitStock != null">
-        #{lowLimitStock,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cs.sms.pojo.entity.Goods">
-    update sms_goods
+
+  <!--int deleteById(Long id);-->
+  <delete id="deleteById">
+    delete from sms_db.sms_goods
+    where id = #{id}
+  </delete>
+
+  <!--int deleteByIds(Long[] ids);-->
+  <delete id="deleteByIds">
+    delete from sms_db.sms_goods where id in (
+    <foreach collection="array" item="id" separator=",">
+      #{id}
+    </foreach>
+    )
+  </delete>
+
+
+  <update id="updateById1">
+    update sms_db.sms_goods
+    set name=#{name},url = #{url},category = #{category},purchase_price = #{purchasePrice},
+        sale_price = #{salePrice},goods_specification = #{goodsSpecification},
+        current_stock = #{currentStock},low_limit_stock = #{lowLimitStock}
+    where id = #{id}
+  </update>
+  <!--int updateById(Long id);-->
+  <update id="updateById">
+    update
+    sms_db.sms_goods
     <set>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+        name = #{name},
+      </if>
+      <if test="url != null">
+        url = #{url},
       </if>
       <if test="category != null">
-        category = #{category,jdbcType=VARCHAR},
+        category = #{category},
       </if>
       <if test="purchasePrice != null">
-        purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+        purchase_price = #{purchasePrice},
       </if>
       <if test="salePrice != null">
-        sale_price = #{salePrice,jdbcType=DECIMAL},
+        sale_price = #{salePrice},
       </if>
       <if test="goodsSpecification != null">
-        goods_specification = #{goodsSpecification,jdbcType=VARCHAR},
+        goods_specification = #{goodsSpecification},
       </if>
       <if test="currentStock != null">
-        current_stock = #{currentStock,jdbcType=BIGINT},
+        current_stock = #{currentStock},
       </if>
       <if test="lowLimitStock != null">
-        low_limit_stock = #{lowLimitStock,jdbcType=BIGINT},
+        low_limit_stock = #{lowLimitStock}
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where
+    id = #{id}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cs.sms.pojo.entity.Goods">
-    update sms_goods
-    set url = #{url,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      category = #{category,jdbcType=VARCHAR},
-      purchase_price = #{purchasePrice,jdbcType=DECIMAL},
-      sale_price = #{salePrice,jdbcType=DECIMAL},
-      goods_specification = #{goodsSpecification,jdbcType=VARCHAR},
-      current_stock = #{currentStock,jdbcType=BIGINT},
-      low_limit_stock = #{lowLimitStock,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
+  <!-- GoodsAddNewVO selectById(Long id); -->
+  <select id="selectById" resultMap="DetailResultMap">
+    select
+    <include refid="DetailQueryFields" />
+    from
+    sms_db.sms_goods
+    where
+    id = #{id}
+  </select>
+
+  <!--int countByName(String name);-->
+  <select id="countByName" resultType="int">
+    select count(*) from sms_db.sms_goods where name = #{name}
+  </select>
+
+  <!--List<GoodsListVO> list();-->
+  <select id="list" resultMap="ListItemResultMap">
+    SELECT
+    <include refid="ListItemQueryFields"/>
+    FROM
+    sms_db.sms_goods
+    ORDER BY id
+  </select>
+
+  <!--List<Goods> findAllGoods();-->
+  <select id="findAllGoods" resultMap="ListItemResultMap">
+    SELECT
+    <include refid="ListItemQueryFields"/>
+    FROM
+    sms_db.sms_goods
+  </select>
+
+  <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.GoodsDetailVO">
+    <id column="id" property="id" />
+    <result column="purchase_price" property="purchasePrice" />
+    <result column="sale_price" property="salePrice" />
+    <result column="goods_specification" property="goodsSpecification" />
+    <result column="current_stock" property="currentStock" />
+    <result column="low_limit_stock" property="lowLimitStock" />
+  </resultMap>
+
+  <sql id="DetailQueryFields">
+    <if test="true">
+      id,url, name,category, purchase_price, sale_price,
+      goods_specification, current_stock, low_limit_stock
+    </if>
+  </sql>
+
+  <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.GoodsListVO">
+    <id column="id" property="id" />
+    <result column="purchase_price" property="purchasePrice" />
+    <result column="sale_price" property="salePrice" />
+    <result column="goods_specification" property="goodsSpecification" />
+    <result column="current_stock" property="currentStock" />
+    <result column="low_limit_stock" property="lowLimitStock" />
+  </resultMap>
+
+  <sql id="ListItemQueryFields">
+    <if test="true">
+      id,url, name,category, purchase_price, sale_price,
+      goods_specification, current_stock, low_limit_stock
+    </if>
+  </sql>
 </mapper>

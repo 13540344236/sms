@@ -1,17 +1,22 @@
 package com.cs.sms.mapper;
 
 import com.cs.sms.pojo.entity.Supplier;
+import com.cs.sms.pojo.vo.SupplierListVO;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+@Repository
 public interface SupplierMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Long... ids);
 
     int insert(Supplier record);
 
-    int insertSelective(Supplier record);
+    List<SupplierListVO> list();
 
-    Supplier selectByPrimaryKey(Long id);
+    int updateByPrimaryKeySelective(Supplier supplier);
 
-    int updateByPrimaryKeySelective(Supplier record);
 
-    int updateByPrimaryKey(Supplier record);
+    int countByName(String supplier);
+
+    SupplierListVO getById(Long id);
 }
