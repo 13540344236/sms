@@ -2,6 +2,7 @@ package com.cs.sms.service;
 
 
 import com.cs.sms.pojo.dto.PurchaseAddNewDTO;
+import com.cs.sms.pojo.dto.PurchaseEditDTO;
 import com.cs.sms.pojo.vo.PurchaseListItemVO;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public interface IPurchaseService {
      * 查询商品列表
      * @return
      */
+
     List<PurchaseListItemVO> list();
 
+    void update(Long id, PurchaseEditDTO purchaseEditDTO);
 }

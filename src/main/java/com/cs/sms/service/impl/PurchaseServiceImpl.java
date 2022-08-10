@@ -1,10 +1,10 @@
 package com.cs.sms.service.impl;
 
 
-
 import com.cs.sms.ex.ServiceException;
 import com.cs.sms.mapper.PurchaseMapper;
 import com.cs.sms.pojo.dto.PurchaseAddNewDTO;
+import com.cs.sms.pojo.dto.PurchaseEditDTO;
 import com.cs.sms.pojo.entity.Purchase;
 import com.cs.sms.pojo.vo.PurchaseDetailVO;
 import com.cs.sms.pojo.vo.PurchaseListItemVO;
@@ -28,13 +28,15 @@ public class PurchaseServiceImpl implements IPurchaseService {
 
     @Autowired
     private PurchaseMapper purchaseMapper;
+
     public PurchaseServiceImpl() {
         log.debug("创建业务逻辑对象：PurchaseServiceImpl");
     }
 
+    //添加商品
     @Override
     public void addNew(PurchaseAddNewDTO purchaseAddNewDTO) {
-        log.debug("开始处理添加商品的业务，参数：{}",purchaseAddNewDTO);
+        log.debug("开始处理添加商品的业务，参数：{}", purchaseAddNewDTO);
 
         String name = purchaseAddNewDTO.getName();
         int count = purchaseMapper.countByName(name);
@@ -60,6 +62,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         }
     }
 
+    //删除商品
     @Override
     public void deleteByPrimaryKey(Long id) {
         log.debug("开始处理删除商品的业务，id={}", id);
@@ -84,10 +87,41 @@ public class PurchaseServiceImpl implements IPurchaseService {
         }
     }
 
+    //编辑商品
+    @Override
+    public void update(Long id, PurchaseEditDTO purchaseEditDTO) {
+        //根据id查询数据
+        PurchaseDetailVO purchaseDetailVO = purchaseMapper.getById(id);
+        log.debug("查询到id={}的商品信息为:{}",id,purchaseDetailVO);
+        //判断查询结果是否为null
+        if(purchaseDetailVO==null){
+            //抛出异常
+            String message="编辑商品失败，尝试编辑的数据【id="+ id +"】的数据不存在";
+            log.error(message);
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND,message);
+        }
+        Purchase purchase = new Purchase();
+        //将当前方法参数的值复制到Purchases实体类型的对象中
+        BeanUtils.copyProperties(purchaseEditDTO,purchase);
+        //将品牌数据写入到数据库中
+        log.debug("即将向表中写入数据:{}",purchaseEditDTO);
+        log.debug("接收到的参数id:{}",id);
+        //调用mapper对象执行编辑，并获取返回值
+        int rows = purchaseMapper.updateById(purchase);
+        log.debug("rows = {}",rows);
+        //判断返回值是否为1
+        if(rows!= 1){
+            String message="编辑商品失败，服务器忙，请稍后再尝试!";
+            log.error(message);
+            throw new ServiceException(ServiceCode.ERR_DELETE,message);
+        }
+    }
+
     @Override
     public List<PurchaseListItemVO> list() {
         log.debug("开始处理查询商品列表的业务");
         return purchaseMapper.list();
 
     }
+
 }

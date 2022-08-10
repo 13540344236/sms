@@ -42,13 +42,15 @@ public class PurchaseController {
         purchaseService.deleteByPrimaryKey(id);
         return JsonResult.ok();
     }
+
     @ApiOperation("编辑商品")
     @ApiOperationSupport(order = 300)
     @PostMapping("/{id:[0-9]+}/edit")
-    public String edit(@PathVariable Long id, PurchaseEditDTO purchaseEditDTO) {
+    public JsonResult edit(@PathVariable Long id, @RequestBody PurchaseEditDTO purchaseEditDTO) {
         log.debug("接收到的请求参数：id=" + id);
+        purchaseService.update(id, purchaseEditDTO);
         log.debug("接收到的请求参数：" + purchaseEditDTO);
-        return "尝试编辑品牌（尚未完成）";
+        return JsonResult.ok();
     }
     @ApiOperation("查询商品列表")
     @ApiOperationSupport(order = 400)
