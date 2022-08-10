@@ -1,7 +1,10 @@
 package com.cs.sms.schedule;
 
+import com.cs.sms.mapper.GoodsMapper;
 import com.cs.sms.mapper.SupplierMapper;
+import com.cs.sms.pojo.vo.GoodsListVO;
 import com.cs.sms.pojo.vo.SupplierListVO;
+import com.cs.sms.repo.IGoodsRepository;
 import com.cs.sms.repo.ISupplierRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +20,10 @@ public class CacheSchedule {
     private SupplierMapper supplierMapper;
     @Autowired
     private ISupplierRepository supplierRepository;
-
-    public CacheSchedule() {
-        log.debug("创建计划任务对象：CacheSchedule");
-    }
+    @Autowired
+    private GoodsMapper goodsMapper;
+    @Autowired
+    private IGoodsRepository goodsRepository;
 
     /**
      * 计划任务
@@ -35,7 +38,7 @@ public class CacheSchedule {
      */
     @Scheduled(fixedRate = 1 *60 * 60 * 1000)
     public void updateCache() {
-        log.debug("执行计划任务，更新缓存中的品牌列表……");
+        log.debug("执行缓存任务");
 
         // 将Redis中的品牌列表清除
         supplierRepository.deleteList();
@@ -43,5 +46,14 @@ public class CacheSchedule {
         List<SupplierListVO> suppliers = supplierMapper.list();
         // 将品牌列表写入到Redis
         supplierRepository.putList(suppliers);
+
+        // 将Redis中的品牌列表清除
+        goodsRepository.deleteList();
+        // 从MySQL中读取品牌列表
+        List<GoodsListVO> goods = goodsMapper.list();
+        // 将品牌列表写入到Redis
+        goodsRepository.putList(goods);
+
+        log.debug("缓存任务执行完毕");
     }
 }

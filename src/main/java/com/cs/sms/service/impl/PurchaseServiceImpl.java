@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -49,6 +50,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         // 将当前方法参数的值复制到purchase实体类型的对象中
         BeanUtils.copyProperties(purchaseAddNewDTO, purchase);
         // 将品牌数据写入到数据库中
+        purchase.setGmtCreate(new Date());
         log.debug("即将向表中写入数据：{}", purchase);
         int rows = purchaseMapper.insert(purchase);
         if (rows != 1) {
