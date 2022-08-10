@@ -47,11 +47,11 @@ public class CacheSchedule {
         // 将品牌列表写入到Redis
         supplierRepository.putList(suppliers);
 
-        // 将Redis中的品牌列表清除
+        // 将Redis中的商品列表清除
         goodsRepository.deleteList();
-        // 从MySQL中读取品牌列表
+        // 从MySQL中读取商品列表
         List<GoodsListVO> goods = goodsMapper.list();
-        // 将品牌列表写入到Redis
+        // 将商品列表写入到Redis
         goodsRepository.putList(goods);
 
         log.debug("缓存任务执行完毕");
