@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 添加进货的DTO类
@@ -32,8 +33,8 @@ public class PurchaseAddNewDTO implements Serializable {
     private String purchaseDocumentPicture;
     @ApiModelProperty(value = "商品logo的URL", example = "http://www.logo.com/maidong.png")
     private String logo;
-    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
-    private LocalDateTime gmtCreate;
-    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
-    private LocalDateTime gmtModified;
+//    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
+    private Date gmtCreate;
+//    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
+    private Date gmtModified;
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 public class PurchaseListItemVO implements Serializable {
@@ -26,8 +27,8 @@ public class PurchaseListItemVO implements Serializable {
 
     private String logo;
 
-    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
-    private LocalDateTime gmtCreate;
-    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
-    private LocalDateTime gmtModified;
+
+    private Date gmtCreate;
+
+    private Date gmtModified;
 }

@@ -25,9 +25,9 @@ public class Purchase {
 
     private String logo;
 
-    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
+
     private Date gmtCreate;
-    @JsonFormat(pattern = "yyyy年MM月dd日 HH点mm分ss秒",timezone = "GMT+8")
+
     private Date gmtModified;
 
 

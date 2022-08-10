@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
+
 @SpringBootTest
 public class SupplierTest {
     @Autowired
@@ -16,8 +18,11 @@ public class SupplierTest {
     private SupplierMapper mapper;
     @Test
     public void test(){
-        Supplier supplier =new Supplier();
-        supplier.setSupplier("航天公司");
-        mapper.insert(supplier);
+        for (int i = 0; i < 10; i++) {
+            Supplier supplier =new Supplier();
+            supplier.setSupplier("可达冰淇淋"+i);
+            supplier.setGmtCreate(new Date());
+            mapper.insert(supplier);
+        }
     }
 }

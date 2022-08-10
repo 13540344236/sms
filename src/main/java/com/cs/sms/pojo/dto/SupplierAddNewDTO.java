@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class SupplierAddNewDTO implements Serializable {
@@ -20,7 +21,7 @@ public class SupplierAddNewDTO implements Serializable {
     //备注
     private String remark;
     //录入时间
-    private LocalDate gmtCreate;
+    private Date gmtCreate;
 
-    private LocalDate gmtModified;
+    private Date gmtModified;
 }
