@@ -64,7 +64,7 @@ public class GoodsController {
     @ApiOperationSupport(order = 400)
     @GetMapping("")
     public JsonResult list() {
-        log.debug("接收到查询品牌列表的请求");
+        log.debug("接收到查询商品列表的请求");
         List<GoodsListVO> goods = goodsService.list();
         return JsonResult.ok(goods);
     }

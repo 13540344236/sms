@@ -10,6 +10,7 @@ import com.cs.sms.pojo.dto.GoodsEditDTO;
 import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.GoodsDetailVO;
 import com.cs.sms.pojo.vo.GoodsListVO;
+import com.cs.sms.repo.impl.GoodsRepositoryImpl;
 import com.cs.sms.service.IGoodsService;
 import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
@@ -28,6 +29,8 @@ import java.util.List;
 public class GoodsServiceImpl implements IGoodsService {
     @Autowired
     private GoodsMapper goodsMapper;
+    @Autowired
+    private GoodsRepositoryImpl goodsRepository;
 
     public GoodsServiceImpl() {
         log.debug("创建业务逻辑对象：GoodsServiceImpl");
@@ -128,7 +131,7 @@ public class GoodsServiceImpl implements IGoodsService {
     //商品列表
     @Override
     public List<GoodsListVO> list() {
-        return goodsMapper.list();
+        return goodsRepository.getList();
     }
 
     //导出商品报表
@@ -137,7 +140,7 @@ public class GoodsServiceImpl implements IGoodsService {
         //1.查询到商品的所有信息
         List<GoodsListVO> list = goodsMapper.list();
         //2.设置文件下载
-        //设置
+        //设置响应头，告诉浏览器要以附件的形式保存，filename=文件名
         response.setHeader("content-disposition","attachment;filename=goods"+System.currentTimeMillis()+".xlsx");
         EasyExcel.write(response.getOutputStream(), GoodsListVO.class).sheet("商品详情").doWrite(list);
     }

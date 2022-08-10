@@ -21,14 +21,14 @@ public class GoodsRepositoryImpl implements IGoodsRepository {
 
     @Override
     public void put(GoodsListVO goodsListVO) {
-        String key=KEY_PREFIX_SUPPLIER_ITEM+goodsListVO.getId();
+        String key=KEY_PREFIX_GOOD_ITEM+goodsListVO.getId();
         redisTemplate.opsForValue().set(key,goodsListVO);
     }
 
     @Override
     public GoodsListVO get(Long id) {
         GoodsListVO good=null;
-        String key=KEY_PREFIX_SUPPLIER_ITEM+id;
+        String key=KEY_PREFIX_GOOD_ITEM+id;
         Serializable serializable = redisTemplate.opsForValue().get(key);
         if (serializable!=null){
             if (serializable instanceof Serializable){
@@ -40,20 +40,20 @@ public class GoodsRepositoryImpl implements IGoodsRepository {
 
     @Override
     public void deleteItem(Long id) {
-        String key=KEY_PREFIX_SUPPLIER_ITEM+id;
+        String key=KEY_PREFIX_GOOD_ITEM+id;
         redisTemplate.delete(key);
     }
 
     @Override
     public void putList(List<GoodsListVO> list) {
         for (GoodsListVO goodsListVO : list) {
-            redisTemplate.opsForList().rightPush(KEY_SUPPLIER_LIST, goodsListVO);
+            redisTemplate.opsForList().rightPush(KEY_GOOD_LIST, goodsListVO);
         }
     }
 
     @Override
     public List<GoodsListVO> getList() {
-        List<Serializable> list = redisTemplate.opsForList().range(KEY_SUPPLIER_LIST, 0, -1);
+        List<Serializable> list = redisTemplate.opsForList().range(KEY_GOOD_LIST, 0, -1);
         List<GoodsListVO> good = new ArrayList<>();
         for (Serializable serializable : list) {
             good.add((GoodsListVO) serializable);
@@ -63,6 +63,6 @@ public class GoodsRepositoryImpl implements IGoodsRepository {
 
     @Override
     public void deleteList() {
-        redisTemplate.delete(KEY_SUPPLIER_LIST);
+        redisTemplate.delete(KEY_GOOD_LIST);
     }
 }
