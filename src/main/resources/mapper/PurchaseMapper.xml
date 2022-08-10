@@ -23,7 +23,18 @@
     WHERE
       id=#{id}
   </delete>
-
+  <!-- int deleteByIds(Long... ids); -->
+  <delete id="deleteByIds">
+    DELETE
+    FROM
+    sms_purchase
+    WHERE
+    id IN (
+    <foreach collection="array" item="id" separator=",">
+      #{id}
+    </foreach>
+    )
+  </delete>
   <update id="updateById">
     UPDATE
     sms_purchase

@@ -24,9 +24,20 @@ public interface PurchaseMapper {
      * @return
      */
     int deleteByPrimaryKey(Long id);
+    /**
+     * 根据若干个品牌id，批量删除品牌数据
+     * @param ids 期望删除的若干个品牌数据的id
+     * @return 受影响的行数，将返回成功删除的数据量
+     */
+    int deleteByIds(Long... ids);
 
     int updateById(Purchase purchase);
-
+    /**
+     * 根据id修改品牌的名称
+     * @param id 品牌id
+     * @param name 新的品牌名称
+     * @return 受影响的行数，当修改成功时，将返回1，如果无此id对应的数据，将返回0
+     */
     int updateNameById(@Param("id") Long id, @Param("name") String name);
 
     int count();
