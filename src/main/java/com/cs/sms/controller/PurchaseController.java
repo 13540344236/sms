@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "进货模块")
 @RestController
-@RequestMapping("/purchases") // 自己修改
+@RequestMapping("/purchases")
 public class PurchaseController {
     @Autowired
     private IPurchaseService purchaseService;
@@ -31,7 +31,6 @@ public class PurchaseController {
     @PostMapping("/add-new")
     public JsonResult addNew(@RequestBody PurchaseAddNewDTO purchaseAddNewDTO){
         log.debug("接收到的请求参数：{}", purchaseAddNewDTO);
-//        purchaseAddNewDTO.setGmtCreate();
 
         purchaseService.addNew(purchaseAddNewDTO);
         return JsonResult.ok();

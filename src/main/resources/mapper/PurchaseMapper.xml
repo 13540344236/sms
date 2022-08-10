@@ -68,13 +68,13 @@
 
   <!-- int count(); -->
   <select id="count" resultType="int">
-    SELECT count(*) FROM sms_db.sms_purchase
+    SELECT count(*) FROM sms_purchase
   </select>
 
 
   <!-- int countByName(String name); -->
   <select id="countByName" resultType="int">
-    SELECT count(*) FROM sms_db.sms_purchase WHERE name=#{name}
+    SELECT count(*) FROM sms_purchase WHERE name=#{name}
   </select>
   <!-- PurchaseDetailVO getById(Long id); -->
   <select id="getById" resultMap="DetailResultMap">
@@ -114,6 +114,11 @@
 
   <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.PurchaseDetailVO">
     <id column="id" property="id" />
+    <id column="goods_category" property="goodsCategory" />
+    <id column="goods_specification" property="goodsSpecification" />
+    <id column="warehousing_quantity" property="warehousingQuantity" />
+    <id column="purchase_document_picture" property="purchaseDocumentPicture" />
+    <id column="gmt_create" property="gmtCreate" />
   </resultMap>
 
   <sql id="DetailQueryFields">
@@ -130,7 +135,7 @@
       id,name, goods_category,
       goods_specification, warehousing_quantity,
       supplier, operator, purchase_document_picture,
-      logo
+      logo,gmt_create
     </if>
   </sql>
   <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.PurchaseListItemVO">
@@ -139,5 +144,6 @@
     <id column="goods_specification" property="goodsSpecification" />
     <id column="warehousing_quantity" property="warehousingQuantity" />
     <id column="purchase_document_picture" property="purchaseDocumentPicture" />
+    <id column="gmt_create" property="gmtCreate" />
   </resultMap>
 </mapper>
