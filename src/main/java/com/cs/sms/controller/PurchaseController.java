@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -59,5 +61,12 @@ public class PurchaseController {
         log.debug("接收到查询商品列表的请求");
         List<PurchaseListItemVO> purchases = purchaseService.list();
         return JsonResult.ok(purchases);
+    }
+    @ApiOperation("导出商品报表")
+    @ApiOperationSupport(order = 500)
+    @GetMapping("/exportExcel")
+    public void download(HttpServletResponse response)throws IOException{
+        log.debug("接收到导出商品报表的请求");
+        purchaseService.createExcel(response);
     }
 }

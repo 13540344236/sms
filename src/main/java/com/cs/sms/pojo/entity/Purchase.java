@@ -2,6 +2,8 @@ package com.cs.sms.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +11,7 @@ import java.util.Date;
  */
 
 @Data
-public class Purchase {
+public class Purchase implements Serializable {
     /**
      * 记录id
      */

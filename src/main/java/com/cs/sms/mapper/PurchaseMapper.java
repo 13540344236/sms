@@ -15,7 +15,11 @@ public interface PurchaseMapper {
      * @return 受影响行数，成功插入数据时，将返回1
      */
     int insert(Purchase purchase);
-
+    /**
+     * 根据商品名称统计商品数量
+     * @param name 商品名称
+     * @return 商品数量
+     */
     int countByName(String name);
 
     /**
@@ -31,6 +35,11 @@ public interface PurchaseMapper {
      */
     int deleteByIds(Long... ids);
 
+    /**
+     *  根据商品ID修改商品列表数据
+     * @param purchase 商品信息
+     * @return 受影响的行数，成功修改数据时，将返回1
+     */
     int updateById(Purchase purchase);
     /**
      * 根据id修改品牌的名称
@@ -40,12 +49,36 @@ public interface PurchaseMapper {
      */
     int updateNameById(@Param("id") Long id, @Param("name") String name);
 
+    /**
+     * 统计商品所有的数据
+     * @return
+     */
     int count();
 
+    /**
+     * 根据ID查询商品数据
+     * @param id 商品编号(ID)
+     * @return 成功查询到商品后,返回查询到的商品数据
+     */
     PurchaseDetailVO getById(Long id);
 
+    /**
+     * 根据名称查询商品数据
+     * @param name 商品名称(name)
+     * @return
+     */
     PurchaseDetailVO getByName(String name);
-
+    /**
+     *  查看商品列表
+     * @return 商品列表
+     */
     List<PurchaseListItemVO> list();
+
+    /**
+     * 分页查询所有商品
+     * @param offset
+     * @param count
+     * @return
+     */
     List<PurchaseListItemVO> listPage(Integer offset, Integer count);
 }
