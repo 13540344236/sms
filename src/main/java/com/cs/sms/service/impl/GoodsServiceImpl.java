@@ -131,7 +131,7 @@ public class GoodsServiceImpl implements IGoodsService {
     //商品列表
     @Override
     public List<GoodsListVO> list() {
-        return goodsRepository.getList();
+        return goodsMapper.list();
     }
 
     //导出商品报表

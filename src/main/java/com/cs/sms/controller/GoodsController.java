@@ -6,6 +6,7 @@ import com.cs.sms.pojo.dto.GoodsEditDTO;
 import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.GoodsListVO;
 import com.cs.sms.service.IGoodsService;
+import com.cs.sms.util.OssUtils;
 import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.JsonResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -16,10 +17,16 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 @CrossOrigin
 @Slf4j
 @Api(tags = "商品模块")
@@ -75,6 +82,38 @@ public class GoodsController {
     public void download(HttpServletResponse response) throws IOException {
         log.debug("接收到导出商品报表的请求");
         goodsService.createExcel(response);
+
+    }
+
+    @RequestMapping("/upload")
+    public String upload(MultipartFile picFile) throws IOException {
+        log.debug("图片上传");
+        log.debug("picFile = " + picFile);
+        //得到文件的原始文件名
+        String fileName = picFile.getOriginalFilename();
+        //得到文件名的后缀部分    abc.jpg     .jpg
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        //得到唯一的文件夹 UUID.randomUUID()得到唯一标识符 是一个字符串
+        fileName = UUID.randomUUID()+suffix;
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        String datePath=dateFormat.format(new Date());
+        //得到文件完整路径
+        String filepath=datePath+"/"+fileName;
+        //把文件保存到filePath这个路径
+        String newFileName= OssUtils.upload(picFile.getInputStream(),filepath);
+        //把新文件名响应出去
+        log.debug("新文件名="+newFileName);
+
+        return newFileName;
+
+    }
+    @RequestMapping("/remove")
+    public void remove(String newFileName){
+        log.debug("删除的文件名 = " + newFileName);
+        String filePath = newFileName;
+        //删除文件
+        new File(filePath).delete();
+        log.debug(filePath);
 
     }
 

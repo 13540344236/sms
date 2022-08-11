@@ -63,7 +63,7 @@ public class SupplierServiceImpl implements ISupplierService {
 
     @Override
     public List<SupplierListVO> list() {
-        return supplierRepository.getList();
+        return supplierMapper.list();
     }
 
     @Override
