@@ -126,12 +126,11 @@ drop table if exists sms_picture;
 create table sms_picture
 (
     id           bigint unsigned auto_increment comment '记录id',
-    album_id     bigint unsigned   default null comment '相册id',
+    name         varchar(255)      default null comment '图片名字',
     url          varchar(255)      default null comment '图片url',
     description  varchar(255)      default null comment '图片简介',
     width        smallint unsigned default null comment '图片宽度，单位：px',
     height       smallint unsigned default null comment '图片高度，单位：px',
-    is_cover     tinyint unsigned  default 0 comment '是否为封面图片，1=是，0=否',
     sort         tinyint unsigned  default 0 comment '自定义排序序号',
     gmt_create   datetime          default null comment '数据创建时间',
     gmt_modified datetime          default null comment '数据最后修改时间',
