@@ -82,7 +82,9 @@
     SELECT count(*) FROM sms_purchase
   </select>
 
-
+  <select id="countById" resultType="java.lang.Integer">
+    SELECT count(*) FROM sms_refund WHERE id=#{id}
+  </select>
   <!-- int countByName(String name); -->
   <select id="countByName" resultType="int">
     SELECT count(*) FROM sms_purchase WHERE name=#{name}
@@ -121,6 +123,15 @@
     sms_purchase
     ORDER BY id
     LIMIT ${offset}, ${count}
+  </select>
+
+  <select id="selectById" resultType="com.cs.sms.pojo.vo.RefundDetailVO">
+    select
+    <include refid="ListItemQueryFields" />
+    FROM
+    sms_refund
+    WHERE
+    id=#{id}
   </select>
 
   <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.PurchaseDetailVO">

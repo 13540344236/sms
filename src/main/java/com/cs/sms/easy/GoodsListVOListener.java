@@ -15,7 +15,8 @@ import java.util.List;
  */
 // 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
 @Slf4j
-public class GoodsListVOListener extends AnalysisEventListener<GoodsListVO> {
+public class
+GoodsListVOListener extends AnalysisEventListener<GoodsListVO> {
 
     /**
      * 每隔5条存储数据库，实际使用中可以100条，然后清理list ，方便内存回收
