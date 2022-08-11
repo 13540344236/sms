@@ -38,8 +38,8 @@ public class AdminController {
 
     @ApiOperation("删除员工")
     @ApiOperationSupport(order = 200)
-    @PostMapping("/delete")
-    public JsonResult deleteById(Long id) {
+    @PostMapping("/{id:[0-9]+}/delete")
+    public JsonResult deleteById(@PathVariable Long id) {
         log.debug("接收需要删除的员工id:{}", id);
         adminService.deleteById(id);
         return JsonResult.ok();
@@ -56,8 +56,8 @@ public class AdminController {
 
     @ApiOperation("通过id查询员工信息")
     @ApiOperationSupport(order = 400)
-    @PostMapping("/selectById")
-    public JsonResult selectById(Long id) {
+    @GetMapping("/{id:[0-9]+}/selectById")
+    public JsonResult selectById(@PathVariable Long id) {
         log.debug("接收需要查询的员工id:{}", id);
         AdminVO adminVO = adminService.selectById(id);
         return JsonResult.ok(adminVO);

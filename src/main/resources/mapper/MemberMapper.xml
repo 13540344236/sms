@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.MemberMapper">
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sms_member ( member_id, name ,
+                             phone, integral, money,
+                             payment_method, address
+    )
+    values ( #{memberId}, #{name},
+            #{phone}, #{integral}, #{money},
+            #{paymentMethod}, #{address}
+           )
+  </insert>
+
+  <delete id="deleteById" >
+    delete from sms_member
+    where id = #{id}
+  </delete>
+
+  <update id="updateById">
+    update sms_member
+    <set>
+      <if test="memberId != null">
+        member_id = #{memberId},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="integral != null">
+        integral = #{integral},
+      </if>
+      <if test="money != null">
+        money = #{money},
+      </if>
+      <if test="paymentMethod != null">
+        payment_method = #{paymentMethod},
+      </if>
+      <if test="address != null">
+        address = #{address},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <select id="selectByPhone" resultMap="ListItemResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sms_member
+    where  phone= #{phone}
+  </select>
+
+  <select id="selectById" resultMap="ListItemResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sms_member
+    where  id= #{id}
+  </select>
+
+  <select id="list" resultMap="ListItemResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sms_member
+    order by id
+  </select>
+
+  <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.MemberVO">
+    <id column="id" property="id" />
+    <result column="member_id" property="memberId"/>
+    <result column="payment_method" property="paymentMethod"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, member_id, name, phone, integral, money,
+payment_method, address
+  </sql>
+
+</mapper>
