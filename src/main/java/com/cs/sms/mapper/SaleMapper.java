@@ -1,17 +1,28 @@
 package com.cs.sms.mapper;
 
+
+import com.cs.sms.pojo.entity.Purchase;
 import com.cs.sms.pojo.entity.Sale;
+import com.cs.sms.pojo.vo.PurchaseListItemVO;
+import com.cs.sms.pojo.vo.SaleDetailVO;
+import com.cs.sms.pojo.vo.SaleListItemVO;
+
+import java.util.List;
 
 public interface SaleMapper {
+
     int deleteByPrimaryKey(Long id);
 
-    int insert(Sale record);
+    int countByName(String name);
 
-    int insertSelective(Sale record);
+    int insert(Sale sale);
 
-    Sale selectByPrimaryKey(Long id);
+    SaleDetailVO getById(Long id);
 
-    int updateByPrimaryKeySelective(Sale record);
 
-    int updateByPrimaryKey(Sale record);
+    int updateById(Sale sale);
+
+    List<SaleListItemVO> list();
+
+    List<SaleListItemVO> listPage(Integer pageNum, Integer pageSize);
 }
