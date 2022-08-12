@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class SupplierListVO implements Serializable {
@@ -40,5 +41,5 @@ public class SupplierListVO implements Serializable {
     /**
      * 录入时间
      */
-    private LocalDate gmtCreate;
+    private Date gmtCreate;
 }

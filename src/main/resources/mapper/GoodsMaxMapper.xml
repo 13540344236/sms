@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.GoodsMaxMapper">
+  <!--int insert(Goods goods);-->
+  <insert id="insert" >
+    insert into sms_db.sms_goodsmax (
+      id,url, name,category, purchase_price, sale_price,
+      goods_specification, current_stock,
+      the_overflow
+    )
+    values (
+             #{id},#{url}, #{name},
+             #{category}, #{purchasePrice}, #{salePrice},
+             #{goodsSpecification}, #{currentStock},
+            #{theOverflow})
+  </insert>
+
+  <!--int deleteById(Long id);-->
+  <delete id="deleteById">
+    delete from sms_db.sms_goodsmax
+    where id = #{id}
+  </delete>
+
+  <!--int deleteByIds(Long[] ids);-->
+  <delete id="deleteByIds">
+    delete from sms_db.sms_goodsmax where id in (
+    <foreach collection="array" item="id" separator=",">
+      #{id}
+    </foreach>
+    )
+  </delete>
+
+
+  <!--int updateById(Long id);-->
+  <update id="updateById">
+    update
+    sms_db.sms_goodsmax
+    <set>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="url != null">
+        url = #{url},
+      </if>
+      <if test="category != null">
+        category = #{category},
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price = #{purchasePrice},
+      </if>
+      <if test="salePrice != null">
+        sale_price = #{salePrice},
+      </if>
+      <if test="goodsSpecification != null">
+        goods_specification = #{goodsSpecification},
+      </if>
+      <if test="currentStock != null">
+        current_stock = #{currentStock},
+      </if>
+      <if test="theOverflow != null">
+        the_overflow=#{theOverflow}
+      </if>
+    </set>
+    where
+    id = #{id}
+  </update>
+
+  <!-- GoodsAddNewVO selectById(Long id); -->
+  <select id="selectById" resultMap="DetailResultMap">
+    select
+    <include refid="DetailQueryFields" />
+    from
+    sms_db.sms_goodsmax
+    where
+    id = #{id}
+  </select>
+
+  <!--int countByName(String name);-->
+  <select id="countByName" resultType="int">
+    select count(*) from sms_db.sms_goodsmax where name = #{name}
+  </select>
+
+  <!--List<GoodsListVO> list();-->
+  <select id="list" resultMap="ListItemResultMap">
+    SELECT
+    <include refid="ListItemQueryFields"/>
+    FROM
+    sms_db.sms_goodsmax
+    ORDER BY id
+  </select>
+
+  <!--List<Goods> findAllGoods();-->
+  <select id="findAllGoods" resultMap="ListItemResultMap">
+    SELECT
+    <include refid="ListItemQueryFields"/>
+    FROM
+    sms_db.sms_goodsmax
+  </select>
+
+  <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.GoodsMaxVO">
+    <id column="id" property="id" />
+    <result column="purchase_price" property="purchasePrice" />
+    <result column="sale_price" property="salePrice" />
+    <result column="goods_specification" property="goodsSpecification" />
+    <result column="current_stock" property="currentStock" />
+    <result column="the_overflow" property="theOverflow" />
+  </resultMap>
+
+  <sql id="DetailQueryFields">
+    <if test="true">
+      id,url, name,category, purchase_price, sale_price,
+      goods_specification, current_stock,the_overflow
+    </if>
+  </sql>
+
+  <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.GoodsMaxVO">
+    <id column="id" property="id" />
+    <result column="purchase_price" property="purchasePrice" />
+    <result column="sale_price" property="salePrice" />
+    <result column="goods_specification" property="goodsSpecification" />
+    <result column="current_stock" property="currentStock" />
+    <result column="the_overflow" property="theOverflow" />
+  </resultMap>
+
+  <sql id="ListItemQueryFields">
+    <if test="true">
+      id,url, name,category, purchase_price, sale_price,
+      goods_specification, current_stock,the_overflow
+    </if>
+  </sql>
+</mapper>
