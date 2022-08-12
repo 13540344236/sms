@@ -5,9 +5,12 @@ import com.cs.sms.pojo.dto.PurchaseAddNewDTO;
 import com.cs.sms.pojo.dto.PurchaseEditDTO;
 import com.cs.sms.pojo.vo.PurchaseListItemVO;
 import com.cs.sms.service.IPurchaseService;
+import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.JsonResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +71,16 @@ public class PurchaseController {
     public void download(HttpServletResponse response)throws IOException{
         log.debug("接收到导出商品报表的请求");
         purchaseService.createExcel(response);
+    }
+    @GetMapping("/page")
+    @ApiOperation("分页查询订单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "页码",name="pageNum",example = "1"),
+            @ApiImplicitParam(value = "每页条数",name="pageSize",example = "10")
+    })
+    public JsonResult pageOrders(Integer pageNum, Integer pageSize){
+        // 分页查询调用
+        JsonPage<PurchaseListItemVO> jsonPage=purchaseService.getAllOrdersByPage(pageNum,pageSize);
+        return JsonResult.ok(jsonPage);
     }
 }

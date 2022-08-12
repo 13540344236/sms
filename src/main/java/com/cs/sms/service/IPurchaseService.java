@@ -4,6 +4,7 @@ package com.cs.sms.service;
 import com.cs.sms.pojo.dto.PurchaseAddNewDTO;
 import com.cs.sms.pojo.dto.PurchaseEditDTO;
 import com.cs.sms.pojo.vo.PurchaseListItemVO;
+import com.cs.sms.web.JsonPage;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -43,4 +44,7 @@ public interface IPurchaseService {
      * @throws IOException
      */
     void createExcel(HttpServletResponse response)throws IOException;
+
+    // 返回JsonPage类型分页查询订单的方法
+    JsonPage<PurchaseListItemVO> getAllOrdersByPage(Integer pageNum, Integer pageSize);
 }
