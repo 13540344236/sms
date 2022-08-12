@@ -91,6 +91,21 @@ create table sms_login_log
 
 -- 以上为管理员（员工）相关表 --
 
+drop table if exists sms_member;
+create table sms_member
+(
+    id             bigint unsigned auto_increment comment 'id',
+    member_id      varchar(50)      default null comment '会员号',
+    name           varchar(50)      default null comment '会员姓名',
+    phone         bigint      default null comment '电话号码',
+    integral       tinyint unsigned default null comment '可用积分',
+    money          double           default null comment '余额',
+    payment_method varchar(10)      default null comment '支付方式',
+    address        varchar(50)      default null comment '地址',
+    primary key (id)
+)comment '会员管理表' charset utf8;
+create index idx_member_name on sms_member (name);
+
 -- 供应商管理表
 create table sms_supplier
 (
