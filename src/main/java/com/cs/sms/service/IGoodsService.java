@@ -31,7 +31,5 @@ public interface IGoodsService {
     // 分页查询
     JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize);
 
-    //查询库存
-    List<GoodsListVO> stocks();
 
 }

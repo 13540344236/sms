@@ -158,12 +158,6 @@ public class GoodsServiceImpl implements IGoodsService {
         return JsonPage.restPage(new PageInfo<>(list));
     }
 
-    //库存监测
-    @Override
-    public List<GoodsListVO> stocks() {
-        return goodsMapper.list();
-    }
-
 
 
 
