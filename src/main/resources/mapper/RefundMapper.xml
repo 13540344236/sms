@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.RefundMapper">
+    <!-- int insert(Purchase purchase); -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sms_refund ( name, category,
+      goods_specification, warehousing_quantity,amount_payable,
+      is_pay,supplier, operator, return_document_picture,
+      logo,gmt_create_purchase ,gmt_create_return, gmt_modified
+      )
+    values (#{name}, #{category},
+              #{goodsSpecification}, #{warehousingQuantity},#{amountPayable},
+            #{isPay},#{supplier}, #{operator}, #{returnDocumentPicture},
+            #{logo}, #{gmtCreatePurchase},#{gmtCreateReturn}, #{gmtModified}
+      )
+  </insert>
+
+    <!-- int deleteByPrimaryKey(Long id); -->
+    <delete id="deleteByPrimaryKey">
+        DELETE
+        FROM
+           sms_refund
+        WHERE
+            id=#{id}
+    </delete>
+    <!-- int deleteByIds(Long... ids); -->
+    <delete id="deleteByIds">
+        DELETE
+        FROM
+        sms_refund
+        WHERE
+        id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <update id="updateById">
+        UPDATE
+        sms_refund
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="category != null">
+                category=#{category},
+            </if>
+            <if test="goodsSpecification!= null">
+                goods_specification=#{goodsSpecification},
+            </if>
+            <if test="warehousingQuantity != null">
+                warehousing_quantity=#{warehousingQuantity},
+            </if>
+            <if test="amountPayable !=null">
+                 amount_payable=#{amountPayable},
+            </if>
+            <if test="isPay !=null">
+                is_pay=#{isPay},
+            </if>
+            <if test="supplier != null">
+                supplier=#{supplier},
+            </if>
+            <if test="operator != null">
+                operator=#{operator},
+            </if>
+            <if test=" returnDocumentPicture != null">
+                return_document_picture=#{returnDocumentPicture},
+            </if>
+            <if test="logo != null">
+                logo=#{logo},
+            </if>
+            <if test="gmtCreatePurchase !=null">
+                gmt_create_purchase=#{gmtCreatePurchase},
+            </if>
+            <if test="gmtCreateReturn !=null">
+                gmt_create_return=#{gmtCreateReturn},
+            </if>
+        </set>
+        WHERE
+            id=#{id}
+    </update>
+    <!-- int updateNameById(@Param("id") Long id, @Param("name") String name); -->
+    <update id="updateNameById">
+        UPDATE
+           sms_refund
+        SET
+            name=#{name}
+        WHERE
+            id=#{id}
+    </update>
+
+    <!-- int count(); -->
+    <select id="count" resultType="int">
+        SELECT count(*) FROM sms_refund
+    </select>
+
+    <select id="countById" resultType="java.lang.Integer">
+        SELECT count(*) FROM sms_refund WHERE id=#{id}
+    </select>
+    <!-- int countByName(String name); -->
+    <select id="countByName" resultType="int">
+        SELECT count(*) FROM sms_refund WHERE name=#{name}
+    </select>
+    <!-- PurchaseDetailVO getById(Long id); -->
+    <select id="getById" resultMap="DetailResultMap">
+        SELECT
+        <include refid="DetailQueryFields" />
+        FROM
+        sms_refund
+        WHERE
+        id=#{id}
+    </select>
+    <!-- PurchaseDetailVO getByName(String name); -->
+    <select id="getByName" resultMap="DetailResultMap">
+        SELECT
+        <include refid="DetailQueryFields" />
+        FROM
+        sms_refund
+        WHERE
+        name=#{name}
+    </select>
+<!--    List<PurchaseListItemVO> list();-->
+    <select id="list" resultMap="ListItemResultMap">
+        SELECT
+        <include refid="ListItemQueryFields" />
+        FROM
+       sms_refund
+        ORDER BY id
+    </select>
+<!--    List<PurchaseListItemVO> listPage(Integer offset, Integer count);-->
+    <select id="listPage" resultMap="ListItemResultMap">
+        SELECT
+        <include refid="ListItemQueryFields" />
+        FROM
+        sms_refund
+        ORDER BY id
+        LIMIT ${offset}, ${count}
+    </select>
+
+    <select id="selectById" resultType="com.cs.sms.pojo.vo.RefundDetailVO">
+        select
+            <include refid="ListItemQueryFields" />
+        FROM
+            sms_refund
+        WHERE
+            id=#{id}
+    </select>
+
+    <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.RefundDetailVO">
+        <id column="id" property="id" />
+        <id column="category" property="category" />
+        <id column="goods_specification" property="goodsSpecification" />
+        <id column="warehousing_quantity" property="warehousingQuantity" />
+        <id column="amount_payable" property="amountPayable" />
+        <id column="is_pay" property="isPay" />
+    </resultMap>
+
+    <sql id="DetailQueryFields">
+        <if test="true">
+
+            id,name, category,
+            goods_specification, warehousing_quantity,amount_payable,is_pay,
+            supplier, operator, return_document_picture,
+            logo
+        </if>
+    </sql>
+
+    <sql id="ListItemQueryFields">
+        <if test="true">
+            id,name, category,
+            goods_specification, warehousing_quantity,amount_payable,is_pay,
+            supplier, operator, return_document_picture,
+            logo
+        </if>
+    </sql>
+    <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.RefundListItemVO">
+        <id column="id" property="id" />
+        <id column="category" property="category" />
+        <id column="goods_specification" property="goodsSpecification" />
+        <id column="warehousing_quantity" property="warehousingQuantity" />
+        <id column="amount_payable" property="amountPayable" />
+        <id column="is_pay" property="isPay" />
+        <id column="gmt_create_return" property="gmtCreateReturn"/>
+    </resultMap>
+
+</mapper>

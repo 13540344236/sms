@@ -10,9 +10,12 @@ import com.cs.sms.pojo.dto.GoodsEditDTO;
 import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.GoodsDetailVO;
 import com.cs.sms.pojo.vo.GoodsListVO;
+import com.cs.sms.repo.impl.GoodsRepositoryImpl;
 import com.cs.sms.service.IGoodsService;
 import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,8 @@ import java.util.List;
 public class GoodsServiceImpl implements IGoodsService {
     @Autowired
     private GoodsMapper goodsMapper;
+    @Autowired
+    private GoodsRepositoryImpl goodsRepository;
 
     public GoodsServiceImpl() {
         log.debug("创建业务逻辑对象：GoodsServiceImpl");
@@ -36,6 +41,8 @@ public class GoodsServiceImpl implements IGoodsService {
     //新增商品
     @Override
     public void addNew(GoodsAddNewDTO goodsAddNewDTO) {
+        String url2 = UploadService.url;
+        log.debug("url2="+url2);
         // 检查此品牌（尝试创建的品牌）的名称有没有被使用
         // 如果已经被使用，则不允许创建
         String name = goodsAddNewDTO.getName();
@@ -48,7 +55,7 @@ public class GoodsServiceImpl implements IGoodsService {
 
         //创建实体对象 (Mapper的方法的参数是实体类)
         Goods good = new Goods();
-
+        goodsAddNewDTO.setUrl(url2);
         //将当前方法参数的值复制到Goods实体类型的对象中
         BeanUtils.copyProperties(goodsAddNewDTO,good);
 
@@ -137,18 +144,18 @@ public class GoodsServiceImpl implements IGoodsService {
         //1.查询到商品的所有信息
         List<GoodsListVO> list = goodsMapper.list();
         //2.设置文件下载
-        //设置
+        //设置响应头，告诉浏览器要以附件的形式保存，filename=文件名
         response.setHeader("content-disposition","attachment;filename=goods"+System.currentTimeMillis()+".xlsx");
         EasyExcel.write(response.getOutputStream(), GoodsListVO.class).sheet("商品详情").doWrite(list);
     }
 
-//
-//    //分页查询商品列表
-//    @Override
-//    public JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
-//        PageHelper.startPage(pageNum,pageSize);
-//        List<Goods> list = goodsMapper.findAllGoods();
-//        return JsonPage.restPage(new PageInfo<>(list));
-//    }
+//分页查询商品列表
+@Override
+public JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
+    PageHelper.startPage(pageNum,pageSize);
+    log.debug("num = {},Size = {}",pageNum,pageSize);
+    List<Goods> list = goodsMapper.findAllGoods();
+    return JsonPage.restPage(new PageInfo<>(list));
+}
 
 }

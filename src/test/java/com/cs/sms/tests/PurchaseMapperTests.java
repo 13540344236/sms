@@ -20,7 +20,7 @@ public class PurchaseMapperTests {
     @Test
     public void testInsert(){
         Purchase purchase = new Purchase();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 10; i < 13; i++) {
             purchase.setName("可口可乐"+i);
             purchase.setGoodsCategory("饮料");
             purchase.setGoodsSpecification("瓶");

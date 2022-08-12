@@ -6,6 +6,8 @@ import com.cs.sms.pojo.dto.GoodsEditDTO;
 import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.GoodsListVO;
 import com.cs.sms.service.IGoodsService;
+import com.cs.sms.service.impl.UploadService;
+import com.cs.sms.util.OssUtils;
 import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.JsonResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -16,10 +18,16 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 @CrossOrigin
 @Slf4j
 @Api(tags = "商品模块")
@@ -28,6 +36,8 @@ import java.util.List;
 public class GoodsController {
     @Autowired
     private IGoodsService goodsService;
+    @Autowired
+    private UploadService uploadService;
 
     @ApiOperation("新增商品")
     @ApiOperationSupport(order = 100)
@@ -64,9 +74,22 @@ public class GoodsController {
     @ApiOperationSupport(order = 400)
     @GetMapping("")
     public JsonResult list() {
-        log.debug("接收到查询品牌列表的请求");
+        log.debug("接收到查询商品列表的请求");
         List<GoodsListVO> goods = goodsService.list();
         return JsonResult.ok(goods);
+    }
+
+    @ApiOperation("分页查询商品")
+    @ApiOperationSupport(order = 401)
+    @GetMapping("/page")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "页码", name = "pageNum", example = "1"),
+            @ApiImplicitParam(value = "每页条数", name = "pageSize", example = "5")
+    })
+    public JsonResult<JsonPage<Goods>> pageGood(@RequestParam Integer pageNum,@RequestParam Integer pageSize) {
+        // 分页查询调用
+        JsonPage<Goods> allGoodsByPage = goodsService.getAllGoodsByPage(pageNum, pageSize);
+        return JsonResult.ok("查询成功!",allGoodsByPage);
     }
 
     @ApiOperation("导出商品报表")
@@ -78,16 +101,20 @@ public class GoodsController {
 
     }
 
-//    @ApiOperation("分页查询商品")
-//    @ApiOperationSupport(order = 401)
-//    @GetMapping("/page")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(value = "页码", name = "pageNum", example = "1"),
-//            @ApiImplicitParam(value = "每页条数", name = "pageSize", example = "5")
-//    })
-//    public JsonResult pageGood(Integer pageNum, Integer pageSize) {
-//        // 分页查询调用
-//        JsonPage<Goods> allGoodsByPage = goodsService.getAllGoodsByPage(pageNum, pageSize);
-//        return JsonResult.ok(allGoodsByPage);
-//    }
+    @RequestMapping("/upload")
+    public String upload(MultipartFile picFile) throws IOException {
+        log.debug("图片上传");
+        log.debug("picFile = " + picFile);
+        return uploadService.upload(picFile);
+    }
+    @RequestMapping("/remove")
+    public void remove(String newFileName){
+        log.debug("删除的文件名 = " + newFileName);
+        String filePath = newFileName;
+        //删除文件
+        new File(filePath).delete();
+        log.debug(filePath);
+
+    }
+
 }

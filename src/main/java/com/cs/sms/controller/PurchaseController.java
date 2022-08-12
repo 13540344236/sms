@@ -13,12 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
 @Api(tags = "进货模块")
 @RestController
-@RequestMapping("/purchases") // 自己修改
+@RequestMapping("/purchases")
 public class PurchaseController {
     @Autowired
     private IPurchaseService purchaseService;
@@ -31,7 +33,6 @@ public class PurchaseController {
     @PostMapping("/add-new")
     public JsonResult addNew(@RequestBody PurchaseAddNewDTO purchaseAddNewDTO){
         log.debug("接收到的请求参数：{}", purchaseAddNewDTO);
-//        purchaseAddNewDTO.setGmtCreate();
 
         purchaseService.addNew(purchaseAddNewDTO);
         return JsonResult.ok();
@@ -43,13 +44,15 @@ public class PurchaseController {
         purchaseService.deleteByPrimaryKey(id);
         return JsonResult.ok();
     }
+
     @ApiOperation("编辑商品")
     @ApiOperationSupport(order = 300)
     @PostMapping("/{id:[0-9]+}/edit")
-    public String edit(@PathVariable Long id, PurchaseEditDTO purchaseEditDTO) {
+    public JsonResult edit(@PathVariable Long id, @RequestBody PurchaseEditDTO purchaseEditDTO) {
         log.debug("接收到的请求参数：id=" + id);
+        purchaseService.update(id, purchaseEditDTO);
         log.debug("接收到的请求参数：" + purchaseEditDTO);
-        return "尝试编辑品牌（尚未完成）";
+        return JsonResult.ok();
     }
     @ApiOperation("查询商品列表")
     @ApiOperationSupport(order = 400)
@@ -58,5 +61,12 @@ public class PurchaseController {
         log.debug("接收到查询商品列表的请求");
         List<PurchaseListItemVO> purchases = purchaseService.list();
         return JsonResult.ok(purchases);
+    }
+    @ApiOperation("导出商品报表")
+    @ApiOperationSupport(order = 500)
+    @GetMapping("/exportExcel")
+    public void download(HttpServletResponse response)throws IOException{
+        log.debug("接收到导出商品报表的请求");
+        purchaseService.createExcel(response);
     }
 }

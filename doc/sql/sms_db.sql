@@ -126,12 +126,11 @@ drop table if exists sms_picture;
 create table sms_picture
 (
     id           bigint unsigned auto_increment comment '记录id',
-    album_id     bigint unsigned   default null comment '相册id',
+    name         varchar(255)      default null comment '图片名字',
     url          varchar(255)      default null comment '图片url',
     description  varchar(255)      default null comment '图片简介',
     width        smallint unsigned default null comment '图片宽度，单位：px',
     height       smallint unsigned default null comment '图片高度，单位：px',
-    is_cover     tinyint unsigned  default 0 comment '是否为封面图片，1=是，0=否',
     sort         tinyint unsigned  default 0 comment '自定义排序序号',
     gmt_create   datetime          default null comment '数据创建时间',
     gmt_modified datetime          default null comment '数据最后修改时间',
@@ -160,12 +159,12 @@ create table sms_purchase
 create index idx_purchase_name on sms_purchase (name);
 
 -- 退货表：创建数据表
-drop table if exists sms_return;
-create table sms_return
+drop table if exists sms_refund;
+create table sms_refund
 (
     id                     bigint unsigned auto_increment comment '记录id',
     name                   varchar(50)      default null comment '商品名称',
-    goods_category         varchar(255)     default null comment '商品类别',
+    category         varchar(255)     default null comment '商品类别',
     goods_specification    varchar(255)     default null comment '商品规格',
     warehousing_quantity   int unsigned     default 0 comment '退货出库库数量',
     amount_payable         decimal(10,3)    default null comment '金额',
@@ -181,7 +180,7 @@ create table sms_return
 ) comment '退货' charset utf8mb4;
 
 -- 退货表：为退货表名称字段添加索引
-create index idx_return_name on sms_return (name);
+create index idx_refund_name on sms_refund (name);
 
 -- 销售表：创建数据表
 drop table if exists sms_sale;
