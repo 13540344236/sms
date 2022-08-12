@@ -57,6 +57,8 @@ public interface GoodsMapper {
      */
     List<GoodsListVO> list();
 
+
+
     /**
      * 分页查询所有商品
      * @return 商品列表

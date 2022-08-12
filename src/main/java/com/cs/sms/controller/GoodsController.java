@@ -79,6 +79,19 @@ public class GoodsController {
         return JsonResult.ok(goods);
     }
 
+    @ApiOperation("分页查询商品")
+    @ApiOperationSupport(order = 401)
+    @GetMapping("/page")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "页码", name = "pageNum", example = "1"),
+            @ApiImplicitParam(value = "每页条数", name = "pageSize", example = "5")
+    })
+    public JsonResult<JsonPage<Goods>> pageGood(@RequestParam Integer pageNum,@RequestParam Integer pageSize) {
+        // 分页查询调用
+        JsonPage<Goods> allGoodsByPage = goodsService.getAllGoodsByPage(pageNum, pageSize);
+        return JsonResult.ok("查询成功!",allGoodsByPage);
+    }
+
     @ApiOperation("导出商品报表")
     @ApiOperationSupport(order = 500)
     @GetMapping("/exportExcel")
@@ -104,16 +117,4 @@ public class GoodsController {
 
     }
 
-//    @ApiOperation("分页查询商品")
-//    @ApiOperationSupport(order = 401)
-//    @GetMapping("/page")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(value = "页码", name = "pageNum", example = "1"),
-//            @ApiImplicitParam(value = "每页条数", name = "pageSize", example = "5")
-//    })
-//    public JsonResult pageGood(Integer pageNum, Integer pageSize) {
-//        // 分页查询调用
-//        JsonPage<Goods> allGoodsByPage = goodsService.getAllGoodsByPage(pageNum, pageSize);
-//        return JsonResult.ok(allGoodsByPage);
-//    }
 }

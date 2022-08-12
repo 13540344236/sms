@@ -14,6 +14,8 @@ import com.cs.sms.repo.impl.GoodsRepositoryImpl;
 import com.cs.sms.service.IGoodsService;
 import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,13 +149,13 @@ public class GoodsServiceImpl implements IGoodsService {
         EasyExcel.write(response.getOutputStream(), GoodsListVO.class).sheet("商品详情").doWrite(list);
     }
 
-//
-//    //分页查询商品列表
-//    @Override
-//    public JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
-//        PageHelper.startPage(pageNum,pageSize);
-//        List<Goods> list = goodsMapper.findAllGoods();
-//        return JsonPage.restPage(new PageInfo<>(list));
-//    }
+//分页查询商品列表
+@Override
+public JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
+    PageHelper.startPage(pageNum,pageSize);
+    log.debug("num = {},Size = {}",pageNum,pageSize);
+    List<Goods> list = goodsMapper.findAllGoods();
+    return JsonPage.restPage(new PageInfo<>(list));
+}
 
 }

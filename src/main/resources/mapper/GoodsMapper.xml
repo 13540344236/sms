@@ -98,10 +98,12 @@
   <!--List<Goods> findAllGoods();-->
   <select id="findAllGoods" resultMap="ListItemResultMap">
     SELECT
-    <include refid="ListItemQueryFields"/>
+      id,url, name,category, purchase_price, sale_price,
+      goods_specification, current_stock, low_limit_stock
     FROM
-    sms_db.sms_goods
+      sms_db.sms_goods
   </select>
+
 
   <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.GoodsDetailVO">
     <id column="id" property="id" />

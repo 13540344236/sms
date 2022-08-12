@@ -12,7 +12,7 @@ public class GoodsListVO implements Serializable {
     /**
      * 商品id
      */
-    @ExcelProperty("商品id")
+    @ExcelIgnore //导出excel时候不导出id
     private Long id;
 
     /**
