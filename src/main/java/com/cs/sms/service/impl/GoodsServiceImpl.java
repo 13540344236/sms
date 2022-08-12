@@ -39,6 +39,8 @@ public class GoodsServiceImpl implements IGoodsService {
     //新增商品
     @Override
     public void addNew(GoodsAddNewDTO goodsAddNewDTO) {
+        String url2 = UploadService.url;
+        log.debug("url2="+url2);
         // 检查此品牌（尝试创建的品牌）的名称有没有被使用
         // 如果已经被使用，则不允许创建
         String name = goodsAddNewDTO.getName();
@@ -51,7 +53,7 @@ public class GoodsServiceImpl implements IGoodsService {
 
         //创建实体对象 (Mapper的方法的参数是实体类)
         Goods good = new Goods();
-
+        goodsAddNewDTO.setUrl(url2);
         //将当前方法参数的值复制到Goods实体类型的对象中
         BeanUtils.copyProperties(goodsAddNewDTO,good);
 

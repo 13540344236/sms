@@ -1,5 +1,6 @@
 package com.cs.sms.pojo.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 
@@ -23,7 +24,7 @@ public class GoodsListVO implements Serializable {
     /**
      *  图片地址
      */
-    @ExcelProperty("图片地址")
+    @ExcelIgnore  // 加上此注解可以忽视这个字段的excel导出
     private String url;
 
     /**

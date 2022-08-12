@@ -6,6 +6,7 @@ import com.cs.sms.pojo.dto.GoodsEditDTO;
 import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.GoodsListVO;
 import com.cs.sms.service.IGoodsService;
+import com.cs.sms.service.impl.UploadService;
 import com.cs.sms.util.OssUtils;
 import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.JsonResult;
@@ -35,6 +36,8 @@ import java.util.UUID;
 public class GoodsController {
     @Autowired
     private IGoodsService goodsService;
+    @Autowired
+    private UploadService uploadService;
 
     @ApiOperation("新增商品")
     @ApiOperationSupport(order = 100)
@@ -89,23 +92,7 @@ public class GoodsController {
     public String upload(MultipartFile picFile) throws IOException {
         log.debug("图片上传");
         log.debug("picFile = " + picFile);
-        //得到文件的原始文件名
-        String fileName = picFile.getOriginalFilename();
-        //得到文件名的后缀部分    abc.jpg     .jpg
-        String suffix = fileName.substring(fileName.lastIndexOf("."));
-        //得到唯一的文件夹 UUID.randomUUID()得到唯一标识符 是一个字符串
-        fileName = UUID.randomUUID()+suffix;
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        String datePath=dateFormat.format(new Date());
-        //得到文件完整路径
-        String filepath=datePath+"/"+fileName;
-        //把文件保存到filePath这个路径
-        String newFileName= OssUtils.upload(picFile.getInputStream(),filepath);
-        //把新文件名响应出去
-        log.debug("新文件名="+newFileName);
-
-        return newFileName;
-
+        return uploadService.upload(picFile);
     }
     @RequestMapping("/remove")
     public void remove(String newFileName){
