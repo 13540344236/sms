@@ -2,9 +2,10 @@ package com.cs.sms.pojo.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 @Data
-public class Admin {
+public class Admin implements Serializable {
     /**
      * 员工工号
      */
