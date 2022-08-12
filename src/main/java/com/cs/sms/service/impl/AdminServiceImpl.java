@@ -7,7 +7,10 @@ import com.cs.sms.pojo.entity.Admin;
 import com.cs.sms.pojo.vo.AdminVO;
 import com.cs.sms.repo.IAlbumRepository;
 import com.cs.sms.service.IAdminService;
+import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -113,5 +116,14 @@ public class AdminServiceImpl implements IAdminService {
     @Override
     public List<AdminVO> list() {
         return adminMapper.list();
+    }
+
+    //分页查询商品列表
+    @Override
+    public JsonPage<Admin> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        log.debug("num = {},Size = {}", pageNum, pageSize);
+        List<Admin> list = adminMapper.findAllAdmin();
+        return JsonPage.restPage(new PageInfo<>(list));
     }
 }

@@ -48,4 +48,10 @@ public interface AdminMapper {
      * @return 查询成功返回所以员工信息
      */
     List<AdminVO> list();
+
+    /**
+     * 分页查询
+     * @return
+     */
+    List<Admin> findAllAdmin();
 }
