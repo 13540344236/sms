@@ -149,13 +149,22 @@ public class GoodsServiceImpl implements IGoodsService {
         EasyExcel.write(response.getOutputStream(), GoodsListVO.class).sheet("商品详情").doWrite(list);
     }
 
-//分页查询商品列表
-@Override
-public JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
-    PageHelper.startPage(pageNum,pageSize);
-    log.debug("num = {},Size = {}",pageNum,pageSize);
-    List<Goods> list = goodsMapper.findAllGoods();
-    return JsonPage.restPage(new PageInfo<>(list));
-}
+    //分页查询商品列表
+    @Override
+    public JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        log.debug("num = {},Size = {}",pageNum,pageSize);
+        List<Goods> list = goodsMapper.findAllGoods();
+        return JsonPage.restPage(new PageInfo<>(list));
+    }
+
+    //库存监测
+    @Override
+    public List<GoodsListVO> stocks() {
+        return goodsMapper.list();
+    }
+
+
+
 
 }
