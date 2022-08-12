@@ -273,6 +273,43 @@ create table sms_goods
 )
     comment '商品表' charset utf8mb4;
 
+-- 商品报溢表
+drop table if exists sms_goods_bad;
+create table sms_goods_bad
+(
+    id                  bigint unsigned auto_increment comment '编号'
+        primary key,
+    url                 varchar(255)   null comment '图片地址',
+    name                varchar(50)    null comment '名称',
+    category            varchar(50)    null comment '类别',
+    purchase_price      decimal(10, 3) null comment '采购价格',
+    sale_price          decimal(10, 3) null comment '销售价格',
+    goods_specification varchar(50)    null comment '规格',
+    current_stock       bigint         null comment '当前库存',
+    low_limit_stock     bigint         null comment '库存下限',
+    reported_loss       bigint         null comment '损坏数量'
+)
+    comment '商品报损表' charset = utf8mb4;
+create index idx_goods_bad_name on sms_goods_bad (name);
+
+-- 商品报溢表
+drop table if exists sms_goods_max;
+create table sms_goods_max
+(
+    id                  bigint unsigned auto_increment comment '编号'
+        primary key,
+    url                 varchar(255)   null comment '图片地址',
+    name                varchar(50)    null comment '名称',
+    category            varchar(50)    null comment '类别',
+    purchase_price      decimal(10, 3) null comment '采购价格',
+    sale_price          decimal(10, 3) null comment '销售价格',
+    goods_specification varchar(50)    null comment '规格',
+    current_stock       bigint         null comment '当前库存',
+    the_overflow        bigint         null comment '溢出商品'
+)
+    comment '商品报溢表' charset = utf8mb4;
+create index idx_goods_max_name on sms_goods_max (name);
+
 -- 商品与品牌关联表
 -- 商品与品牌关联表：创建数据表
 drop table if exists sms_goods_brand;

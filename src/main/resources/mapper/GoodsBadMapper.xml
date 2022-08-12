@@ -3,7 +3,7 @@
 <mapper namespace="com.cs.sms.mapper.GoodsBadMapper">
   <!--int insert(Goods goods);-->
   <insert id="insert" >
-    insert into sms_db.sms_goodsbad (
+    insert into sms_db.sms_goods_bad (
       id,url, name,category, purchase_price, sale_price,
       goods_specification, current_stock, low_limit_stock,
       reported_loss
@@ -17,13 +17,13 @@
 
   <!--int deleteById(Long id);-->
   <delete id="deleteById">
-    delete from sms_db.sms_goodsbad
+    delete from sms_db.sms_goods_bad
     where id = #{id}
   </delete>
 
   <!--int deleteByIds(Long[] ids);-->
   <delete id="deleteByIds">
-    delete from sms_db.sms_goodsbad where id in (
+    delete from sms_db.sms_goods_bad where id in (
     <foreach collection="array" item="id" separator=",">
       #{id}
     </foreach>
@@ -34,7 +34,7 @@
   <!--int updateById(Long id);-->
   <update id="updateById">
     update
-    sms_db.sms_goodsbad
+    sms_db.sms_goods_bad
     <set>
       <if test="name != null">
         name = #{name},
@@ -73,14 +73,14 @@
     select
     <include refid="DetailQueryFields" />
     from
-    sms_db.sms_goodsbad
+    sms_db.sms_goods_bad
     where
     id = #{id}
   </select>
 
   <!--int countByName(String name);-->
   <select id="countByName" resultType="int">
-    select count(*) from sms_db.sms_goodsbad where name = #{name}
+    select count(*) from sms_db.sms_goods_bad where name = #{name}
   </select>
 
   <!--List<GoodsListVO> list();-->
@@ -88,7 +88,7 @@
     SELECT
     <include refid="ListItemQueryFields"/>
     FROM
-    sms_db.sms_goodsbad
+    sms_db.sms_goods_bad
     ORDER BY id
   </select>
 
@@ -97,7 +97,7 @@
     SELECT
     <include refid="ListItemQueryFields"/>
     FROM
-    sms_db.sms_goodsbad
+    sms_db.sms_goods_bad
   </select>
 
   <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.GoodsBadVO">

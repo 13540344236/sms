@@ -3,7 +3,7 @@
 <mapper namespace="com.cs.sms.mapper.GoodsMaxMapper">
   <!--int insert(Goods goods);-->
   <insert id="insert" >
-    insert into sms_db.sms_goodsmax (
+    insert into sms_db.sms_goods_max (
       id,url, name,category, purchase_price, sale_price,
       goods_specification, current_stock,
       the_overflow
@@ -17,13 +17,13 @@
 
   <!--int deleteById(Long id);-->
   <delete id="deleteById">
-    delete from sms_db.sms_goodsmax
+    delete from sms_db.sms_goods_max
     where id = #{id}
   </delete>
 
   <!--int deleteByIds(Long[] ids);-->
   <delete id="deleteByIds">
-    delete from sms_db.sms_goodsmax where id in (
+    delete from sms_db.sms_goods_max where id in (
     <foreach collection="array" item="id" separator=",">
       #{id}
     </foreach>
@@ -34,7 +34,7 @@
   <!--int updateById(Long id);-->
   <update id="updateById">
     update
-    sms_db.sms_goodsmax
+    sms_db.sms_goods_max
     <set>
       <if test="name != null">
         name = #{name},
@@ -70,14 +70,14 @@
     select
     <include refid="DetailQueryFields" />
     from
-    sms_db.sms_goodsmax
+    sms_db.sms_goods_max
     where
     id = #{id}
   </select>
 
   <!--int countByName(String name);-->
   <select id="countByName" resultType="int">
-    select count(*) from sms_db.sms_goodsmax where name = #{name}
+    select count(*) from sms_db.sms_goods_max where name = #{name}
   </select>
 
   <!--List<GoodsListVO> list();-->
@@ -85,7 +85,7 @@
     SELECT
     <include refid="ListItemQueryFields"/>
     FROM
-    sms_db.sms_goodsmax
+    sms_db.sms_goods_max
     ORDER BY id
   </select>
 
@@ -94,7 +94,7 @@
     SELECT
     <include refid="ListItemQueryFields"/>
     FROM
-    sms_db.sms_goodsmax
+    sms_db.sms_goods_max
   </select>
 
   <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.GoodsMaxVO">
