@@ -15,11 +15,11 @@ public class MemberDTO {
     /**
      * 会员电话
      */
-    private String phone;
+    private Long phone;
     /**
      * 支付方式
      */
-    private Byte paymentMethod;
+    private String paymentMethod;
     /**
      * 购买商店地址
      */

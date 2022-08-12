@@ -29,7 +29,7 @@ public class MemberServiceImpI implements IMemberService {
     @Override
     public void addNew(MemberDTO memberDTO) {
         log.debug("接收需要新增的会员信息:{}",memberDTO);
-        String phone=memberDTO.getPhone();
+        Long phone=memberDTO.getPhone();
         MemberVO memberVO = memberMapper.selectByPhone(phone);
         if(memberVO != null){
             String message="该用户已存在";
@@ -38,7 +38,7 @@ public class MemberServiceImpI implements IMemberService {
         }
         Member member=new Member();
         BeanUtils.copyProperties(memberDTO,member);
-        member.setMemberId(phone);
+        member.setMemberId(phone.toString());
         member.setIntegral(0L);
         member.setMoney(20.00);
         log.debug("尝试插入数据:{}",member);
@@ -82,7 +82,7 @@ public class MemberServiceImpI implements IMemberService {
     }
 
     @Override
-    public MemberVO selectByPhone(String phone) {
+    public MemberVO selectByPhone(Long phone) {
         log.debug("接收需要查询的会员电话");
         MemberVO memberVO = memberMapper.selectByPhone(phone);
         if(memberVO == null){

@@ -35,7 +35,7 @@ public interface MemberMapper {
      * @param phone 会员信息
      * @return 查询成功时返回查询到的数据
      */
-    MemberVO selectByPhone(String phone);
+    MemberVO selectByPhone(long phone);
 
     /**
      * 根据id查询会员信息

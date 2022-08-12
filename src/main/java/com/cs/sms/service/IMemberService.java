@@ -28,7 +28,7 @@ public interface IMemberService {
      * 根据phone查询到的会员信息
      * @return
      */
-    MemberVO selectByPhone(String phone);
+    MemberVO selectByPhone(Long phone);
 
     /**
      * 根据id查询会员信息

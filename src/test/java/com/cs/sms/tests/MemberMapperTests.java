@@ -21,7 +21,7 @@ public class MemberMapperTests {
     public void insertTest(){
         for(int i = 0; i<10; i++){
             String name="陈哈7"+i;
-            String phone="1234567"+i;
+            Long phone=1234567L+i;
             Member member=new Member();
             member.setName(name);
             member.setPhone(phone);
@@ -39,7 +39,7 @@ public class MemberMapperTests {
     @Test
     public void updateTests(){
         Long id=3L;
-        String phone="1234562";
+        Long phone=1234562L;
         String name="周星星";
         Member member=new Member();
         member.setId(id);
@@ -51,7 +51,7 @@ public class MemberMapperTests {
 
     @Test
     public void selectTests(){
-        String phone="1234562";
+        long phone=1234562L;
         MemberVO memberVO = mapper.selectByPhone(phone);
         log.debug("返回查询到的数据:{}",memberVO);
     }
