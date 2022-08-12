@@ -27,7 +27,7 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.cs.sms.pojo.entity.Picture">
-    insert into sms_picture (id, album_id, url, 
+    insert into sms_picture (id, name, url,
       description, width, height, 
       is_cover, sort, gmt_create, 
       gmt_modified)
@@ -138,7 +138,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cs.sms.pojo.entity.Picture">
     update sms_picture
-    set album_id = #{albumId,jdbcType=BIGINT},
+    set name = #{albumId,jdbcType=BIGINT},
       url = #{url,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       width = #{width,jdbcType=SMALLINT},
