@@ -159,12 +159,12 @@ create table sms_purchase
 create index idx_purchase_name on sms_purchase (name);
 
 -- 退货表：创建数据表
-drop table if exists sms_return;
-create table sms_return
+drop table if exists sms_refund;
+create table sms_refund
 (
     id                     bigint unsigned auto_increment comment '记录id',
     name                   varchar(50)      default null comment '商品名称',
-    goods_category         varchar(255)     default null comment '商品类别',
+    category         varchar(255)     default null comment '商品类别',
     goods_specification    varchar(255)     default null comment '商品规格',
     warehousing_quantity   int unsigned     default 0 comment '退货出库库数量',
     amount_payable         decimal(10,3)    default null comment '金额',
@@ -180,7 +180,7 @@ create table sms_return
 ) comment '退货' charset utf8mb4;
 
 -- 退货表：为退货表名称字段添加索引
-create index idx_return_name on sms_return (name);
+create index idx_refund_name on sms_refund (name);
 
 -- 销售表：创建数据表
 drop table if exists sms_sale;
@@ -272,6 +272,43 @@ create table sms_goods
     primary key (id)
 )
     comment '商品表' charset utf8mb4;
+
+-- 商品报溢表
+drop table if exists sms_goods_bad;
+create table sms_goods_bad
+(
+    id                  bigint unsigned auto_increment comment '编号'
+        primary key,
+    url                 varchar(255)   null comment '图片地址',
+    name                varchar(50)    null comment '名称',
+    category            varchar(50)    null comment '类别',
+    purchase_price      decimal(10, 3) null comment '采购价格',
+    sale_price          decimal(10, 3) null comment '销售价格',
+    goods_specification varchar(50)    null comment '规格',
+    current_stock       bigint         null comment '当前库存',
+    low_limit_stock     bigint         null comment '库存下限',
+    reported_loss       bigint         null comment '损坏数量'
+)
+    comment '商品报损表' charset = utf8mb4;
+create index idx_goods_bad_name on sms_goods_bad (name);
+
+-- 商品报溢表
+drop table if exists sms_goods_max;
+create table sms_goods_max
+(
+    id                  bigint unsigned auto_increment comment '编号'
+        primary key,
+    url                 varchar(255)   null comment '图片地址',
+    name                varchar(50)    null comment '名称',
+    category            varchar(50)    null comment '类别',
+    purchase_price      decimal(10, 3) null comment '采购价格',
+    sale_price          decimal(10, 3) null comment '销售价格',
+    goods_specification varchar(50)    null comment '规格',
+    current_stock       bigint         null comment '当前库存',
+    the_overflow        bigint         null comment '溢出商品'
+)
+    comment '商品报溢表' charset = utf8mb4;
+create index idx_goods_max_name on sms_goods_max (name);
 
 -- 商品与品牌关联表
 -- 商品与品牌关联表：创建数据表

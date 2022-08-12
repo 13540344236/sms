@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cs.sms.mapper.GoodsMapper">
+<mapper namespace="com.cs.sms.mapper.GoodsMaxMapper">
   <!--int insert(Goods goods);-->
   <insert id="insert" >
-    insert into sms_db.sms_goods (
+    insert into sms_db.sms_goods_max (
       id,url, name,category, purchase_price, sale_price,
-      goods_specification, current_stock, low_limit_stock
+      goods_specification, current_stock,
+      the_overflow
     )
     values (
              #{id},#{url}, #{name},
              #{category}, #{purchasePrice}, #{salePrice},
-             #{goodsSpecification}, #{currentStock}, #{lowLimitStock}
-           )
+             #{goodsSpecification}, #{currentStock},
+            #{theOverflow})
   </insert>
 
   <!--int deleteById(Long id);-->
   <delete id="deleteById">
-    delete from sms_db.sms_goods
+    delete from sms_db.sms_goods_max
     where id = #{id}
   </delete>
 
   <!--int deleteByIds(Long[] ids);-->
   <delete id="deleteByIds">
-    delete from sms_db.sms_goods where id in (
+    delete from sms_db.sms_goods_max where id in (
     <foreach collection="array" item="id" separator=",">
       #{id}
     </foreach>
@@ -30,17 +31,10 @@
   </delete>
 
 
-  <update id="updateById1">
-    update sms_db.sms_goods
-    set name=#{name},url = #{url},category = #{category},purchase_price = #{purchasePrice},
-        sale_price = #{salePrice},goods_specification = #{goodsSpecification},
-        current_stock = #{currentStock},low_limit_stock = #{lowLimitStock}
-    where id = #{id}
-  </update>
   <!--int updateById(Long id);-->
   <update id="updateById">
     update
-    sms_db.sms_goods
+    sms_db.sms_goods_max
     <set>
       <if test="name != null">
         name = #{name},
@@ -63,8 +57,8 @@
       <if test="currentStock != null">
         current_stock = #{currentStock},
       </if>
-      <if test="lowLimitStock != null">
-        low_limit_stock = #{lowLimitStock}
+      <if test="theOverflow != null">
+        the_overflow=#{theOverflow}
       </if>
     </set>
     where
@@ -76,14 +70,14 @@
     select
     <include refid="DetailQueryFields" />
     from
-    sms_db.sms_goods
+    sms_db.sms_goods_max
     where
     id = #{id}
   </select>
 
   <!--int countByName(String name);-->
   <select id="countByName" resultType="int">
-    select count(*) from sms_db.sms_goods where name = #{name}
+    select count(*) from sms_db.sms_goods_max where name = #{name}
   </select>
 
   <!--List<GoodsListVO> list();-->
@@ -91,49 +85,47 @@
     SELECT
     <include refid="ListItemQueryFields"/>
     FROM
-    sms_db.sms_goods
+    sms_db.sms_goods_max
     ORDER BY id
   </select>
 
   <!--List<Goods> findAllGoods();-->
   <select id="findAllGoods" resultMap="ListItemResultMap">
     SELECT
-      id,url, name,category, purchase_price, sale_price,
-      goods_specification, current_stock, low_limit_stock
+    <include refid="ListItemQueryFields"/>
     FROM
-      sms_db.sms_goods
+    sms_db.sms_goods_max
   </select>
 
-
-  <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.GoodsDetailVO">
+  <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.GoodsMaxVO">
     <id column="id" property="id" />
     <result column="purchase_price" property="purchasePrice" />
     <result column="sale_price" property="salePrice" />
     <result column="goods_specification" property="goodsSpecification" />
     <result column="current_stock" property="currentStock" />
-    <result column="low_limit_stock" property="lowLimitStock" />
+    <result column="the_overflow" property="theOverflow" />
   </resultMap>
 
   <sql id="DetailQueryFields">
     <if test="true">
       id,url, name,category, purchase_price, sale_price,
-      goods_specification, current_stock, low_limit_stock
+      goods_specification, current_stock,the_overflow
     </if>
   </sql>
 
-  <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.GoodsListVO">
+  <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.GoodsMaxVO">
     <id column="id" property="id" />
     <result column="purchase_price" property="purchasePrice" />
     <result column="sale_price" property="salePrice" />
     <result column="goods_specification" property="goodsSpecification" />
     <result column="current_stock" property="currentStock" />
-    <result column="low_limit_stock" property="lowLimitStock" />
+    <result column="the_overflow" property="theOverflow" />
   </resultMap>
 
   <sql id="ListItemQueryFields">
     <if test="true">
       id,url, name,category, purchase_price, sale_price,
-      goods_specification, current_stock, low_limit_stock
+      goods_specification, current_stock,the_overflow
     </if>
   </sql>
 </mapper>

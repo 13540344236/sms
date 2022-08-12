@@ -7,7 +7,6 @@ import com.cs.sms.mapper.SupplierMapper;
 import com.cs.sms.pojo.dto.SupplierAddNewDTO;
 import com.cs.sms.pojo.entity.Supplier;
 import com.cs.sms.pojo.vo.SupplierListVO;
-import com.cs.sms.repo.ISaleRepository;
 import com.cs.sms.repo.ISupplierRepository;
 import com.cs.sms.service.ISupplierService;
 import com.cs.sms.web.ServiceCode;
@@ -16,14 +15,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
 @Slf4j
 @Service
 public class SupplierServiceImpl implements ISupplierService {
-    @Autowired
-    private ISupplierRepository supplierRepository;
 
     @Autowired
     private SupplierMapper supplierMapper;
@@ -38,7 +37,12 @@ public class SupplierServiceImpl implements ISupplierService {
             String message="添加失败,该商家已经存在";
             throw new ServiceException(ServiceCode.ERR_INSERT,message);
         }
+
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date));
         Supplier supplier=new Supplier();
+        supplier.setGmtCreate(date);
         BeanUtils.copyProperties(supplierAddNewDTO,supplier);
         int rows = supplierMapper.insert(supplier);
         if(rows!=1){
