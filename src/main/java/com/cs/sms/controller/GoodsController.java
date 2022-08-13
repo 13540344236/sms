@@ -114,8 +114,11 @@ public class GoodsController {
         //删除文件
         new File(filePath).delete();
         log.debug(filePath);
-
     }
-
-
+    @PostMapping("/selectByName")
+    public JsonResult selectByName(@RequestBody GoodsEditDTO goodsEditDTO){
+        String name = goodsEditDTO.getName();
+        List<GoodsListVO> goodsListVOS = goodsService.selectByName(name);
+        return JsonResult.ok(goodsListVOS);
+    }
 }

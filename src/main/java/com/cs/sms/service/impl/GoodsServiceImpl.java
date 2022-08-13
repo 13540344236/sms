@@ -158,7 +158,20 @@ public class GoodsServiceImpl implements IGoodsService {
         return JsonPage.restPage(new PageInfo<>(list));
     }
 
-
-
-
+    @Override
+    public List<GoodsListVO> selectByName(String name) {
+        log.debug("接收需要查询的商品名:{}",name);
+        if(name == null){
+            String message="商品名不能为空";
+            log.error(message);
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND,message);
+        }
+        List<GoodsListVO> goodsListVOS = goodsMapper.selectByName(name);
+        if(goodsListVOS.isEmpty()){
+            String message="没有该商品";
+            log.error(message);
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND,message);
+        }
+        return goodsListVOS;
+    }
 }
