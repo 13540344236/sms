@@ -1,0 +1,13 @@
+
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+
+  sms:
+    access-key-id: LTAI5tGYZpmF9v2PkTDeiazq
+    access-key-secret: PuZYqg9wyVlH5TK9gGJI42PgatAn6h
+    endpoint: dysmsapi.aliyuncs.com
+    signName: 阿里云短信测试
+    templateCode: SMS_154950909
