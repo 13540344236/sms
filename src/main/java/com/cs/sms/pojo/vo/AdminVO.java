@@ -1,5 +1,6 @@
 package com.cs.sms.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -58,6 +59,7 @@ public class AdminVO implements Serializable {
     /**
      * 数据创建时间
      */
+    @JsonFormat(pattern = "yyyy年MM月dd日 HH:mm:ss",timezone = "GMT+8")
     private Date gmtCreate;
     /**
      * 数据最后修改时间

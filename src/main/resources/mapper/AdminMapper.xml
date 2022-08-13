@@ -107,6 +107,19 @@
     order by id
   </select>
 
+  <!--List<Goods> findAllGoods();-->
+  <select id="findAllAdmin" resultMap="ListItemResultMap">
+    SELECT
+      id, staff_name, password,
+      gender, phone, id_number,
+      on_duty, email, description,
+      enable, last_login_ip, login_count,
+      gmt_last_login, gmt_create, gmt_modified
+    FROM
+      sms_db.sms_admin
+  </select>
+
+
   <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.AdminVO">
     <id column="id" property="id" />
     <result column="staff_name" property="staffName"/>

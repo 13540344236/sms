@@ -48,7 +48,4 @@ public interface AdminMapper {
      * @return 查询成功返回所以员工信息
      */
     List<AdminVO> list();
-
-    int ExcelInsert(Admin admin);
-
 }

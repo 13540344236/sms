@@ -11,7 +11,10 @@ import com.cs.sms.pojo.vo.PurchaseDetailVO;
 import com.cs.sms.pojo.vo.PurchaseListItemVO;
 import com.cs.sms.repo.IPurchaseRepository;
 import com.cs.sms.service.IPurchaseService;
+import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,5 +139,12 @@ public class PurchaseServiceImpl implements IPurchaseService {
         return purchaseMapper.list();
 
     }
-
+// 分页查询所有订单的方法
+    // pageNum是页码
+    // pageSize是每页条数
+    public JsonPage<PurchaseListItemVO> getAllOrdersByPage(Integer pageNum,Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<PurchaseListItemVO> list=purchaseMapper.listPage(pageNum,pageSize);
+       return JsonPage.restPage(new PageInfo<>(list));
+    }
 }

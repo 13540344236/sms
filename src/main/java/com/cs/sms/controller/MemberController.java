@@ -51,7 +51,7 @@ public class MemberController {
 
     @ApiOperation("通过id查询会员信息")
     @ApiOperationSupport(order = 400)
-    @PostMapping("/selectById")
+    @GetMapping("/selectById")
     public JsonResult selectById(Long id){
         log.debug("接收需要查询的会员id:{}",id);
         MemberVO memberVO = memberService.selectById(id);
@@ -60,8 +60,8 @@ public class MemberController {
 
     @ApiOperation("通过phone查询会员信息")
     @ApiOperationSupport(order = 400)
-    @PostMapping("/selectByPhone")
-    public JsonResult selectByPhone(String phone){
+    @GetMapping("/{phone:[0-9]+}/selectByPhone")
+    public JsonResult selectByPhone(@PathVariable Long phone){
         log.debug("接收需要查询的会员号码:{}",phone);
         MemberVO memberVO = memberService.selectByPhone(phone);
         return JsonResult.ok(memberVO);
