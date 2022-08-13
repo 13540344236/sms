@@ -1,7 +1,6 @@
 package com.cs.sms.mapper;
 
 import com.cs.sms.pojo.entity.Admin;
-import com.cs.sms.pojo.entity.Role;
 import com.cs.sms.pojo.vo.AdminVO;
 import org.springframework.stereotype.Repository;
 
@@ -49,6 +48,4 @@ public interface AdminMapper {
      * @return 查询成功返回所以员工信息
      */
     List<AdminVO> list();
-
-    int ExcelInsert(Admin admin);
 }

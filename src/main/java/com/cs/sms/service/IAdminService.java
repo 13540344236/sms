@@ -2,11 +2,7 @@ package com.cs.sms.service;
 
 import com.cs.sms.pojo.dto.AdminDTO;
 import com.cs.sms.pojo.vo.AdminVO;
-import com.cs.sms.web.Results;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 public interface IAdminService {
@@ -46,19 +42,4 @@ public interface IAdminService {
      * @return
      */
     List<AdminVO> list();
-
-    /**
-     * 文件上传
-     * @param file
-     * @return
-     */
-    Results<Object> upload(MultipartFile file);
-
-
-    /**
-     * 文件下载
-     * @param response
-     * @throws IOException
-     */
-    void createExcel(HttpServletResponse response) throws IOException;
 }

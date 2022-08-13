@@ -4,10 +4,8 @@ package com.cs.sms.service;
 import com.cs.sms.pojo.dto.GoodsAddNewDTO;
 import com.cs.sms.pojo.dto.GoodsBadDTO;
 import com.cs.sms.pojo.dto.GoodsEditDTO;
-import com.cs.sms.pojo.entity.GoodsBad;
 import com.cs.sms.pojo.vo.GoodsBadVO;
 import com.cs.sms.pojo.vo.GoodsListVO;
-import com.cs.sms.web.JsonPage;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,8 +27,8 @@ public interface IGoodsBadService {
     //导出商品报表
     void createExcel(HttpServletResponse response) throws IOException;
 
-    // 分页查询
-    JsonPage<GoodsBad> getAllGoodsByPage(Integer pageNum, Integer pageSize);
+//    // 分页查询
+//    JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize);
 
 
 }

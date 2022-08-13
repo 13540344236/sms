@@ -65,5 +65,5 @@ public interface GoodsBadMapper {
      * 分页查询所有商品
      * @return 商品列表
      */
-    List<GoodsBad> findAllGoods();
+    List<Goods> findAllGoods();
 }

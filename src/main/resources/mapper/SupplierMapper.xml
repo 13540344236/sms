@@ -17,14 +17,6 @@
     select <include refid="Base_Column_List" /> from sms_supplier where  id=#{id}
   </select>
 
-  <!--List<Supplier> findAllGoods();-->
-  <select id="findAllGoods" resultMap="ResultMapList">
-    SELECT
-      <include refid="Base_Column_List"></include>
-    FROM
-      sms_db.sms_supplier
-  </select>
-
   <delete id="deleteByPrimaryKey">
     delete from sms_supplier
     where id  in(
@@ -46,6 +38,7 @@
 
   <update id="updateByPrimaryKeySelective">
     UPDATE sms_supplier
+
     <set>
       <if test="supplier != null">
         supplier=#{supplier},

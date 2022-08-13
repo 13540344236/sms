@@ -1,28 +1,16 @@
 package com.cs.sms.controller;
 
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
-import com.cs.sms.mapper.AdminMapper;
 import com.cs.sms.pojo.dto.AdminDTO;
-import com.cs.sms.pojo.entity.Admin;
 import com.cs.sms.pojo.vo.AdminVO;
 import com.cs.sms.service.IAdminService;
 import com.cs.sms.web.JsonResult;
-import com.cs.sms.web.Results;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -90,16 +78,5 @@ public class AdminController {
     public JsonResult list() {
         List<AdminVO> list = adminService.list();
         return JsonResult.ok(list);
-    }
-
-
-    @GetMapping("/download")
-    public void download(HttpServletResponse response) throws IOException {
-        adminService.createExcel(response);
-    }
-
-    @PostMapping("/upload")
-    public Results<Object> importData(@RequestParam("file") MultipartFile file) throws IOException {
-        return adminService.upload(file);
     }
 }
