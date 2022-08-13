@@ -27,6 +27,8 @@ public interface IGoodsService {
     //导出商品报表
     void createExcel(HttpServletResponse response) throws IOException;
 
+    //根据名称模糊查询
+    List<GoodsListVO> selectByName(String name);
 
     // 分页查询
     JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize);

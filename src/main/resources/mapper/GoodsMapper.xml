@@ -81,6 +81,15 @@
     id = #{id}
   </select>
 
+  <select id="selectByName" resultMap="ListItemResultMap">
+    select
+    <include refid="DetailQueryFields" />
+    from
+    sms_db.sms_goods
+    where
+    name like concat('%',#{name},'%')
+  </select>
+
   <!--int countByName(String name);-->
   <select id="countByName" resultType="int">
     select count(*) from sms_db.sms_goods where name = #{name}
