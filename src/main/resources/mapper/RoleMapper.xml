@@ -67,4 +67,13 @@
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
+
+    <insert id="ExcelInsert">
+        insert into sms_role ( name, description,
+                               sort, gmt_create, gmt_modified,
+        )
+        values ( #{name}, #{description},
+                 #{sort}, #{gmtCreate}, #{gmtModified},
+               )
+    </insert>
 </mapper>

@@ -3,7 +3,11 @@ package com.cs.sms.service;
 import com.cs.sms.pojo.dto.RoleDTO;
 import com.cs.sms.pojo.entity.Role;
 import com.cs.sms.pojo.vo.RoleVO;
+import com.cs.sms.web.Results;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 public interface IRoleService {
@@ -32,4 +36,19 @@ public interface IRoleService {
      * @param role
      */
     void updateById(Role role);
+
+    /**
+     * 文件上传
+     * @param file
+     * @return
+     */
+    Results<Object> upload(MultipartFile file);
+
+
+    /**
+     * 文件下载
+     * @param response
+     * @throws IOException
+     */
+    void createExcel(HttpServletResponse response) throws IOException;
 }
