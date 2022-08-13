@@ -1,17 +1,18 @@
 package com.cs.sms.service.impl;
 
-
-
-
 import com.alibaba.excel.EasyExcel;
 import com.cs.sms.ex.ServiceException;
 import com.cs.sms.mapper.GoodsBadMapper;
 import com.cs.sms.pojo.dto.GoodsBadDTO;
+import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.GoodsBad;
 import com.cs.sms.pojo.vo.GoodsBadVO;
 import com.cs.sms.pojo.vo.GoodsListVO;
 import com.cs.sms.service.IGoodsBadService;
+import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-
 
 @Slf4j
 @Service
@@ -121,6 +121,15 @@ public class GoodsBadServiceImpl implements IGoodsBadService {
     @Override
     public List<GoodsBadVO> list() {
         return goodsBadMapper.list();
+    }
+
+    //分页查询商品列表
+    @Override
+    public JsonPage<GoodsBad> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        log.debug("num = {},Size = {}",pageNum,pageSize);
+        List<GoodsBad> list = goodsBadMapper.findAllGoods();
+        return JsonPage.restPage(new PageInfo<>(list));
     }
 
     @Override

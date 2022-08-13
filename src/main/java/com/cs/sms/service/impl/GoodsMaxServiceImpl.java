@@ -16,11 +16,21 @@ import com.cs.sms.pojo.vo.GoodsListVO;
 import com.cs.sms.pojo.vo.GoodsMaxVO;
 import com.cs.sms.service.IGoodsBadService;
 import com.cs.sms.service.IGoodsMaxService;
+import com.cs.sms.web.JsonPage;
+import com.cs.sms.web.JsonResult;
 import com.cs.sms.web.ServiceCode;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -126,6 +136,15 @@ public class GoodsMaxServiceImpl implements IGoodsMaxService {
     @Override
     public List<GoodsMaxVO> list() {
         return goodsMaxMapper.list();
+    }
+
+    //分页查询商品列表
+    @Override
+    public JsonPage<GoodsMax> getAllGoodsByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        log.debug("num = {},Size = {}",pageNum,pageSize);
+        List<GoodsMax> list = goodsMaxMapper.findAllGoods();
+        return JsonPage.restPage(new PageInfo<>(list));
     }
 
     @Override
