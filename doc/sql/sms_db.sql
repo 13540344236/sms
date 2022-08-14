@@ -136,6 +136,18 @@ create table sms_album
 -- 相册表：为相册名称字段添加索引
 create index idx_album_name on sms_album (name);
 
+-- 商品和类别关联表
+drop table if exists sms_goods_category;
+create table sms_goods_category
+(
+    id           bigint unsigned auto_increment comment '记录id',
+    goods_id     bigint unsigned default null comment '商品id',
+    category_id  bigint unsigned default null comment '类别id',
+    gmt_create   datetime        default null comment '数据创建时间',
+    gmt_modified datetime        default null comment '数据最后修改时间',
+    primary key (id)
+) comment '商品与类别关联' charset utf8mb4;
+
 -- 图片表：创建数据表
 drop table if exists sms_picture;
 create table sms_picture
