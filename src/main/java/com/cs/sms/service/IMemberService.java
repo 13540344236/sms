@@ -1,7 +1,10 @@
 package com.cs.sms.service;
 
 import com.cs.sms.pojo.dto.MemberDTO;
+import com.cs.sms.pojo.entity.Goods;
+import com.cs.sms.pojo.entity.Member;
 import com.cs.sms.pojo.vo.MemberVO;
+import com.cs.sms.web.JsonPage;
 
 import java.util.List;
 
@@ -41,4 +44,7 @@ public interface IMemberService {
      * @return
      */
     List<MemberVO> list();
+
+    // 分页查询
+    JsonPage<Member> getAllMemberByPage(Integer pageNum, Integer pageSize);
 }

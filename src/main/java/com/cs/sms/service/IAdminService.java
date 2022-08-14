@@ -1,7 +1,10 @@
 package com.cs.sms.service;
 
 import com.cs.sms.pojo.dto.AdminDTO;
+import com.cs.sms.pojo.entity.Admin;
+import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.AdminVO;
+import com.cs.sms.web.JsonPage;
 
 import java.util.List;
 
@@ -42,4 +45,7 @@ public interface IAdminService {
      * @return
      */
     List<AdminVO> list();
+
+    // 分页查询
+    JsonPage<Admin> getAllAdminByPage(Integer pageNum, Integer pageSize);
 }

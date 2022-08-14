@@ -92,6 +92,14 @@
     order by id
   </select>
 
+  <!--List<Admin> findAllAdmin();-->
+  <select id="findAllAdmin" resultMap="ListItemResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM
+      sms_db.sms_admin
+  </select>
+
   <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.AdminVO">
     <id column="id" property="id" />
     <result column="staff_name" property="staffName"/>

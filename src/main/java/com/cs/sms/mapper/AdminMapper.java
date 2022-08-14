@@ -1,6 +1,7 @@
 package com.cs.sms.mapper;
 
 import com.cs.sms.pojo.entity.Admin;
+import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.AdminVO;
 import org.springframework.stereotype.Repository;
 
@@ -48,4 +49,10 @@ public interface AdminMapper {
      * @return 查询成功返回所以员工信息
      */
     List<AdminVO> list();
+
+    /**
+     * 分页查询所有员工
+     * @return 员工列表
+     */
+    List<Admin> findAllAdmin();
 }

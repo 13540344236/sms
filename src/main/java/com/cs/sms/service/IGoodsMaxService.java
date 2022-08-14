@@ -3,8 +3,10 @@ package com.cs.sms.service;
 
 import com.cs.sms.pojo.dto.GoodsBadDTO;
 import com.cs.sms.pojo.dto.GoodsMaxDTO;
+import com.cs.sms.pojo.entity.GoodsMax;
 import com.cs.sms.pojo.vo.GoodsBadVO;
 import com.cs.sms.pojo.vo.GoodsMaxVO;
+import com.cs.sms.web.JsonPage;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,8 +28,8 @@ public interface IGoodsMaxService {
     //导出商品报表
     void createExcel(HttpServletResponse response) throws IOException;
 
-//    // 分页查询
-//    JsonPage<Goods> getAllGoodsByPage(Integer pageNum, Integer pageSize);
+    // 分页查询
+    JsonPage<GoodsMax> getAllGoodsMaxByPage(Integer pageNum, Integer pageSize);
 
 
 }
