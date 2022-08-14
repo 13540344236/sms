@@ -7,6 +7,7 @@ import com.cs.sms.mapper.SaleMapper;
 import com.cs.sms.pojo.dto.SaleAddNewDTO;
 import com.cs.sms.pojo.dto.SaleEditDTO;
 
+import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.Sale;
 
 import com.cs.sms.pojo.vo.PurchaseDetailVO;
@@ -138,12 +139,15 @@ public class SaleServiceImpl implements ISaleService {
         log.debug("开始处理查询商品列表业务");
         return saleMapper.list();
     }
-    // 分页查询所有订单的方法
+    // 分页查询所有销售信息的方法
     // pageNum是页码
     // pageSize是每页条数
-    public JsonPage<SaleListItemVO> getAllOrdersByPage(Integer pageNum, Integer pageSize){
+    //分页查询销售信息列表
+    @Override
+    public JsonPage<Sale> getAllSaleByPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<SaleListItemVO> list=saleMapper.listPage(pageNum,pageSize);
+        log.debug("num = {},Size = {}",pageNum,pageSize);
+        List<Sale> list = saleMapper.findAllSale();
         return JsonPage.restPage(new PageInfo<>(list));
     }
 

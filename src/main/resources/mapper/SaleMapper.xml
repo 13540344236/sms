@@ -111,8 +111,8 @@
         sms_db.sms_sale
         ORDER BY id
     </select>
-    <!--    List<PurchaseListItemVO> listPage(Integer offset, Integer count);-->
-    <select id="listPage" resultMap="ListItemResultMap">
+    <!--   List<Sale> findAllSale();-->
+    <select id="findAllSale" resultMap="ListItemResultMap">
         SELECT
         <include refid="ListItemQueryFields" />
         FROM

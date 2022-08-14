@@ -2,6 +2,7 @@ package com.cs.sms.service;
 
 import com.cs.sms.pojo.dto.SaleAddNewDTO;
 import com.cs.sms.pojo.dto.SaleEditDTO;
+import com.cs.sms.pojo.entity.Sale;
 import com.cs.sms.pojo.vo.SaleListItemVO;
 import com.cs.sms.web.JsonPage;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +39,7 @@ public interface ISaleService {
     void createExcel(HttpServletResponse response)throws IOException;
 
     // 返回JsonPage类型分页查询订单的方法
-    JsonPage<SaleListItemVO> getAllOrdersByPage(Integer pageNum, Integer pageSize);
+    JsonPage<Sale> getAllSaleByPage(Integer pageNum, Integer pageSize);
 
     void deleteByPrimaryKey(Long id);
 }

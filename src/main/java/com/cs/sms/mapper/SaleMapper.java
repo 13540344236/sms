@@ -51,10 +51,8 @@ public interface SaleMapper {
     List<SaleListItemVO> list();
 
     /**
-     * 分页查询所有商品
-     * @param pageNum
-     * @param pageSize
-     * @return
+     * 分页查询所有销售信息
+     * @return 销售信息列表
      */
-    List<SaleListItemVO> listPage(Integer pageNum, Integer pageSize);
+    List<Sale> findAllSale();
 }
