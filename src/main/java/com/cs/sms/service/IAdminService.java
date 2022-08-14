@@ -1,11 +1,12 @@
 package com.cs.sms.service;
 
 import com.cs.sms.pojo.dto.AdminDTO;
-import com.cs.sms.pojo.entity.Admin;
-import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.AdminVO;
-import com.cs.sms.web.JsonPage;
+import com.cs.sms.web.Results;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 public interface IAdminService {
@@ -46,6 +47,17 @@ public interface IAdminService {
      */
     List<AdminVO> list();
 
-    // 分页查询
-    JsonPage<Admin> getAllAdminByPage(Integer pageNum, Integer pageSize);
+    /**
+     * 导出员工报表
+     * @param response
+     * @throws IOException
+     */
+    void createExcel(HttpServletResponse response) throws IOException;
+
+    /**
+     * 导入上传
+     * @param file
+     * @return
+     */
+    Results<Object> upload(MultipartFile file);
 }

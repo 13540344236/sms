@@ -9,7 +9,6 @@ import com.cs.sms.mapper.GoodsBadMapper;
 import com.cs.sms.mapper.GoodsMaxMapper;
 import com.cs.sms.pojo.dto.GoodsBadDTO;
 import com.cs.sms.pojo.dto.GoodsMaxDTO;
-import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.GoodsBad;
 import com.cs.sms.pojo.entity.GoodsMax;
 import com.cs.sms.pojo.vo.GoodsBadVO;
@@ -17,10 +16,7 @@ import com.cs.sms.pojo.vo.GoodsListVO;
 import com.cs.sms.pojo.vo.GoodsMaxVO;
 import com.cs.sms.service.IGoodsBadService;
 import com.cs.sms.service.IGoodsMaxService;
-import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,15 +126,6 @@ public class GoodsMaxServiceImpl implements IGoodsMaxService {
     @Override
     public List<GoodsMaxVO> list() {
         return goodsMaxMapper.list();
-    }
-
-    //分页查询商品报溢列表
-    @Override
-    public JsonPage<GoodsMax> getAllGoodsMaxByPage(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        log.debug("num = {},Size = {}",pageNum,pageSize);
-        List<GoodsMax> list = goodsMaxMapper.findAllGoodsMax();
-        return JsonPage.restPage(new PageInfo<>(list));
     }
 
     @Override

@@ -89,8 +89,8 @@
     ORDER BY id
   </select>
 
-  <!--List<GoodsMax> findAllGoodsMax();-->
-  <select id="findAllGoodsMax" resultMap="ListItemResultMap">
+  <!--List<Goods> findAllGoods();-->
+  <select id="findAllGoods" resultMap="ListItemResultMap">
     SELECT
     <include refid="ListItemQueryFields"/>
     FROM

@@ -1,9 +1,10 @@
 package com.cs.sms.mapper;
 
 import com.cs.sms.pojo.entity.Admin;
-import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.AdminVO;
+import com.cs.sms.web.Results;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @Repository
@@ -51,8 +52,15 @@ public interface AdminMapper {
     List<AdminVO> list();
 
     /**
-     * 分页查询所有员工
-     * @return 员工列表
+     * 文件上传
+     * @param file
+     * @return
      */
-    List<Admin> findAllAdmin();
+    /**
+     *
+     * @param admin
+     * @return
+     */
+    int ExcelInsert(Admin admin);
+
 }

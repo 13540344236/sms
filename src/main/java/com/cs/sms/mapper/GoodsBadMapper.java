@@ -62,8 +62,8 @@ public interface GoodsBadMapper {
     List<GoodsBadVO> list();
 
     /**
-     * 分页查询所有商品报损
-     * @return 商品报损列表
+     * 分页查询所有商品
+     * @return 商品列表
      */
-    List<GoodsBad> findAllGoodsBad();
+    List<Goods> findAllGoods();
 }

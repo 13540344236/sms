@@ -3,14 +3,10 @@ package com.cs.sms.service.impl;
 import com.cs.sms.ex.ServiceException;
 import com.cs.sms.mapper.MemberMapper;
 import com.cs.sms.pojo.dto.MemberDTO;
-import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.Member;
 import com.cs.sms.pojo.vo.MemberVO;
 import com.cs.sms.service.IMemberService;
-import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,14 +109,5 @@ public class MemberServiceImpI implements IMemberService {
     public List<MemberVO> list() {
         log.debug("开始查询所有会员信息");
         return memberMapper.list();
-    }
-
-    //分页查询会员列表
-    @Override
-    public JsonPage<Member> getAllMemberByPage(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        log.debug("num = {},Size = {}",pageNum,pageSize);
-        List<Member> list = memberMapper.findAllMember();
-        return JsonPage.restPage(new PageInfo<>(list));
     }
 }

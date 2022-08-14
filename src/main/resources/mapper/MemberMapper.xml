@@ -67,13 +67,6 @@
     order by id
   </select>
 
-  <!--List<Member> findAllMember();-->
-  <select id="findAllMember" resultMap="ListItemResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from sms_db.sms_member
-  </select>
-
   <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.MemberVO">
     <id column="id" property="id" />
     <result column="member_id" property="memberId"/>

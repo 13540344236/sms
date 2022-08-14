@@ -61,8 +61,8 @@ public interface GoodsMaxMapper {
     List<GoodsMaxVO> list();
 
     /**
-     * 分页查询所有商品报溢
-     * @return 商品报溢列表
+     * 分页查询所有商品
+     * @return 商品列表
      */
-    List<GoodsMax> findAllGoodsMax();
+    List<GoodsMax> findAllGoods();
 }

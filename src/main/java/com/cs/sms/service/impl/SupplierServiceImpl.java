@@ -5,15 +5,11 @@ package com.cs.sms.service.impl;
 import com.cs.sms.ex.ServiceException;
 import com.cs.sms.mapper.SupplierMapper;
 import com.cs.sms.pojo.dto.SupplierAddNewDTO;
-import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.Supplier;
 import com.cs.sms.pojo.vo.SupplierListVO;
 import com.cs.sms.repo.ISupplierRepository;
 import com.cs.sms.service.ISupplierService;
-import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.ServiceCode;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,15 +68,6 @@ public class SupplierServiceImpl implements ISupplierService {
     @Override
     public List<SupplierListVO> list() {
         return supplierMapper.list();
-    }
-
-    //分页查询供应商列表
-    @Override
-    public JsonPage<Supplier> getAllSupplierByPage(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        log.debug("num = {},Size = {}",pageNum,pageSize);
-        List<Supplier> list = supplierMapper.findAllSupplier();
-        return JsonPage.restPage(new PageInfo<>(list));
     }
 
     @Override
