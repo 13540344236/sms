@@ -117,4 +117,12 @@ public class AdminController {
         log.debug("批量导入员工");
         return adminService.upload(file);
     }
+
+//    @ApiOperation("查询所有用户信息")
+//    @ApiOperationSupport(order = 402)
+//    @GetMapping("/user")
+//    public JsonResult userList() {
+//        List<AdminVO> list = adminService.userList();
+//        return JsonResult.ok(list);
+//    }
 }
