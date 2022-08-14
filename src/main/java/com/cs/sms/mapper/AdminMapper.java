@@ -55,4 +55,11 @@ public interface AdminMapper {
      * @return 员工列表
      */
     List<Admin> findAllAdmin();
+
+    /**
+     * 文件上传
+     * @param
+     * @return
+     */
+    int ExcelInsert(Admin admin);
 }
