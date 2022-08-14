@@ -92,20 +92,13 @@
     order by id
   </select>
 
-  <insert id="ExcelInsert" useGeneratedKeys="true" keyProperty="id" >
-    insert into sms_admin ( staff_name, password,
-                            gender, phone, id_number,
-                            on_duty, email, description,
-                            enable, last_login_ip, login_count,
-                            gmt_last_login, gmt_create, gmt_modified
-    )
-    values ( #{staffName}, #{password},
-             #{gender}, #{phone}, #{idNumber},
-             #{onDuty}, #{email}, #{description},
-             #{enable}, #{lastLoginIp}, #{loginCount},
-             #{gmtLastLogin}, #{gmtCreate}, #{gmtModified}
-           )
-  </insert>
+  <!--List<Admin> findAllAdmin();-->
+  <select id="findAllAdmin" resultMap="ListItemResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM
+      sms_db.sms_admin
+  </select>
 
   <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.AdminVO">
     <id column="id" property="id" />
