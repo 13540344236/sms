@@ -1,5 +1,6 @@
 package com.cs.sms.mapper;
 
+import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.Member;
 import com.cs.sms.pojo.vo.MemberVO;
 import org.springframework.stereotype.Repository;
@@ -35,7 +36,7 @@ public interface MemberMapper {
      * @param phone 会员信息
      * @return 查询成功时返回查询到的数据
      */
-    MemberVO selectByPhone(String phone);
+    MemberVO selectByPhone(long phone);
 
     /**
      * 根据id查询会员信息
@@ -47,5 +48,11 @@ public interface MemberMapper {
      * @return 查询成功返回所有会员信息
      */
     List<MemberVO> list();
+
+    /**
+     * 分页查询所有会员
+     * @return 会员列表
+     */
+    List<Member> findAllMember();
 
 }

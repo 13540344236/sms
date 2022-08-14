@@ -76,9 +76,9 @@ public interface PurchaseMapper {
 
     /**
      * 分页查询所有商品
-     * @param offset
-     * @param count
+     * @param  pageNum
+     * @param pageSize
      * @return
      */
-    List<PurchaseListItemVO> listPage(Integer offset, Integer count);
+    List<PurchaseListItemVO> listPage(Integer pageNum,Integer pageSize);
 }

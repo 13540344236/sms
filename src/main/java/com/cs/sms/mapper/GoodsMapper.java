@@ -45,6 +45,13 @@ public interface GoodsMapper {
     GoodsDetailVO selectById(Long id);
 
     /**
+     * 根据商品名查询商品
+     * @param name
+     * @return
+     */
+    List<GoodsListVO> selectByName(String name);
+
+    /**
      * 根据商品名称统计商品数量
      * @param name 商品名称
      * @return 商品数量

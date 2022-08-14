@@ -1,166 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs.sms.mapper.SaleMapper">
-  <resultMap id="BaseResultMap" type="com.cs.sms.pojo.entity.Sale">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="goods_specification" jdbcType="VARCHAR" property="goodsSpecification" />
-    <result column="sale_quantity" jdbcType="INTEGER" property="saleQuantity" />
-    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
-    <result column="customer_phone" jdbcType="VARCHAR" property="customerPhone" />
-    <result column="operating_staff" jdbcType="VARCHAR" property="operatingStaff" />
-    <result column="purchase_document_picture" jdbcType="VARCHAR" property="purchaseDocumentPicture" />
-    <result column="logo" jdbcType="VARCHAR" property="logo" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, name, goods_specification, sale_quantity, customer_name, customer_phone, operating_staff, 
-    purchase_document_picture, logo, gmt_create, gmt_modified
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sms_sale
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sms_sale
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.cs.sms.pojo.entity.Sale">
-    insert into sms_sale (id, name, goods_specification, 
-      sale_quantity, customer_name, customer_phone, 
-      operating_staff, purchase_document_picture, 
-      logo, gmt_create, gmt_modified
-      )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{goodsSpecification,jdbcType=VARCHAR}, 
-      #{saleQuantity,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, #{customerPhone,jdbcType=VARCHAR}, 
-      #{operatingStaff,jdbcType=VARCHAR}, #{purchaseDocumentPicture,jdbcType=VARCHAR}, 
-      #{logo,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.cs.sms.pojo.entity.Sale">
-    insert into sms_sale
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="goodsSpecification != null">
-        goods_specification,
-      </if>
-      <if test="saleQuantity != null">
-        sale_quantity,
-      </if>
-      <if test="customerName != null">
-        customer_name,
-      </if>
-      <if test="customerPhone != null">
-        customer_phone,
-      </if>
-      <if test="operatingStaff != null">
-        operating_staff,
-      </if>
-      <if test="purchaseDocumentPicture != null">
-        purchase_document_picture,
-      </if>
-      <if test="logo != null">
-        logo,
-      </if>
-      <if test="gmtCreate != null">
-        gmt_create,
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsSpecification != null">
-        #{goodsSpecification,jdbcType=VARCHAR},
-      </if>
-      <if test="saleQuantity != null">
-        #{saleQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="customerName != null">
-        #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="customerPhone != null">
-        #{customerPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="operatingStaff != null">
-        #{operatingStaff,jdbcType=VARCHAR},
-      </if>
-      <if test="purchaseDocumentPicture != null">
-        #{purchaseDocumentPicture,jdbcType=VARCHAR},
-      </if>
-      <if test="logo != null">
-        #{logo,jdbcType=VARCHAR},
-      </if>
-      <if test="gmtCreate != null">
-        #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cs.sms.pojo.entity.Sale">
-    update sms_sale
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsSpecification != null">
-        goods_specification = #{goodsSpecification,jdbcType=VARCHAR},
-      </if>
-      <if test="saleQuantity != null">
-        sale_quantity = #{saleQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="customerName != null">
-        customer_name = #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="customerPhone != null">
-        customer_phone = #{customerPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="operatingStaff != null">
-        operating_staff = #{operatingStaff,jdbcType=VARCHAR},
-      </if>
-      <if test="purchaseDocumentPicture != null">
-        purchase_document_picture = #{purchaseDocumentPicture,jdbcType=VARCHAR},
-      </if>
-      <if test="logo != null">
-        logo = #{logo,jdbcType=VARCHAR},
-      </if>
-      <if test="gmtCreate != null">
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.cs.sms.pojo.entity.Sale">
-    update sms_sale
-    set name = #{name,jdbcType=VARCHAR},
-      goods_specification = #{goodsSpecification,jdbcType=VARCHAR},
-      sale_quantity = #{saleQuantity,jdbcType=INTEGER},
-      customer_name = #{customerName,jdbcType=VARCHAR},
-      customer_phone = #{customerPhone,jdbcType=VARCHAR},
-      operating_staff = #{operatingStaff,jdbcType=VARCHAR},
-      purchase_document_picture = #{purchaseDocumentPicture,jdbcType=VARCHAR},
-      logo = #{logo,jdbcType=VARCHAR},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <!-- int insert(Sale sale); -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into sms_db.sms_sale ( name, goods_specification, sale_quantity,
+                                   customer_name, customer_phone, operating_staff,
+                                     purchase_document_picture,
+                                   logo, gmt_create, gmt_modified
+        )
+        values (#{name}, #{goodsSpecification}, #{saleQuantity},
+                #{customerName}, #{customerPhone},#{operatingStaff},
+                #{purchaseDocumentPicture}, #{logo}, #{gmtCreate}, #{gmtModified}
+               )
+    </insert>
+    <!-- int deleteByPrimaryKey(Long id); -->
+    <delete id="deleteByPrimaryKey">
+        DELETE
+        FROM
+            sms_db.sms_sale
+        WHERE
+            id=#{id}
+    </delete>
+    <!-- int deleteByIds(Long... ids); -->
+    <delete id="deleteByIds">
+        DELETE
+        FROM
+       sms_db.sms_sale
+        WHERE
+        id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+    <update id="updateById">
+        UPDATE
+        sms_db.sms_sale
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="goodsSpecification!= null">
+                goods_specification=#{goodsSpecification},
+            </if>
+            <if test="saleQuantity!= null">
+                sale_quantity=#{saleQuantity},
+            </if>
+            <if test="customerName!= null">
+                customer_name=#{customerName},
+            </if>
+            <if test="customerPhone!= null">
+                customer_phone=#{customerPhone},
+            </if>
+            <if test="operatingStaff!= null">
+                operating_staff=#{operatingStaff},
+            </if>
+            <if test=" purchaseDocumentPicture != null">
+                purchase_document_picture=#{purchaseDocumentPicture},
+            </if>
+            <if test="logo != null">
+                logo=#{logo},
+            </if>
+        </set>
+        WHERE
+        id=#{id}
+    </update>
+    <!-- int updateNameById(@Param("id") Long id, @Param("name") String name); -->
+    <update id="updateNameById">
+        UPDATE
+            sms_db.sms_sale
+        SET
+            name=#{name}
+        WHERE
+            id=#{id}
+    </update>
+
+    <!-- int count(); -->
+    <select id="count" resultType="int">
+        SELECT count(*) FROM sms_db.sms_sale
+    </select>
+
+
+    <!-- int countByName(String name); -->
+    <select id="countByName" resultType="int">
+        SELECT count(*) FROM sms_db.sms_sale WHERE name=#{name}
+    </select>
+    <!-- PurchaseDetailVO getById(Long id); -->
+    <select id="getById" resultMap="DetailResultMap">
+        SELECT
+        <include refid="DetailQueryFields" />
+        FROM
+        sms_db.sms_sale
+        WHERE
+        id=#{id}
+    </select>
+    <!-- PurchaseDetailVO getByName(String name); -->
+    <select id="getByName" resultMap="DetailResultMap">
+        SELECT
+        <include refid="DetailQueryFields" />
+        FROM
+        sms_db.sms_sale
+        WHERE
+        name=#{name}
+    </select>
+    <!--    List<PurchaseListItemVO> list();-->
+    <select id="list" resultMap="ListItemResultMap">
+        SELECT
+        <include refid="ListItemQueryFields" />
+        FROM
+        sms_db.sms_sale
+        ORDER BY id
+    </select>
+    <!--   List<Sale> findAllSale();-->
+    <select id="findAllSale" resultMap="ListItemResultMap">
+        SELECT
+        <include refid="ListItemQueryFields" />
+        FROM
+        sms_db.sms_sale
+        ORDER BY id
+    </select>
+
+    <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.SaleDetailVO">
+        <id column="id" property="id" />
+        <id column="goods_specification" property="goodsSpecification" />
+        <id column="sale_quantity" property="saleQuantity" />
+        <id column="customer_name" property="customerName" />
+        <id column="customer_phone" property="customerPhone" />
+        <id column="operating_staff" property="operatingStaff" />
+        <id column="purchase_document_picture" property="purchaseDocumentPicture" />
+        <id column="gmt_create" property="gmtCreate" />
+    </resultMap>
+
+    <sql id="DetailQueryFields">
+        <if test="true">
+            id,name,
+            goods_specification,  sale_quantity,
+            customer_name, customer_phone, operating_staff,
+             purchase_document_picture,
+            logo
+        </if>
+    </sql>
+
+    <sql id="ListItemQueryFields">
+        <if test="true">
+            id,name,
+            goods_specification, sale_quantity,
+            customer_name, customer_phone, operating_staff,
+             purchase_document_picture,logo,gmt_create
+        </if>
+    </sql>
+    <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.SaleListItemVO">
+        <id column="id" property="id" />
+        <id column="goods_specification" property="goodsSpecification" />
+        <id column="sale_quantity" property="saleQuantity" />
+        <id column="customer_name" property="customerName" />
+        <id column="customer_phone" property="customerPhone" />
+        <id column="operating_staff" property="operatingStaff" />
+        <id column="purchase_document_picture" property="purchaseDocumentPicture" />
+        <id column="gmt_create" property="gmtCreate" />
+    </resultMap>
 </mapper>

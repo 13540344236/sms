@@ -19,7 +19,7 @@ public class MemberVO {
     /**
      * 会员电话
      */
-    private String phone;
+    private Long phone;
     /**
      * 会员可用积分
      */
@@ -31,7 +31,7 @@ public class MemberVO {
     /**
      * 支付方式
      */
-    private Byte paymentMethod;
+    private String paymentMethod;
     /**
      * 购买商店地址
      */

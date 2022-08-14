@@ -116,5 +116,12 @@ public class GoodsController {
         log.debug(filePath);
 
     }
+    @PostMapping("/selectByName")
+    public JsonResult selectByName(@RequestBody GoodsEditDTO goodsEditDTO){
+        String name = goodsEditDTO.getName();
+        List<GoodsListVO> goodsListVOS = goodsService.selectByName(name);
+        return JsonResult.ok(goodsListVOS);
+    }
+
 
 }

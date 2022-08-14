@@ -80,6 +80,15 @@
     where
     id = #{id}
   </select>
+<!--根据商品名模糊查询-->
+  <select id="selectByName" resultMap="ListItemResultMap">
+    select
+    <include refid="DetailQueryFields" />
+    from
+    sms_db.sms_goods
+    where
+    name like concat('%',#{name},'%')
+  </select>
 
   <!--int countByName(String name);-->
   <select id="countByName" resultType="int">

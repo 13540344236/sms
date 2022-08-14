@@ -122,7 +122,6 @@
     FROM
     sms_purchase
     ORDER BY id
-    LIMIT ${offset}, ${count}
   </select>
 
   <select id="selectById" resultType="com.cs.sms.pojo.vo.RefundDetailVO">

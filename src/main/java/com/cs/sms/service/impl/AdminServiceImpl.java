@@ -1,20 +1,33 @@
 package com.cs.sms.service.impl;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.AnalysisEventListener;
 import com.cs.sms.ex.ServiceException;
 import com.cs.sms.mapper.AdminMapper;
 import com.cs.sms.pojo.dto.AdminDTO;
 import com.cs.sms.pojo.entity.Admin;
+import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.AdminVO;
 import com.cs.sms.repo.IAlbumRepository;
 import com.cs.sms.service.IAdminService;
+import com.cs.sms.web.JsonPage;
+import com.cs.sms.web.Results;
 import com.cs.sms.web.ServiceCode;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 @Slf4j
@@ -113,5 +126,55 @@ public class AdminServiceImpl implements IAdminService {
     @Override
     public List<AdminVO> list() {
         return adminMapper.list();
+    }
+
+    //分页查询商品列表
+    @Override
+    public JsonPage<Admin> getAllAdminByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        log.debug("num = {},Size = {}",pageNum,pageSize);
+        List<Admin> list = adminMapper.findAllAdmin();
+        return JsonPage.restPage(new PageInfo<>(list));
+    }
+
+    @Override
+    public void createExcel(HttpServletResponse response) throws IOException {
+        //1.查询到商品的所有信息
+        List<AdminVO> list = adminMapper.list();
+        //2.设置文件下载
+        //设置响应头，告诉浏览器要以附件的形式保存，filename=文件名
+        response.setHeader("content-disposition","attachment;filename=staffs"+System.currentTimeMillis()+".xlsx");
+        EasyExcel.write(response.getOutputStream(), AdminVO.class).sheet("商品详情").doWrite(list);
+
+    }
+
+    @Override
+    public Results<Object> upload(MultipartFile file) {
+        if (file == null) new Results<>(404, "导入数据失败", null);
+        ArrayList<Object> list = new ArrayList<>();
+        AnalysisEventListener listener = new AnalysisEventListener() {
+            @Override
+            public void invoke(Object data, AnalysisContext context) {
+                //获取到每一行数据，逐行进行处理
+                list.add(data);
+                AdminVO clueVO = (AdminVO) data;
+                Admin admin = new Admin();
+                BeanUtils.copyProperties(clueVO, admin);
+                //这里将获取到的数据封装回实体类对象中，并在数据库持久化
+                adminMapper.ExcelInsert(admin);
+                System.out.println(Arrays.toString(new ArrayList[]{list}));
+            }
+
+            @Override
+            public void doAfterAllAnalysed(AnalysisContext context) {
+                log.info("导入数据完毕");
+            }
+        };
+        try {
+            EasyExcel.read(file.getInputStream(), AdminVO.class, listener).sheet(0).doRead();
+        } catch (IOException e) {
+            log.error("导入出错：{}", e.getMessage());
+        }
+        return new Results<>(200, "导入数据成功", list);
     }
 }
