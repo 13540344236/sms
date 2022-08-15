@@ -1,4 +1,4 @@
-package com.cs.sms.config;
+package com.cs.sms.web;
 
 
 import com.cs.sms.util.FontsUtil;

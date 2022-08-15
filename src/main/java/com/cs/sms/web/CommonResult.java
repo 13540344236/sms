@@ -1,4 +1,4 @@
-package com.cs.sms.api;
+package com.cs.sms.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

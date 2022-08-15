@@ -3,15 +3,13 @@ package com.cs.sms.controller;
  * 图形验证码
  */
 
-import com.cs.sms.api.CommonResult;
-import com.cs.sms.config.Captcha;
+import com.cs.sms.web.CommonResult;
+import com.cs.sms.web.Captcha;
 import com.wf.captcha.SpecCaptcha;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +19,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
+@CrossOrigin
 @Slf4j
-@Controller
+@Api(tags = "登录验证码模块")
+@RestController
+@RequestMapping("/captchas")
 public class CaptchaController {
 
     @Resource
@@ -36,10 +36,9 @@ public class CaptchaController {
      * @return
      * @throws Exception
      */
-    @ResponseBody
     @GetMapping("/captcha")
     public CommonResult captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        log.debug("生成验证码请求");
         // png类型
         SpecCaptcha captcha = new SpecCaptcha(130, 48, 5);
 
@@ -60,6 +59,7 @@ public class CaptchaController {
         map.put("key", key);
         map.put("image", captcha.toBase64());
         return new CommonResult(200,"success",map);
+
 
     }
 

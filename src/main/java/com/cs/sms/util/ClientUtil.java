@@ -1,4 +1,4 @@
-package com.cs.sms.client;
+package com.cs.sms.util;
 /**短信验证工具类*/
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @ConfigurationProperties(prefix = "spring.sms")
-public class SmsClient {
+public class ClientUtil {
 
     private String accessKeyId;      //ID
 

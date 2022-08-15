@@ -1,11 +1,11 @@
-package com.cs.sms.common;
+package com.cs.sms.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 接口统一返回包装类
+ * 接口统一返回包装类：验证码
  */
 @Data
 @NoArgsConstructor

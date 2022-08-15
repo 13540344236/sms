@@ -4,7 +4,7 @@ package com.cs.sms.controller;
  */
 
 
-import com.cs.sms.client.SmsClient;
+import com.cs.sms.util.ClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -26,7 +26,7 @@ public class SmsController {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private SmsClient smsClient;
+    private ClientUtil smsClient;
 
     @GetMapping("/sendSmsCode")
     public  Map<String,Object>sendSmsCode(@RequestParam("phoneNumber") String phoneNumber) {
@@ -50,7 +50,7 @@ public class SmsController {
         result.put("msg", "短信发送失败");
         return result;
     }
-        @GetMapping("/checkSmsCode")
+        @GetMapping("/checkSmsCode") //判断验证码是否正确
         public Map<String, Object> checkSmsCode (@RequestParam("phoneNumber") String phoneNumber, @RequestParam("smsCode") String smsCode) {
             Map<String, Object> result = new HashMap<>();
             String cacheCode = stringRedisTemplate.opsForValue().get(phoneNumber);

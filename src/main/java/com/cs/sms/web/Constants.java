@@ -1,4 +1,4 @@
-package com.cs.sms.common;
+package com.cs.sms.web;
 
 public interface Constants {
 

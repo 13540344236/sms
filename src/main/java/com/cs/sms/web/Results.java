@@ -4,6 +4,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ * 封装插入表格的返回信息
+ * @param <T>
+ */
 @ApiModel("通用接口返回对象")
 @Data
 public class Results<T> {
