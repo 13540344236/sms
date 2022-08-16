@@ -1,8 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs.sms.mapper.UserMapper">
+    <insert id="insert" >
+        insert into sms_user (
+            id,username,password,nickname,email,
+            phone,address,create_time,avatar_url,
+            role,enable
+        )
+        values (
+                   #{id},#{username}, #{password},
+                   #{nickname}, #{email}, #{phone},
+                   #{address}, #{createTime}, #{avatarUrl},#{role},#{enable}
+               )
+    </insert>
 
-    <resultMap id="pageUser" type="com.cs.sms.pojo.entity.User">
+    <!--int deleteById(Long id);-->
+    <delete id="deleteById">
+        delete from sms_db.sms_user
+        where id = #{id}
+    </delete>
+
+    <!--int deleteByIds(Long[] ids);-->
+    <delete id="deleteByIds">
+        delete from sms_db.sms_user where id in (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+
+    <!--int updateById(Long id);-->
+    <update id="updateById">
+        update
+        sms_db.sms_user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="role != null">
+                role = #{role}
+            </if>
+            <if test="enable != null">
+                enable = #{enable}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <!-- UserVO selectById(Long id); -->
+    <select id="selectById" resultMap="DetailResultMap">
+        select
+        <include refid="DetailQueryFields" />
+        from
+        sms_db.sms_user
+        where
+        id = #{id}
+    </select>
+    <!--根据用户名模糊查询-->
+    <select id="selectByName" resultMap="ListItemResultMap">
+        select
+        <include refid="DetailQueryFields" />
+        from
+        sms_db.sms_user
+        where
+        username like concat('%',#{username},'%')
+    </select>
+
+    <!--List<User> findAllGoods();-->
+    <select id="findAllUser" resultMap="ListItemResultMap">
+        SELECT
+            id,username,password,nickname,email,
+            phone,address,create_time,avatar_url,
+            role,enable
+        FROM
+            sms_db.sms_user
+    </select>
+
+    <!--int countByName(String name);-->
+    <select id="countByName" resultType="int">
+        select count(*) from sms_db.sms_user where username = #{username}
+    </select>
+
+    <!--List<UserVO> list();-->
+    <select id="list" resultMap="ListItemResultMap">
+        SELECT
+        <include refid="ListItemQueryFields"/>
+        FROM
+        sms_db.sms_user
+        ORDER BY id
+    </select>
+
+    <!--List<User> findAllUser();-->
+    <select id="findAllGoods" resultMap="ListItemResultMap">
+        SELECT
+            id,username,password,nickname,email,
+            phone,address,create_time,avatar_url,
+            role,enable
+        FROM
+            sms_db.sms_user
+    </select>
+
+
+    <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.UserVO">
         <result column="id" property="id" />
         <result column="username" property="username" />
         <result column="nickname" property="nickname" />
@@ -14,26 +133,27 @@
         <result column="role" property="role" />
     </resultMap>
 
-    <select id="findPage" resultMap="pageUser">
-        select sms_user.*, sc.name as stuCourseName, tc.name as teacherCourseName, tc.score as teacherScore,
-        sc.score as stuScore from sms_user
-        left join student_course
-        on sms_user.id = student_course.student_id
-        left join course sc
-        on student_course.course_id = sc.id
-        left join course tc
-        on sms_user.id = tc.teacher_id
-        <where>
-            <if test="username != null and username != ''">
-                and sms_user.username like concat('%', #{username} ,'%')
-            </if>
-            <if test="email != null and email != ''">
-                and sms_user.email like concat('%', #{email} ,'%')
-            </if>
-            <if test="address != null and address != ''">
-                and sms_user.address like concat('%', #{address} ,'%')
-            </if>
-        </where>
-    </select>
+
+
+    <sql id="DetailQueryFields">
+        <if test="true">
+            id,username,password,nickname,email,
+            phone,address,create_time,avatar_url,
+            role,enable
+        </if>
+    </sql>
+
+    <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.UserVO">
+        <result column="id" property="id" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <sql id="ListItemQueryFields">
+        <if test="true">
+            id,username,password,nickname,email,
+            phone,address,create_time,avatar_url,
+            role,enable
+        </if>
+    </sql>
 
 </mapper>
