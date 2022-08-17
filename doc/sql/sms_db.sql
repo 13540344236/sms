@@ -1,5 +1,32 @@
 -- 数据库：sms_db
 -- 测试上传111111111111111111111111111
+DROP TABLE IF EXISTS sms_role_menu;
+create table sms_role_menu
+(
+    id      int unsigned auto_increment comment '记录id',
+    role_id int           null comment '角色id',
+    menu_id int           null comment '菜单id',
+    primary key (id)
+);
+
+-- 菜单表
+DROP TABLE IF EXISTS `sms_menu`;
+CREATE TABLE `sms_menu`
+(
+    `id`          int(11)                                                       NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `name`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '名称',
+    `path`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '路径',
+    `icon`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '图标',
+    `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+    `pid`         int(11)                                                       NULL DEFAULT NULL COMMENT '父级id',
+    `page_path`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '页面路径',
+    `sort_num`    int(11)                                                       NULL DEFAULT NULL COMMENT '排序',
+    PRIMARY KEY (`id`) USING BTREE
+)
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci
+  ROW_FORMAT = Dynamic;
+
 -- 用户表（管理员表）
 DROP TABLE IF EXISTS sms_user;
 CREATE TABLE sms_user  (
@@ -15,7 +42,7 @@ CREATE TABLE sms_user  (
      `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '角色',
       enable      tinyint unsigned default 0 comment '是否启用，1=启用，0=未启用',
      PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) CHARACTER SET = utf8mb4 COLLATE = utf8;
 
 -- 员工表
 drop table if exists sms_admin;
