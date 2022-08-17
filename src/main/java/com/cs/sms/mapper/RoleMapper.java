@@ -45,6 +45,13 @@ public interface RoleMapper {
     List<RoleVO> getById(Long id);
 
     /**
+     * 根据name查询角色
+     * @param name
+     * @return
+     */
+    List<RoleVO> getByName(String name);
+
+    /**
      * 根据ID修改角色信息
      * @param role
      * @return

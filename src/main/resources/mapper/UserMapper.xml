@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs.sms.mapper.UserMapper">
+
+    <!-- UserLoginVO getByUsername(String username); -->
+    <select id="getByUsername" resultMap="LoginResultMap">
+        SELECT
+        <include refid="LoginQueryFields" />
+        FROM sms_user
+        LEFT JOIN sms_user_role ON sms_user.id=sms_user_role.user_id
+        LEFT JOIN sms_role_permission ON sms_user_role.role_id=sms_role_permission.role_id
+        LEFT JOIN sms_permission ON sms_role_permission.permission_id=sms_permission.id
+        WHERE
+        sms_user.username=#{username}
+    </select>
+    <resultMap id="LoginResultMap" type="com.cs.sms.pojo.vo.UserLoginVO">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="enable" property="enable" />
+        <collection property="permissions" ofType="java.lang.String">
+            <constructor>
+                <arg column="value" />
+            </constructor>
+        </collection>
+    </resultMap>
+    <sql id="LoginQueryFields">
+        <if test="true">
+            sms_user.id,
+            sms_user.username,
+            sms_user.password,
+            sms_user.enable,
+            sms_permission.value
+        </if>
+    </sql>
+
+
     <insert id="insert" >
         insert into sms_user (
             id,username,password,nickname,email,

@@ -1,6 +1,7 @@
 package com.cs.sms.service;
 
 import com.cs.sms.pojo.dto.UserDTO;
+import com.cs.sms.pojo.dto.UserLoginDTO;
 import com.cs.sms.pojo.entity.User;
 import com.cs.sms.pojo.vo.AdminVO;
 import com.cs.sms.pojo.vo.UserVO;
@@ -15,6 +16,15 @@ import java.util.List;
  *  服务类
  */
 public interface IUserService  {
+
+    /**
+     * 管理员登录
+     *
+     * @param userLoginDTO 封装了管理员用户登录时提交的数据的对象
+     * @return 成功登录的用户的JWT数据
+     */
+//    String login(UserLoginDTO userLoginDTO);
+
     /**
      * 增加用户
      * @param userDTO

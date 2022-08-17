@@ -2,11 +2,13 @@ package com.cs.sms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cs.sms.pojo.dto.UserLoginDTO;
 import com.cs.sms.pojo.dto.UserPasswordDTO;
 import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.User;
 import com.cs.sms.pojo.vo.GoodsDetailVO;
 import com.cs.sms.pojo.vo.GoodsListVO;
+import com.cs.sms.pojo.vo.UserLoginVO;
 import com.cs.sms.pojo.vo.UserVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -19,6 +21,14 @@ import java.util.List;
  */
 @Repository
 public interface UserMapper  {
+
+    /**
+     * 根据管理员用户名查询管理员的登录相关信息
+     *
+     * @param username 管理员用户名
+     * @return 匹配的管理员相关信息，如果没有匹配的数据，则返回null
+     */
+    UserLoginVO getByUsername(String username);
 
     /**
      * 插入用户列表数据

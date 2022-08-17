@@ -1,6 +1,6 @@
 -- 数据库：sms_db
 -- 测试上传111111111111111111111111111
-
+-- 用户表（管理员表）
 DROP TABLE IF EXISTS sms_user;
 CREATE TABLE sms_user  (
     `id` int(15) NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -17,7 +17,7 @@ CREATE TABLE sms_user  (
      PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
--- 管理员(员工)表
+-- 员工表
 drop table if exists sms_admin;
 create table sms_admin
 (
@@ -40,11 +40,11 @@ create table sms_admin
 )comment '管理员(员工)表' charset utf8;
 
 -- 管理员-角色关联表：创建数据表
-drop table if exists sms_admin_role;
-create table sms_admin_role
+drop table if exists sms_user_role;
+create table sms_user_role
 (
      id             bigint unsigned auto_increment,
-     admin_id       bigint unsigned default null comment '管理员id',
+     user_id       bigint unsigned default null comment '管理员id',
      role_id        bigint unsigned default null comment '角色id',
      gmt_create     datetime default null comment '数据创建时间',
      gmt_modified   datetime default null comment '数据最后修改时间',

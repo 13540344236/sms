@@ -31,9 +31,14 @@
     from sms_role WHERE id = #{id}
   </select>
 
+  <select id="getByName" resultMap="RoleResultMap">
+    select
+      id
+    from sms_role WHERE name = #{name}
+  </select>
+
   <sql id="list">
-    id
-    ,name,description,sort,gmt_create,gmt_modified
+    id,name,description,sort,gmt_create,gmt_modified
   </sql>
 
 

@@ -20,7 +20,7 @@ public final class JwtUtils {
     /**
      * 签名密钥
      */
-    private static final String SECRET_KEY = "trfyehsk4397proui4j2qlkfwe89oulj4r2fewsdouljfsda";
+    private static final String SECRET_KEY = "lkjfdslkjafds8iufnmdsfadsa";
     /**
      * JWT数据有效时间，以分钟为单位
      */
@@ -39,7 +39,7 @@ public final class JwtUtils {
      * @return JWT字符串
      */
     public static String generate(Map<String, Object> claims) {
-        Date expiration = new Date(System.currentTimeMillis() + EXPIRED_IN_MINUTE * 60 * 1000);
+        Date expiration = new Date(System.currentTimeMillis() + EXPIRED_IN_MINUTE * 60 * 24 * 7);
         String jwt = Jwts.builder()
                 .setHeaderParam("typ", "jwt")
                 .setHeaderParam("alg", "HS256")

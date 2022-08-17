@@ -51,7 +51,7 @@ public class ScheduleConfiguration {
                 }
 
             }
-        }, 0, 60*24, TimeUnit.SECONDS);//一天进行一次库存预警
+        }, 0, 60*60*24, TimeUnit.SECONDS);//一天进行一次库存预警
         return scheduledThreadPool;
     }
 
