@@ -42,7 +42,7 @@ CREATE TABLE sms_user  (
      `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '角色',
       enable      tinyint unsigned default 0 comment '是否启用，1=启用，0=未启用',
      PRIMARY KEY (`id`) USING BTREE
-) CHARACTER SET = utf8mb4 COLLATE = utf8;
+) CHARACTER SET = utf8mb4 ;
 
 -- 员工表
 drop table if exists sms_admin;
@@ -151,6 +151,7 @@ create table sms_member
 create index idx_member_name on sms_member (name);
 
 -- 供应商管理表
+drop table if exists sms_supplier;
 create table sms_supplier
 (
      id             bigint unsigned auto_increment,
