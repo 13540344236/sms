@@ -25,6 +25,14 @@
     FROM sms_role
   </select>
 
+  <!--List<Role> findAllRole();-->
+  <select id="findAllRole" resultMap="RoleResultMap">
+    SELECT
+    <include refid="list"/>
+    FROM
+      sms_db.sms_role
+  </select>
+
   <select id="getById" resultMap="RoleResultMap">
     select
     <include refid="list"/>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.MenuMapper">
+    <!--int insert(Goods goods);-->
+    <insert id="insert">
+        insert into sms_db.sms_menu (
+        <include refid="ListItemQueryFields"/>
+        )
+        values (
+        #{id},#{name},#{path},#{icon},#{description},#{pid},#{pagePath},#{sortNum}
+        )
+    </insert>
+
+    <!--int deleteById(Long id);-->
+    <delete id="deleteById">
+        delete
+        from sms_db.sms_menu
+        where id = #{id}
+    </delete>
+
+    <!--int deleteByIds(Long[] ids);-->
+    <delete id="deleteByIds">
+        delete from sms_db.sms_menu where id in (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+
+    <update id="updateById1">
+        update sms_db.sms_menu
+        set name=#{name},
+            path=#{path},
+            icon=#{icon},
+            description=#{description},
+            pid=#{pid},
+            page_path=#{pagePath},
+            sort_num=#{sortNum}
+        where id = #{id}
+    </update>
+    <!--int updateById(Long id);-->
+    <update id="updateById">
+        update
+        sms_db.sms_menu
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="path != null">
+                path=#{path},
+            </if>
+            <if test="icon != null">
+                icon=#{icon},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="pid != null">
+                pid=#{pid},
+            </if>
+            <if test="pagePath != null">
+                page_path=#{pagePath},
+            </if>
+            <if test="sortNum != null">
+                sort_num=#{sortNum},
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <!-- GoodsAddNewVO selectById(Long id); -->
+    <select id="selectById" resultMap="ListItemResultMap">
+        select
+        <include refid="ListItemQueryFields"/>
+        from
+        sms_db.sms_menu
+        where
+        id = #{id}
+    </select>
+    <!--根据商品名模糊查询-->
+    <select id="selectByName" resultMap="ListItemResultMap">
+        select
+        <include refid="ListItemQueryFields"/>
+        from
+        sms_db.sms_menu
+        where
+        name like concat('%',#{name},'%')
+    </select>
+
+    <!--int countByName(String name);-->
+    <select id="countByName" resultType="int">
+        select count(*)
+        from sms_db.sms_menu
+        where name = #{name}
+    </select>
+
+    <!--List<GoodsListVO> list();-->
+    <select id="list" resultMap="ListItemResultMap">
+        SELECT
+        <include refid="ListItemQueryFields"/>
+        FROM
+        sms_db.sms_menu
+        ORDER BY id
+    </select>
+
+    <!--    List<Menu> findAllMenu-->
+    <select id="findAllMenu" resultMap="ListItemResultMap">
+        SELECT
+        <include refid="ListItemQueryFields"/>
+        FROM
+        sms_db.sms_menu
+    </select>
+
+    <!--int getById(Long menuId);-->
+    <select id="getById" resultMap="ListItemResultMap">
+        select
+        <include refid="ListItemQueryFields"/>
+        from sms_db.sms_menu
+        where id = #{id}
+    </select>
+
+
+    <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.entity.Menu">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="page_path" property="pagePath"/>
+        <result column="sort_num" property="sortNum"/>
+    </resultMap>
+
+    <sql id="ListItemQueryFields">
+        <if test="true">
+            id,name,path,icon,description,pid,page_path,sort_num
+        </if>
+    </sql>
+</mapper>

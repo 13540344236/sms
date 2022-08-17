@@ -2,6 +2,7 @@ package com.cs.sms.mapper;
 
 import com.cs.sms.pojo.dto.RoleDTO;
 import com.cs.sms.pojo.entity.Admin;
+import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.Role;
 import com.cs.sms.pojo.vo.RoleVO;
 import org.springframework.stereotype.Repository;
@@ -64,4 +65,11 @@ public interface RoleMapper {
      * @return
      */
     int ExcelInsert(Role role);
+
+    /**
+     * 分页查询所有商品
+     * @return 商品列表
+     */
+    List<Role> findAllRole();
+
 }

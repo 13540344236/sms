@@ -1,8 +1,11 @@
 package com.cs.sms.service;
 
 import com.cs.sms.pojo.dto.RoleDTO;
+import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.entity.Role;
+import com.cs.sms.pojo.entity.RoleMenu;
 import com.cs.sms.pojo.vo.RoleVO;
+import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.Results;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +26,9 @@ public interface IRoleService {
      * @return
      */
     List<RoleVO> list();
+
+    // 分页查询
+    JsonPage<Role> getAllRoleByPage(Integer pageNum, Integer pageSize);
 
     /**
      * 根据ID删除
@@ -51,4 +57,9 @@ public interface IRoleService {
      * @throws IOException
      */
     void createExcel(HttpServletResponse response) throws IOException;
+
+    void setRoleMenu(Integer roleId, List<Integer> menuIds);
+
+    List<RoleMenu> getRoleMenu(Integer roleId);
+
 }

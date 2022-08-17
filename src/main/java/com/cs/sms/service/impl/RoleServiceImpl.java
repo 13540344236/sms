@@ -1,15 +1,24 @@
 package com.cs.sms.service.impl;
+import cn.hutool.core.collection.CollUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.cs.sms.ex.ServiceException;
 import com.cs.sms.mapper.RoleMapper;
+import com.cs.sms.mapper.RoleMenuMapper;
 import com.cs.sms.pojo.dto.RoleDTO;
+import com.cs.sms.pojo.entity.Goods;
+import com.cs.sms.pojo.entity.Menu;
 import com.cs.sms.pojo.entity.Role;
+import com.cs.sms.pojo.entity.RoleMenu;
 import com.cs.sms.pojo.vo.RoleVO;
+import com.cs.sms.service.IMenuService;
 import com.cs.sms.service.IRoleService;
+import com.cs.sms.web.JsonPage;
 import com.cs.sms.web.Results;
 import com.cs.sms.web.ServiceCode;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +37,11 @@ import java.util.List;
 public class RoleServiceImpl implements IRoleService{
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private RoleMenuMapper roleMenuMapper;
+    @Autowired
+    private IMenuService menuService;
 
     @Override
     public void addNew(RoleDTO roleDTO) {
@@ -50,6 +64,15 @@ public class RoleServiceImpl implements IRoleService{
     @Override
     public List<RoleVO> list() {
         return roleMapper.list();
+    }
+
+    //分页查询商品列表
+    @Override
+    public JsonPage<Role> getAllRoleByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        log.debug("num = {},Size = {}",pageNum,pageSize);
+        List<Role> list = roleMapper.findAllRole();
+        return JsonPage.restPage(new PageInfo<>(list));
     }
 
     @Override
@@ -120,5 +143,38 @@ public class RoleServiceImpl implements IRoleService{
 
         EasyExcel.write(response.getOutputStream(), RoleVO.class).sheet(System.currentTimeMillis() + "").doWrite(list);
 
+    }
+
+    @Override
+    public void setRoleMenu(Integer roleId, List<Integer> menuIds) {
+        log.debug("roleId={}",roleId);
+        int rows = roleMenuMapper.deleteByRoleId(roleId);
+        log.debug("已删除{}条数据",rows);
+
+        List<Integer> menuIdsCopy = CollUtil.newArrayList(menuIds);
+        for (Integer menuId : menuIds) {
+            Menu menu = menuService.getById(menuId);
+            if (menu.getPid() != null && !menuIdsCopy.contains(menu.getPid())) { // 二级菜单 并且传过来的menuId数组里面没有它的父级id
+                // 那么我们就得补上这个父级id
+                RoleMenu roleMenu = new RoleMenu();
+                roleMenu.setRoleId(roleId);
+                roleMenu.setMenuId(menu.getPid());
+                roleMenuMapper.insert(roleMenu);
+                menuIdsCopy.add(menu.getPid());
+            }
+            RoleMenu roleMenu = new RoleMenu();
+            roleMenu.setRoleId(roleId);
+            roleMenu.setMenuId(menuId);
+            roleMenuMapper.insert(roleMenu);
+        }
+    }
+
+    @Override
+    public List<RoleMenu> getRoleMenu(Integer roleId) {
+        List<RoleMenu> roleMenus = roleMenuMapper.selectByRoleId(roleId);
+        for (RoleMenu roleMenu : roleMenus){
+            log.debug("数据:{}",roleMenu);
+        }
+        return roleMenus;
     }
 }

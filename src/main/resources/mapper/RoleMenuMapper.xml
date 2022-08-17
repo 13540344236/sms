@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.RoleMenuMapper">
+
+    <insert id="insert">
+        INSERT INTO sms_db.sms_role_menu(role_id,menu_id)
+        values (#{roleId},#{menuId})
+    </insert>
+
+    <!--int deleteByRoleId(Long roleId);-->
+    <delete id="deleteByRoleId">
+        delete
+        from sms_db.sms_role_menu
+        where role_id = #{roleId}
+    </delete>
+
+    <!--List<Long> selectByRoleId(Long roleId);-->
+    <select id="selectByRoleId" resultMap="RoleResultMap">
+        select menu_id
+        from sms_db.sms_role_menu
+        where role_id = #{roleId}
+    </select>
+
+    <resultMap id="RoleResultMap" type="com.cs.sms.pojo.entity.RoleMenu">
+        <result column="role_id" property="roleId"/>
+        <result column="menu_id" property="menuId"/>
+    </resultMap>
+
+    <sql id="list">
+        menu_id,role_id
+    </sql>
+</mapper>
