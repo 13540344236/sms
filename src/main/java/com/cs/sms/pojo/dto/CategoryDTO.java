@@ -1,10 +1,11 @@
-package com.cs.sms.pojo.entity;
+package com.cs.sms.pojo.dto;
 
 import lombok.Data;
 
 import java.util.Date;
+
 @Data
-public class Category {
+public class CategoryDTO {
     /**
      * 类别ID
      */
@@ -33,25 +34,5 @@ public class Category {
      * 图标图片URL
      */
     private String icon;
-    /**
-     * 是否启用,1=启用,0=未启用
-     */
-    private Byte enable;
-    /**
-     * 是否为父级,1=父级,0=不是父级
-     */
-    private Byte isParent;
-    /**
-     * 是否显示导航栏,1=启用,0=未启用
-     */
-    private Byte isDisplay;
-    /**
-     * 数据创建时间
-     */
-    private Date gmtCreate;
-    /**
-     * 数据最后修改时间
-     */
-    private Date gmtModified;
 
 }

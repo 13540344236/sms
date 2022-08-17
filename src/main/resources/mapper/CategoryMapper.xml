@@ -2,176 +2,109 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs.sms.mapper.CategoryMapper">
   <resultMap id="BaseResultMap" type="com.cs.sms.pojo.entity.Category">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="depth" jdbcType="TINYINT" property="depth" />
-    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
-    <result column="sort" jdbcType="TINYINT" property="sort" />
-    <result column="icon" jdbcType="VARCHAR" property="icon" />
-    <result column="enable" jdbcType="TINYINT" property="enable" />
-    <result column="is_parent" jdbcType="TINYINT" property="isParent" />
-    <result column="is_display" jdbcType="TINYINT" property="isDisplay" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <id column="id"  property="id" />
+    <result column="name"  property="name" />
+    <result column="parent_id" property="parentId" />
+    <result column="depth"  property="depth" />
+    <result column="keywords"  property="keywords" />
+    <result column="sort"  property="sort" />
+    <result column="icon"  property="icon" />
+    <result column="enable"  property="enable" />
+    <result column="is_parent"  property="isParent" />
+    <result column="is_display"  property="isDisplay" />
+    <result column="gmt_create"  property="gmtCreate" />
+    <result column="gmt_modified"  property="gmtModified" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, name, parent_id, depth, keywords, sort, icon, enable, is_parent, is_display, 
     gmt_create, gmt_modified
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sms_category
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sms_category (  name, parent_id, depth, keywords, sort, icon, enable, is_parent, is_display,
+                             gmt_create, gmt_modified
+    )
+    values ( #{name}, #{parentId}, #{depth}, #{keywords}, #{sort},
+            #{icon}, #{enable}, #{isParent}, #{isDisplay},
+             #{gmtCreate}, #{gmtModified}
+           )
+  </insert>
+
+  <delete id="deleteById" >
     delete from sms_category
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="com.cs.sms.pojo.entity.Category">
-    insert into sms_category (id, name, parent_id, 
-      depth, keywords, sort, 
-      icon, enable, is_parent, 
-      is_display, gmt_create, gmt_modified
-      )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{depth,jdbcType=TINYINT}, #{keywords,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT}, 
-      #{icon,jdbcType=VARCHAR}, #{enable,jdbcType=TINYINT}, #{isParent,jdbcType=TINYINT}, 
-      #{isDisplay,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.cs.sms.pojo.entity.Category">
-    insert into sms_category
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="depth != null">
-        depth,
-      </if>
-      <if test="keywords != null">
-        keywords,
-      </if>
-      <if test="sort != null">
-        sort,
-      </if>
-      <if test="icon != null">
-        icon,
-      </if>
-      <if test="enable != null">
-        enable,
-      </if>
-      <if test="isParent != null">
-        is_parent,
-      </if>
-      <if test="isDisplay != null">
-        is_display,
-      </if>
-      <if test="gmtCreate != null">
-        gmt_create,
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="depth != null">
-        #{depth,jdbcType=TINYINT},
-      </if>
-      <if test="keywords != null">
-        #{keywords,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        #{sort,jdbcType=TINYINT},
-      </if>
-      <if test="icon != null">
-        #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="enable != null">
-        #{enable,jdbcType=TINYINT},
-      </if>
-      <if test="isParent != null">
-        #{isParent,jdbcType=TINYINT},
-      </if>
-      <if test="isDisplay != null">
-        #{isDisplay,jdbcType=TINYINT},
-      </if>
-      <if test="gmtCreate != null">
-        #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cs.sms.pojo.entity.Category">
+
+  <update id="updateById">
     update sms_category
     <set>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+        name = #{name},
       </if>
       <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=BIGINT},
+        parent_id = #{parentId},
       </if>
       <if test="depth != null">
-        depth = #{depth,jdbcType=TINYINT},
+        depth = #{depth},
       </if>
       <if test="keywords != null">
-        keywords = #{keywords,jdbcType=VARCHAR},
+        keywords = #{keywords},
       </if>
       <if test="sort != null">
-        sort = #{sort,jdbcType=TINYINT},
+        sort = #{sort},
       </if>
       <if test="icon != null">
-        icon = #{icon,jdbcType=VARCHAR},
+        icon = #{icon},
       </if>
       <if test="enable != null">
-        enable = #{enable,jdbcType=TINYINT},
+        enable = #{enable},
       </if>
       <if test="isParent != null">
-        is_parent = #{isParent,jdbcType=TINYINT},
+        is_parent = #{isParent},
       </if>
       <if test="isDisplay != null">
-        is_display = #{isDisplay,jdbcType=TINYINT},
+        is_display = #{isDisplay},
       </if>
       <if test="gmtCreate != null">
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+        gmt_create = #{gmtCreate},
       </if>
       <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+        gmt_modified = #{gmtModified},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cs.sms.pojo.entity.Category">
-    update sms_category
-    set name = #{name,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=BIGINT},
-      depth = #{depth,jdbcType=TINYINT},
-      keywords = #{keywords,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=TINYINT},
-      icon = #{icon,jdbcType=VARCHAR},
-      enable = #{enable,jdbcType=TINYINT},
-      is_parent = #{isParent,jdbcType=TINYINT},
-      is_display = #{isDisplay,jdbcType=TINYINT},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
+  <select id="selectById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sms_category
+    where id = #{id}
+  </select>
+
+  <select id="selectByName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sms_category
+    where name= #{name}
+  </select>
+
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sms_category
+    order by id
+  </select>
+
+  <!--List<Admin> findAllAdmin();-->
+  <select id="findAllCategory" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM
+    sms_db.sms_category
+  </select>
+
+
+
 </mapper>
