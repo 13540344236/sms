@@ -4,6 +4,7 @@ import com.cs.sms.pojo.vo.SaleDetailVO;
 import com.cs.sms.pojo.vo.SaleListItemVO;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 @Repository
 public interface SaleMapper {
@@ -55,4 +56,10 @@ public interface SaleMapper {
      * @return 销售信息列表
      */
     List<Sale> findAllSale();
+
+    /**
+     * 查询销量前3名
+     * @return
+     */
+    List<HashMap<String, Object>> getGoodsSale();
 }

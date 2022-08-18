@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -35,6 +36,15 @@ public class SaleDetailVO implements Serializable {
      */
     @ApiModelProperty(value = "商品规格", required = true, example = "瓶")
     private Integer saleQuantity;
+    /**
+     *  采购价格
+     */
+    private BigDecimal purchasePrice;
+
+    /**
+     * 销售价格
+     */
+    private BigDecimal salePrice;
     /**
      * 客户姓名
      */

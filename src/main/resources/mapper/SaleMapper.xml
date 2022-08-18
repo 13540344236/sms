@@ -4,11 +4,13 @@
     <!-- int insert(Sale sale); -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into sms_db.sms_sale ( name, goods_specification, sale_quantity,
+                                     purchase_price,sale_price,
                                    customer_name, customer_phone, operating_staff,
                                      purchase_document_picture,
                                    logo, gmt_create, gmt_modified
         )
         values (#{name}, #{goodsSpecification}, #{saleQuantity},
+                #{purchasePrice},#{salePrice},
                 #{customerName}, #{customerPhone},#{operatingStaff},
                 #{purchaseDocumentPicture}, #{logo}, #{gmtCreate}, #{gmtModified}
                )
@@ -45,6 +47,12 @@
             </if>
             <if test="saleQuantity!= null">
                 sale_quantity=#{saleQuantity},
+            </if>
+            <if test="purchasePrice!= null">
+                purchase_price=#{purchasePrice},
+            </if>
+            <if test="salePrice!= null">
+                sale_price=#{salePrice},
             </if>
             <if test="customerName!= null">
                 customer_name=#{customerName},
@@ -120,9 +128,53 @@
         ORDER BY id
     </select>
 
+<!--    <select id="getGoodsSale" resultType="java.util.HashMap">-->
+<!--            SELECT-->
+<!--                name,count(name) as value-->
+<!--            FROM-->
+<!--                sms_sale-->
+<!--            GROUP BY-->
+<!--                name-->
+<!--            ORDER BY-->
+<!--                count(name) desc limit 6-->
+<!--    </select>-->
+    <select id="getGoodsSale" resultType="java.util.HashMap">
+        select a.clickDate,ifnull(b.salesSum,0) as salesSum,ifnull(b.orderCount,0) as orderCount
+        from (
+            SELECT curdate() as clickDate
+            union all
+            SELECT date_sub(curdate(), interval 1 day) as clickDate
+            union all
+            SELECT date_sub(curdate(), interval 2 day) as clickDate
+            union all
+            SELECT date_sub(curdate(), interval 3 day) as clickDate
+            union all
+            SELECT date_sub(curdate(), interval 4 day) as clickDate
+            union all
+            SELECT date_sub(curdate(), interval 5 day) as clickDate
+            union all
+            SELECT date_sub(curdate(), interval 6 day) as clickDate
+            union all
+            SELECT date_sub(curdate(), interval 7 day) as clickDate
+        ) a left join (
+            select date(gmt_create) as datetime, sum(sale_price) as salesSum ,count(id) as orderCount
+            from sms_sale
+            group by date(gmt_create)
+            order by date (gmt_create) asc
+        ) b on a.clickDate = b.datetime;
+    </select>
+<!--    <select id="getGoodsSale" resultType="java.util.HashMap">-->
+<!--        select date_format(gmt_create,'%Y-%m-%d') as 'date', IFNULL(SUM(sale_price),0) as 'salesSum'-->
+<!--        from sms_sale-->
+<!--        where gmt_create >= date(now()) - interval 6 day-->
+<!--        group by day(gmt_create);-->
+<!--    </select>-->
+
     <resultMap id="DetailResultMap" type="com.cs.sms.pojo.vo.SaleDetailVO">
         <id column="id" property="id" />
         <id column="goods_specification" property="goodsSpecification" />
+        <id column="purchase_price" property="purchasePrice" />
+        <id column="sale_price" property="salePrice" />
         <id column="sale_quantity" property="saleQuantity" />
         <id column="customer_name" property="customerName" />
         <id column="customer_phone" property="customerPhone" />
@@ -133,26 +185,29 @@
 
     <sql id="DetailQueryFields">
         <if test="true">
-            id,name,
-            goods_specification,  sale_quantity,
+            name, goods_specification, sale_quantity,
+            purchase_price,sale_price,
             customer_name, customer_phone, operating_staff,
-             purchase_document_picture,
-            logo
+            purchase_document_picture,
+            logo, gmt_create, gmt_modified
         </if>
     </sql>
 
     <sql id="ListItemQueryFields">
         <if test="true">
-            id,name,
-            goods_specification, sale_quantity,
+            name, goods_specification, sale_quantity,
+            purchase_price,sale_price,
             customer_name, customer_phone, operating_staff,
-             purchase_document_picture,logo,gmt_create
+            purchase_document_picture,
+            logo, gmt_create, gmt_modified
         </if>
     </sql>
     <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.vo.SaleListItemVO">
         <id column="id" property="id" />
         <id column="goods_specification" property="goodsSpecification" />
         <id column="sale_quantity" property="saleQuantity" />
+        <id column="purchase_price" property="purchasePrice" />
+        <id column="sale_price" property="salePrice" />
         <id column="customer_name" property="customerName" />
         <id column="customer_phone" property="customerPhone" />
         <id column="operating_staff" property="operatingStaff" />

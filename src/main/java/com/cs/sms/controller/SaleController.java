@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -89,4 +90,13 @@ public class SaleController {
         return JsonResult.ok("查询成功!",allSaleByPage);
     }
 
+    @ApiOperation("查询销量前6名")
+    @ApiOperationSupport(order = 500)
+    @GetMapping("/static/goodsSale")
+    public JsonResult goodsSale() {
+        log.debug("接受到查询销量前6名的请求");
+        List<HashMap<String, Object>> list = saleService.getGoodsSale();
+        log.debug("查询销量的数据:{}",list);
+        return JsonResult.ok("goods",list);
+    }
 }

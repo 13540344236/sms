@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -48,11 +49,6 @@ public class SaleServiceImpl implements ISaleService {
 
         String name = saleAddNewDTO.getName();
         int count = saleMapper.countByName(name);
-        if (count > 0) {
-            String message = "添加商品失败，品牌名称【" + name + "】已经被占用！";
-            log.error(message);
-            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
-        }
 
         // 创建实体对象（Mapper的方法的参数是实体类型）
         Sale sale = new Sale();
@@ -92,6 +88,11 @@ public class SaleServiceImpl implements ISaleService {
             log.error(message);
             throw new ServiceException(ServiceCode.ERR_DELETE, message);
         }
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getGoodsSale() {
+        return saleMapper.getGoodsSale();
     }
 
     //编辑商品

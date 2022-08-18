@@ -3,6 +3,7 @@ package com.cs.sms.pojo.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -27,6 +28,15 @@ public class SaleEditDTO implements Serializable {
      * 销售数量
      */
     private Integer saleQuantity;
+    /**
+     *  采购价格
+     */
+    private BigDecimal purchasePrice;
+
+    /**
+     * 销售价格
+     */
+    private BigDecimal salePrice;
     /**
      * 客户姓名
      */

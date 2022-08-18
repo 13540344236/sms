@@ -7,6 +7,7 @@ import com.cs.sms.pojo.vo.SaleListItemVO;
 import com.cs.sms.web.JsonPage;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -42,5 +43,11 @@ public interface ISaleService {
     JsonPage<Sale> getAllSaleByPage(Integer pageNum, Integer pageSize);
 
     void deleteByPrimaryKey(Long id);
+
+    /**
+     * 查询销量前3名
+     * @return
+     */
+    List<HashMap<String, Object>> getGoodsSale();
 }
 

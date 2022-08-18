@@ -262,6 +262,8 @@ create table sms_sale
     name                   varchar(50)      default null comment '商品名称',
     goods_specification    varchar(255)     default null comment '商品规格',
     sale_quantity          int unsigned     default 0 comment '销售数量',
+    purchase_price      decimal(10, 3)  default null  comment '采购价格',
+    sale_price          decimal(10, 3)  default null  comment '销售价格',
     customer_name          varchar(255)     default null comment '客户姓名',
     customer_phone         varchar(255)     default null comment '客户电话',
     operating_staff        varchar(255)     default null comment '操作员工',

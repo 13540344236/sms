@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -34,6 +35,15 @@ public class SaleListItemVO implements Serializable {
      */
     @ExcelProperty("销售数量")
     private Integer saleQuantity;
+    /**
+     *  采购价格
+     */
+    private BigDecimal purchasePrice;
+
+    /**
+     * 销售价格
+     */
+    private BigDecimal salePrice;
     /**
      * 客户姓名
      */

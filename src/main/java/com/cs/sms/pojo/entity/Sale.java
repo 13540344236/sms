@@ -2,6 +2,7 @@ package com.cs.sms.pojo.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 @Data
 public class Sale {
@@ -12,6 +13,15 @@ public class Sale {
     private String goodsSpecification;
 
     private Integer saleQuantity;
+    /**
+     *  采购价格
+     */
+    private BigDecimal purchasePrice;
+
+    /**
+     * 销售价格
+     */
+    private BigDecimal salePrice;
 
     private String customerName;
 
