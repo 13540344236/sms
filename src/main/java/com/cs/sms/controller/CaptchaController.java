@@ -38,6 +38,9 @@ public class CaptchaController {
      */
     @GetMapping("/captcha")
     public CommonResult captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+
         log.debug("生成验证码请求");
         // png类型
         SpecCaptcha captcha = new SpecCaptcha(130, 48, 5);
@@ -53,6 +56,7 @@ public class CaptchaController {
         log.info("KEY:{}",key);
         // 存入redis并设置过期时间为30分钟
         stringRedisTemplate.opsForValue().set(key, verCode, 30, TimeUnit.MINUTES);
+
 
         // 将key和base64返回给前端
         Map<String,String> map=new HashMap<>();

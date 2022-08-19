@@ -244,4 +244,14 @@ public class UserServiceImpl implements IUserService {
         EasyExcel.write(response.getOutputStream(), UserVO.class).sheet("商品详情").doWrite(list);
 
     }
+
+    @Override
+    public boolean login(UserDTO userDTO) {
+        return false;
+    }
+
+    @Override
+    public Object register(UserDTO userDTO) {
+        return null;
+    }
 }

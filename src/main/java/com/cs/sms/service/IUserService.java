@@ -71,5 +71,8 @@ public interface IUserService  {
      * @throws IOException
      */
     void createExcel(HttpServletResponse response) throws IOException;
-    
+
+    boolean login(UserDTO userDTO);
+
+    Object register(UserDTO userDTO);
 }
