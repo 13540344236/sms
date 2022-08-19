@@ -86,7 +86,7 @@ public class AdminServiceImpl implements IAdminService {
 
     @Override
     @Transactional
-    public void updateById(AdminDTO adminDTO) {
+    public void updateById(Long id,AdminDTO adminDTO) {
         log.debug("需要修改的员工信息:{}",adminDTO);
         Admin admin=new Admin();
         BeanUtils.copyProperties(adminDTO,admin);

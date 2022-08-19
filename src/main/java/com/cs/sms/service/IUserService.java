@@ -41,7 +41,7 @@ public interface IUserService  {
      * 根据id修改用户信息
      * @param userDTO
      */
-    void updateById(UserDTO userDTO);
+    void updateById(Integer id,UserDTO userDTO);
 
     /**
      * 根据id查询到的用户信息

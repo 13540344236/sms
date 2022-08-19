@@ -29,7 +29,7 @@ public interface IAdminService {
      * 根据id修改员工信息
      * @param adminDTO
      */
-    void updateById(AdminDTO adminDTO);
+    void updateById(Long id,AdminDTO adminDTO);
 
     /**
      * 根据id查询到的员工信息

@@ -61,10 +61,10 @@ public class AdminController {
     @RequiredLog(operation = "修改员工信息")
     @ApiOperation("修改员工信息")
     @ApiOperationSupport(order = 300)
-    @PostMapping("/update")
-    public JsonResult updateById(@RequestBody AdminDTO adminDTO) {
+    @PostMapping("/{id}/update")
+    public JsonResult updateById(@PathVariable Long id,@RequestBody AdminDTO adminDTO) {
         log.debug("接收需要修改的员工信息:{}", adminDTO);
-        adminService.updateById(adminDTO);
+        adminService.updateById(id,adminDTO);
         return JsonResult.ok();
     }
 

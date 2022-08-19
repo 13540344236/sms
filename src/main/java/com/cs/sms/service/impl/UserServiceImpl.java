@@ -136,20 +136,20 @@ public class UserServiceImpl implements IUserService {
             throw new ServiceException(ServiceCode.ERR_INSERT,message);
         }
 
-        // 插入用户与角色的关联数据，使得以上添加的用户是被分配了角色的
-        UserRole userRole = new UserRole();
-        userRole.setUserId(user.getId().longValue()); //设置用户id
-        List<RoleVO> roleIds = roleMapper.getByName(userDTO.getRole());
-        for (RoleVO roleId : roleIds) {
-            userRole.setRoleId(roleId.getId());//匹配角色id
-        }
-        log.debug("即将向用户与角色的关联表中写入数据：{}", userRole);
-        rows = userRoleMapper.insert(userRole);//向关联表中插入用户id和角色id
-        if (rows != 1) {
-            String message = "添加用户失败，服务器忙，请稍后再次尝试！【错误码：2】";
-            log.error(message);
-            throw new ServiceException(ServiceCode.ERR_INSERT, message);
-        }
+//        // 插入用户与角色的关联数据，使得以上添加的用户是被分配了角色的
+//        UserRole userRole = new UserRole();
+//        userRole.setUserId(user.getId().longValue()); //设置用户id
+//        List<RoleVO> roleIds = roleMapper.getByName(userDTO.getRole());
+//        for (RoleVO roleId : roleIds) {
+//            userRole.setRoleId(roleId.getId());//匹配角色id
+//        }
+//        log.debug("即将向用户与角色的关联表中写入数据：{}", userRole);
+//        rows = userRoleMapper.insert(userRole);//向关联表中插入用户id和角色id
+//        if (rows != 1) {
+//            String message = "添加用户失败，服务器忙，请稍后再次尝试！【错误码：2】";
+//            log.error(message);
+//            throw new ServiceException(ServiceCode.ERR_INSERT, message);
+//        }
     }
 
     //删除用户信息
@@ -178,7 +178,7 @@ public class UserServiceImpl implements IUserService {
 
     //编辑用户信息
     @Override
-    public void updateById(UserDTO userDTO) {
+    public void updateById(Integer id,UserDTO userDTO) {
         //根据id查询数据(前端传回来的userDTO包含id，故需要取出id【userDTO.getId().longValue()】)
         UserVO userVO = userMapper.selectById(userDTO.getId().longValue());
 

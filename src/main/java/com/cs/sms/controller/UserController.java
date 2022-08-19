@@ -70,11 +70,11 @@ public class UserController {
 
     @ApiOperation("修改用户信息")
     @ApiOperationSupport(order = 300)
-    @PostMapping("/update")
+    @PostMapping("/{id:[0-9]+}/update")
 //    @PreAuthorize("hasAuthority('/sys/users')")
-    public JsonResult updateById(@RequestBody UserDTO userDTO) {
+    public JsonResult updateById(@PathVariable Integer id,@RequestBody UserDTO userDTO) {
         log.debug("接收需要修改的用户信息:{}", userDTO);
-        userService.updateById(userDTO);
+        userService.updateById(id,userDTO);
         return JsonResult.ok();
     }
 
