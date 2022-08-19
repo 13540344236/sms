@@ -3,8 +3,10 @@ package com.cs.sms.controller;
 
 import com.cs.sms.pojo.dto.GoodsAddNewDTO;
 import com.cs.sms.pojo.dto.GoodsEditDTO;
+import com.cs.sms.pojo.entity.Category;
 import com.cs.sms.pojo.entity.Goods;
 import com.cs.sms.pojo.vo.GoodsListVO;
+import com.cs.sms.service.ICategoryService;
 import com.cs.sms.service.IGoodsService;
 import com.cs.sms.service.impl.UploadService;
 import com.cs.sms.util.OssUtils;
@@ -38,6 +40,8 @@ public class GoodsController {
     private IGoodsService goodsService;
     @Autowired
     private UploadService uploadService;
+    @Autowired
+    private ICategoryService categoryService;
 
     @ApiOperation("新增商品")
     @ApiOperationSupport(order = 100)
@@ -116,11 +120,43 @@ public class GoodsController {
         log.debug(filePath);
 
     }
-    @PostMapping("/selectByName")
+/*    @PostMapping("/selectByName")
     public JsonResult selectByName(@RequestBody GoodsEditDTO goodsEditDTO){
         String name = goodsEditDTO.getName();
         List<GoodsListVO> goodsListVOS = goodsService.selectByName(name);
         return JsonResult.ok(goodsListVOS);
+    }
+
+    @ApiOperation("通过商品id查询商品类别")
+    @GetMapping("/selectByCategoryId")
+    public JsonResult selectByCategoryId (Long categoryId) {
+        goodsService.getCategoryNameByCategoryId(categoryId);
+        return JsonResult.ok();
+    }
+
+    @PostMapping("/selectByCategory")
+    public JsonResult selectByCategory(@RequestBody GoodsEditDTO goodsEditDTO){
+        String category = goodsEditDTO.getCategory();
+        List<GoodsListVO> goodsListVOS = goodsService.selectByCategory(category);
+        return JsonResult.ok(goodsListVOS);
+    }*/
+
+    @ApiOperation("根据商品名或商品类别查询商品")
+    @PostMapping("/selectByNameOrCategory")
+    public JsonResult selectByNameOrCategory(@RequestBody GoodsEditDTO goodsEditDTO) {
+        String name = goodsEditDTO.getName();
+        String category = goodsEditDTO.getCategory();
+        List<GoodsListVO> goodsListVOS = goodsService.selectByNameOrCategory(name,category);
+        return JsonResult.ok(goodsListVOS);
+    }
+
+    @ApiOperation("商品类别列表")
+    @ApiOperationSupport(order = 400)
+    @GetMapping("/getCategory")
+    public JsonResult getCategory() {
+        log.debug("接收到查询商品列表的请求");
+        List<Category> categories = categoryService.list();
+        return JsonResult.ok(categories);
     }
 
 

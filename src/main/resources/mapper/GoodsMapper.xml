@@ -90,6 +90,21 @@
     name like concat('%',#{name},'%')
   </select>
 
+  <!--根据商品类别模糊查询-->
+  <select id="selectByCategory" resultMap="ListItemResultMap">
+    select
+    <include refid="DetailQueryFields" />
+    from
+    sms_db.sms_goods
+    where
+    category = #{category}
+  </select>
+
+  <!--List<GoodsListVO> selectByNameOrCategory(String name, String category);-->
+  <select id="selectByNameOrCategory" resultMap="ListItemResultMap">
+    select <include refid="ListItemQueryFields"/> from sms_db.sms_goods where name like concat('%',#{name},'%') or category=#{category}
+  </select>
+
   <!--int countByName(String name);-->
   <select id="countByName" resultType="int">
     select count(*) from sms_db.sms_goods where name = #{name}
@@ -111,6 +126,10 @@
       goods_specification, current_stock, low_limit_stock
     FROM
       sms_db.sms_goods
+  </select>
+
+  <!--int getCategoryNameByCategoryId(Long categoryId);-->
+  <select id="getCategoryNameByCategoryId" resultMap="ListItemResultMap">
   </select>
 
 

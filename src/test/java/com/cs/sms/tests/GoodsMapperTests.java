@@ -51,4 +51,11 @@ public class GoodsMapperTests {
     public void testGetByPage() {
         List<Goods> allGoods = goodsMapper.findAllGoods();
     }
+
+    @Test
+    public void getCategoryNameByCategoryId() {
+        Long categoryId = 1L;
+        int categoryNameByCategoryId = goodsMapper.getCategoryNameByCategoryId(categoryId);
+        log.debug("查询到:{}",categoryNameByCategoryId);
+    }
 }

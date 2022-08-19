@@ -71,4 +71,14 @@ public interface GoodsMapper {
      * @return 商品列表
      */
     List<Goods> findAllGoods();
+
+    /**
+     * 通过商品类别id查询商品类别名称
+     * @param categoryId 商品类别id
+     */
+    int getCategoryNameByCategoryId(Long categoryId);
+
+    List<GoodsListVO> selectByCategory(String category);
+
+    List<GoodsListVO> selectByNameOrCategory(String name, String category);
 }

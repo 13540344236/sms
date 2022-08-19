@@ -101,4 +101,10 @@ public class CategoryController {
         return JsonResult.ok("查询成功!",allCategoryByPage);
     }
 
+    @ApiOperation("添加商品与类别关系")
+    @PostMapping("/GoodsCategory/{CategoryId}")
+    private JsonResult GoodsCategory(Long goodsId,@PathVariable Long CategoryId) {
+        categoryService.setGoodsCategory(goodsId,CategoryId);
+        return JsonResult.ok();
+    }
 }

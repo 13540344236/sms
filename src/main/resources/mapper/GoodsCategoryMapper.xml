@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.GoodsCategoryMapper">
+
+    <insert id="insert">
+        INSERT INTO sms_db.sms_goods_category(goods_id,category_id)
+        values (#{goodsId},#{categoryId})
+    </insert>
+
+    <!--int deleteByRoleId(Long roleId);-->
+    <delete id="deleteByRoleId">
+        delete
+        from sms_db.sms_goods_category
+        where category_id = #{categoryId}
+    </delete>
+
+<!--    &lt;!&ndash;List<Long> selectByRoleId(Long roleId);&ndash;&gt;
+    <select id="selectByRoleId" resultMap="RoleResultMap">
+        select menu_id
+        from sms_db.sms_role_menu
+        where role_id = #{roleId}
+    </select>-->
+
+    <resultMap id="RoleResultMap" type="com.cs.sms.pojo.entity.GoodSCategory">
+        <result column="goods_id" property="goodsId"/>
+        <result column="category_id" property="categoryId"/>
+    </resultMap>
+
+    <sql id="list">
+        goods_id, category_id
+    </sql>
+</mapper>

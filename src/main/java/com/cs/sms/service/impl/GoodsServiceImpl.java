@@ -131,7 +131,7 @@ public class GoodsServiceImpl implements IGoodsService {
             throw new ServiceException(ServiceCode.ERR_DELETE,message);
         }
     }
-    //根据商品名模糊查询
+/*    //根据商品名模糊查询
     @Override
     public List<GoodsListVO> selectByName(String name) {
         log.debug("接收需要查询的商品名:{}",name);
@@ -147,7 +147,7 @@ public class GoodsServiceImpl implements IGoodsService {
             throw new ServiceException(ServiceCode.ERR_NOT_FOUND,message);
         }
         return goodsListVOS;
-    }
+    }*/
 
 
     //商品列表
@@ -182,7 +182,38 @@ public class GoodsServiceImpl implements IGoodsService {
         return goodsMapper.list();
     }
 
+    @Override
+    public void getCategoryNameByCategoryId(Long categoryId) {
+        goodsMapper.getCategoryNameByCategoryId(categoryId);
+    }
+
+/*    @Override
+    public List<GoodsListVO> selectByCategory(String category) {
+        log.debug("接收需要查询的商品名:{}",category);
+        if(category == null){
+            String message="商品类别不能为空";
+            log.error(message);
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND,message);
+        }
+        List<GoodsListVO> goodsListVOS = goodsMapper.selectByCategory(category);
+        if(goodsListVOS.isEmpty()){
+            String message="没有该商品";
+            log.error(message);
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND,message);
+        }
+        return goodsListVOS;
+    }*/
 
 
-
+// 根据商品名或商品类别查询商品
+    @Override
+    public List<GoodsListVO> selectByNameOrCategory(String name, String category) {
+        if (name.isEmpty()) {
+            return goodsMapper.selectByCategory(category);
+        }else if (category.isEmpty()) {
+            return goodsMapper.selectByName(name);
+        }else {
+            return goodsMapper.selectByNameOrCategory(name,category);
+        }
+    }
 }

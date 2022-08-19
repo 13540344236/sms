@@ -7,6 +7,7 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.cs.sms.ex.ServiceException;
 import com.cs.sms.mapper.AdminMapper;
 import com.cs.sms.mapper.CategoryMapper;
+import com.cs.sms.mapper.GoodsCategoryMapper;
 import com.cs.sms.pojo.dto.AdminDTO;
 import com.cs.sms.pojo.dto.CategoryDTO;
 import com.cs.sms.pojo.entity.Admin;
@@ -42,6 +43,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Autowired
     CategoryMapper mapper;
+    @Autowired
+    private GoodsCategoryMapper goodsCategoryMapper;
 
 
     @Transactional
@@ -140,4 +143,11 @@ public class CategoryServiceImpl implements ICategoryService {
         List<Category> list = mapper.findAllCategory();
         return JsonPage.restPage(new PageInfo<>(list));
     }
+
+    //
+    @Override
+    public void setGoodsCategory(Long goodsId, Long categoryId) {
+        goodsCategoryMapper.insert(goodsId,categoryId);
+    }
+
 }

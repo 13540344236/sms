@@ -24,8 +24,8 @@ public interface IGoodsService {
     // 查询商品列表
     List<GoodsListVO> list();
 
-    //根据名称模糊查询
-    List<GoodsListVO> selectByName(String name);
+/*    //根据名称模糊查询
+    List<GoodsListVO> selectByName(String name);*/
 
     //导出商品报表
     void createExcel(HttpServletResponse response) throws IOException;
@@ -37,4 +37,11 @@ public interface IGoodsService {
     //查询库存
     List<GoodsListVO> stocks();
 
+    // 查询商品类别名称
+    void getCategoryNameByCategoryId(Long categoryId);
+
+/*    List<GoodsListVO> selectByCategory(String category);*/
+
+    //根据商品名或商品类别查询商品
+    List<GoodsListVO> selectByNameOrCategory(String name, String category);
 }

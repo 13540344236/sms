@@ -50,4 +50,7 @@ public interface ICategoryService {
 
     // 分页查询
     JsonPage<Category> getAllCategoryByPage(Integer pageNum, Integer pageSize);
+
+    // 添加商品与类别关系
+    void setGoodsCategory(Long goodsId, Long categoryId);
 }
