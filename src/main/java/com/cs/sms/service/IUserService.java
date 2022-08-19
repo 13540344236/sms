@@ -18,7 +18,7 @@ import java.util.List;
 public interface IUserService  {
 
     /**
-     * 管理员登录
+     * 用户登录
      *
      * @param userLoginDTO 封装了管理员用户登录时提交的数据的对象
      * @return 成功登录的用户的JWT数据

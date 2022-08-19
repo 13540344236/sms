@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sms.mapper.LogMapper">
+  <insert id="insert" >
+    insert into sms_log (
+      ip,username,created_time,operation,method,params,time,status,error
+    )
+    values (
+             #{ip},#{username},#{createdTime},#{operation},#{method},#{params},#{time},#{status},#{error}
+           )
+  </insert>
+  <!--List<Log> list();-->
+  <select id="list" resultMap="ListItemResultMap">
+    SELECT
+    <include refid="ListItemQueryFields"/>
+    FROM
+    sms_log
+    ORDER BY id
+  </select>
+
+  <!--JsonPage<Log> getAllLog(Integer pageNum, Integer pageSize);-->
+  <select id="getAllLog" resultMap="ListItemResultMap">
+    select <include refid="ListItemQueryFields"/> from sms_log
+  </select>
+
+  <resultMap id="ListItemResultMap" type="com.cs.sms.pojo.entity.Log">
+    <id column="id" property="id" />
+    <result column="created_time" property="createdTime" />
+  </resultMap>
+  <sql id="ListItemQueryFields">
+    <if test="true">
+     id,ip,username,created_time,operation,method,params,time,status,error
+    </if>
+  </sql>
+</mapper>

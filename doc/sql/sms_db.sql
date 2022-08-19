@@ -118,20 +118,21 @@ create table sms_permission
 ) comment '权限表' charset utf8mb4;
 
 -- 管理员登录日志表：创建数据表
-drop table if exists sms_login_log;
-create table sms_login_log
-(
-   id           bigint unsigned auto_increment,
-   admin_id     bigint unsigned default null comment '管理员id',
-   username     varchar(50) default null comment '管理员用户名（冗余）',
-   nickname     varchar(50) default null comment '管理员昵称（冗余）',
-   ip           varchar(50) default null comment '登录IP地址',
-   user_agent   varchar(255) default null comment '浏览器内核',
-   gmt_login    datetime default null comment '登录时间',
-   gmt_create   datetime default null comment '数据创建时间',
-   gmt_modified datetime default null comment '数据最后修改时间',
-   primary key (id)
-) comment '管理员登录日志表' charset utf8mb4;
+drop table if exists sms_log;
+CREATE TABLE `sms_log` (
+                       `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                       `username` varchar(50) DEFAULT NULL COMMENT '用户名',
+                       `operation` varchar(50) DEFAULT NULL COMMENT '用户操作',
+                       `method` varchar(200) DEFAULT NULL COMMENT '请求方法',
+                       `params` varchar(5000) DEFAULT NULL COMMENT '请求参数',
+                       `time` bigint(20) NOT NULL COMMENT '执行时长(毫秒)',
+                       `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
+                       `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+                       `status` int(11) DEFAULT '1',
+                       `error` varchar(500) DEFAULT NULL,
+                       PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户日志';
+
 
 -- 以上为管理员（员工）相关表 --
 

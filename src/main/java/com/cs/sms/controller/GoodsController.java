@@ -1,6 +1,7 @@
 package com.cs.sms.controller;
 
 
+import com.cs.sms.annotation.RequiredLog;
 import com.cs.sms.pojo.dto.GoodsAddNewDTO;
 import com.cs.sms.pojo.dto.GoodsEditDTO;
 import com.cs.sms.pojo.entity.Category;
@@ -43,6 +44,7 @@ public class GoodsController {
     @Autowired
     private ICategoryService categoryService;
 
+    @RequiredLog(operation = "新增商品")
     @ApiOperation("新增商品")
     @ApiOperationSupport(order = 100)
     @PostMapping("/add-new")
@@ -53,6 +55,7 @@ public class GoodsController {
         return JsonResult.ok();
     }
 
+    @RequiredLog(operation = "删除商品" )
     @ApiOperation("删除商品")
     @ApiOperationSupport(order = 200)
     @PostMapping("/{id:[0-9]+}/delete")
@@ -63,6 +66,7 @@ public class GoodsController {
         return JsonResult.ok();
     }
 
+    @RequiredLog(operation = "编辑商品" )
     @ApiOperation("编辑商品")
     @ApiOperationSupport(order = 400)
     @PostMapping("/{id:[0-9]+}/edit")
@@ -74,6 +78,7 @@ public class GoodsController {
         return JsonResult.ok();
     }
 
+    @RequiredLog(operation = "查看商品列表详情")
     @ApiOperation("商品列表")
     @ApiOperationSupport(order = 400)
     @GetMapping("")
@@ -82,6 +87,7 @@ public class GoodsController {
         List<GoodsListVO> goods = goodsService.list();
         return JsonResult.ok(goods);
     }
+
 
     @ApiOperation("分页查询商品")
     @ApiOperationSupport(order = 401)
@@ -96,6 +102,7 @@ public class GoodsController {
         return JsonResult.ok("查询成功!",allGoodsByPage);
     }
 
+    @RequiredLog(operation = "导出商品报表" )
     @ApiOperation("导出商品报表")
     @ApiOperationSupport(order = 500)
     @GetMapping("/exportExcel")
@@ -105,6 +112,7 @@ public class GoodsController {
 
     }
 
+    @RequiredLog(operation = "图片上传" )
     @RequestMapping("/upload")
     public String upload(MultipartFile picFile) throws IOException {
         log.debug("图片上传");

@@ -1,6 +1,7 @@
 package com.cs.sms.controller;
 
 
+import com.cs.sms.annotation.RequiredLog;
 import com.cs.sms.pojo.dto.SaleAddNewDTO;
 import com.cs.sms.pojo.dto.SaleEditDTO;
 import com.cs.sms.pojo.entity.Goods;
@@ -32,7 +33,9 @@ public class SaleController {
     private ISaleService saleService;
 
     //http://localhost:9091/doc.html#
-    @ApiOperation("新增商品")
+
+    @RequiredLog(operation = "新增销售" )
+    @ApiOperation("新增销售")
     @ApiOperationSupport(order = 100)
     @PostMapping("/add-new")
     public JsonResult addNew(@RequestBody SaleAddNewDTO saleAddNewDTO){
@@ -50,7 +53,8 @@ public class SaleController {
         log.debug("退货成功!");
         return JsonResult.ok();
     }
-    @ApiOperation("编辑商品")
+    @RequiredLog(operation = "编辑销售" )
+    @ApiOperation("编辑销售")
     @ApiOperationSupport(order = 300)
     @PostMapping("/{id:[0-9]+}/edit")
     public JsonResult edit(@PathVariable Long id, @RequestBody SaleEditDTO saleEditDTO) {
@@ -59,7 +63,9 @@ public class SaleController {
         log.debug("接收到的请求参数：" +saleEditDTO);
         return JsonResult.ok();
     }
-    @ApiOperation("商品列表")
+
+    @RequiredLog(operation = "查询销售列表" )
+    @ApiOperation("销售列表")
     @ApiOperationSupport(order = 400)
     @GetMapping("")
     public JsonResult list() {
@@ -68,7 +74,8 @@ public class SaleController {
         return JsonResult.ok(sale);
     }
 
-    @ApiOperation("导出商品报表")
+    @RequiredLog(operation = "导出销售报表" )
+    @ApiOperation("导出销售报表")
     @ApiOperationSupport(order = 500)
     @GetMapping("/exportExcel")
     public void download(HttpServletResponse response) throws IOException {
@@ -77,6 +84,7 @@ public class SaleController {
 
     }
 
+    @RequiredLog(operation = "分页查询销售信息" )
     @ApiOperation("分页查询销售信息")
     @ApiOperationSupport(order = 401)
     @GetMapping("/page")
@@ -90,13 +98,4 @@ public class SaleController {
         return JsonResult.ok("查询成功!",allSaleByPage);
     }
 
-    @ApiOperation("查询销量前6名")
-    @ApiOperationSupport(order = 500)
-    @GetMapping("/static/goodsSale")
-    public JsonResult goodsSale() {
-        log.debug("接受到查询销量前6名的请求");
-        List<HashMap<String, Object>> list = saleService.getGoodsSale();
-        log.debug("查询销量的数据:{}",list);
-        return JsonResult.ok("goods",list);
-    }
 }

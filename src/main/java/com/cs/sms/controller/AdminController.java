@@ -1,5 +1,6 @@
 package com.cs.sms.controller;
 
+import com.cs.sms.annotation.RequiredLog;
 import com.cs.sms.pojo.dto.AdminDTO;
 import com.cs.sms.pojo.entity.Admin;
 import com.cs.sms.pojo.entity.Goods;
@@ -36,6 +37,7 @@ public class AdminController {
      *
      * @param adminDTO
      */
+    @RequiredLog(operation = "添加员工")
     @ApiOperation("添加员工")
     @ApiOperationSupport(order = 100)
     @PostMapping("/add-new")
@@ -45,6 +47,8 @@ public class AdminController {
         return JsonResult.ok();
     }
 
+
+    @RequiredLog(operation = "删除员工")
     @ApiOperation("删除员工")
     @ApiOperationSupport(order = 200)
     @PostMapping("/{id:[0-9]+}/delete")
@@ -54,6 +58,7 @@ public class AdminController {
         return JsonResult.ok();
     }
 
+    @RequiredLog(operation = "修改员工信息")
     @ApiOperation("修改员工信息")
     @ApiOperationSupport(order = 300)
     @PostMapping("/update")
@@ -63,6 +68,7 @@ public class AdminController {
         return JsonResult.ok();
     }
 
+    @RequiredLog(operation = "通过id查询员工信息")
     @ApiOperation("通过id查询员工信息")
     @ApiOperationSupport(order = 400)
     @GetMapping("/{id:[0-9]+}/selectById")
@@ -72,6 +78,7 @@ public class AdminController {
         return JsonResult.ok(adminVO);
     }
 
+    @RequiredLog(operation = "通过姓名查询员工信息")
     @ApiOperation("通过姓名查询员工信息")
     @ApiOperationSupport(order = 401)
     @PostMapping("/selectByName")
@@ -81,6 +88,7 @@ public class AdminController {
         return JsonResult.ok(adminVOs);
     }
 
+    @RequiredLog(operation = "查询所有员工信息")
     @ApiOperation("查询所有员工信息")
     @ApiOperationSupport(order = 402)
     @GetMapping("")
@@ -102,6 +110,7 @@ public class AdminController {
         return JsonResult.ok("查询成功!",allAdminByPage);
     }
 
+    @RequiredLog(operation = "导出员工信息")
     @ApiOperation("导出员工信息")
     @ApiOperationSupport(order = 500)
     @GetMapping("/exportExcel")
@@ -110,6 +119,7 @@ public class AdminController {
         adminService.createExcel(response);
     }
 
+    @RequiredLog(operation = "批量导入员工")
     @ApiOperation("批量导入员工")
     @ApiOperationSupport(order = 501)
     @PostMapping("/importExcel")
