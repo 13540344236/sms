@@ -1,5 +1,5 @@
 -- 数据库：sms_db
--- 测试上传111111111111111111111111111
+-- shujuku
 DROP TABLE IF EXISTS sms_role_menu;
 create table sms_role_menu
 (

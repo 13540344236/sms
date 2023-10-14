@@ -17,7 +17,7 @@ public interface IAdminService {
      * 增加员工
      * @param adminDTO
      */
-    void addNew(AdminDTO adminDTO);
+    public abstract void addNew(AdminDTO adminDTO);
 
     /**
      * 根据ID删除对应数据

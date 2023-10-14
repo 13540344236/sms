@@ -90,6 +90,7 @@ public class LogAspect {
         ServletRequestAttributes requestAttribute=
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request=requestAttribute.getRequest();
+        String remoteUser = request.getRemoteUser();
         //2.1)获取ip地址
         String ip=request.getRemoteAddr();
         //3)获取operation的值
@@ -111,7 +112,7 @@ public class LogAspect {
 
         //2.封装日志
         Log userLog=new Log();
-        userLog.setUsername(username);
+        userLog.setUsername(remoteUser);
         userLog.setIp(ip);
         userLog.setCreatedTime(new Date());
         userLog.setOperation(operation);

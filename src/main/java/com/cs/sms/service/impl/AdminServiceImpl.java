@@ -20,8 +20,10 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -145,7 +147,6 @@ public class AdminServiceImpl implements IAdminService {
         //设置响应头，告诉浏览器要以附件的形式保存，filename=文件名
         response.setHeader("content-disposition","attachment;filename=staffs"+System.currentTimeMillis()+".xlsx");
         EasyExcel.write(response.getOutputStream(), AdminVO.class).sheet("商品详情").doWrite(list);
-
     }
 
     @Override
@@ -171,8 +172,8 @@ public class AdminServiceImpl implements IAdminService {
             }
         };
         try {
-            EasyExcel.read(file.getInputStream(), AdminVO.class, listener).sheet(0).doRead();
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             log.error("导入出错：{}", e.getMessage());
         }
         return new Results<>(200, "导入数据成功", list);

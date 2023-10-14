@@ -1,6 +1,7 @@
 package com.cs.sms.tests;
 
 
+import cn.hutool.json.JSONUtil;
 import com.cs.sms.mapper.AdminMapper;
 import com.cs.sms.pojo.entity.Admin;
 import com.cs.sms.pojo.vo.AdminVO;
@@ -17,7 +18,6 @@ public class AdminMapperTests {
 
     @Autowired
     AdminMapper adminMapper;
-
     @Test
     public void insertTests(){
         for(int i = 10; i<20; i++){

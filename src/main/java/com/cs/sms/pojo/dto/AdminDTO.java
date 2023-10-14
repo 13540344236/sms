@@ -3,6 +3,7 @@ package com.cs.sms.pojo.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Data
 public class AdminDTO implements Serializable {
@@ -39,4 +40,16 @@ public class AdminDTO implements Serializable {
      */
     private String description;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AdminDTO adminDTO = (AdminDTO) o;
+        return Objects.equals(id, adminDTO.id) && Objects.equals(staffName, adminDTO.staffName) && Objects.equals(password, adminDTO.password) && Objects.equals(gender, adminDTO.gender) && Objects.equals(phone, adminDTO.phone) && Objects.equals(idNumber, adminDTO.idNumber) && Objects.equals(email, adminDTO.email) && Objects.equals(description, adminDTO.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, staffName, password, gender, phone, idNumber, email, description);
+    }
 }
